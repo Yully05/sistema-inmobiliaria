@@ -12,25 +12,25 @@ import java.time.LocalDate;
  */
 public class ContratoPropietario extends Contrato {
     
-    private int cedulaPropietario;
+    private String cedulaPropietario;
     private double porcentajeComision;
 
     public ContratoPropietario() {
     }
 
-    public ContratoPropietario(int cedula, double comision, int cod, String descripcion, int modo, LocalDate fechaCreacion, LocalDate fechaExpiracion,
-                               double valor, int codInmueble, int cedulaAgente) {
+    public ContratoPropietario(String cedula, double comision, int cod, String descripcion, int modo, LocalDate fechaCreacion, LocalDate fechaExpiracion,
+                               double valor, int codInmueble, String cedulaAgente) {
         
         super(cod, descripcion, modo, fechaCreacion, fechaExpiracion, valor, codInmueble, cedulaAgente);
         this.cedulaPropietario = cedula;
         this.porcentajeComision = comision;
     }
 
-    public int getCedulaPropietario() {
+    public String getCedulaPropietario() {
         return cedulaPropietario;
     }
 
-    public void setCedulaPropietario(int cedulaPropietario) {
+    public void setCedulaPropietario(String cedulaPropietario) {
         this.cedulaPropietario = cedulaPropietario;
     }
 

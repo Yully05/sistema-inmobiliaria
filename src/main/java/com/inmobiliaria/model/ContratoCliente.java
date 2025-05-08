@@ -12,15 +12,15 @@ import java.time.LocalDate;
  */
 public class ContratoCliente extends Contrato {
     
-    private int cedulaCliente;
+    private String cedulaCliente; //de la tabla cliente
     private String nombreFiador;
-    private int celularFiador;
+    private String celularFiador;
 
     public ContratoCliente() {
     }
 
-    public ContratoCliente(int cedulaCliente, String nombreFiador, int celularFiador, int cod, String descripcion, int modo, 
-                           LocalDate fechaCreacion, LocalDate fechaExpiracion, double valor, int codInmueble, int cedulaAgente) {
+    public ContratoCliente(String cedulaCliente, String nombreFiador, String celularFiador, int cod, String descripcion, int modo, 
+                           LocalDate fechaCreacion, LocalDate fechaExpiracion, double valor, int codInmueble, String cedulaAgente) {
         
         super(cod, descripcion, modo, fechaCreacion, fechaExpiracion, valor, codInmueble, cedulaAgente);
         this.cedulaCliente = cedulaCliente;
@@ -28,11 +28,11 @@ public class ContratoCliente extends Contrato {
         this.celularFiador = celularFiador;
     }
 
-    public int getCedulaCliente() {
+    public String getCedulaCliente() {
         return cedulaCliente;
     }
 
-    public void setCedulaCliente(int cedulaCliente) {
+    public void setCedulaCliente(String cedulaCliente) {
         this.cedulaCliente = cedulaCliente;
     }
 
@@ -44,11 +44,11 @@ public class ContratoCliente extends Contrato {
         this.nombreFiador = nombreFiador;
     }
 
-    public int getCelularFiador() {
+    public String getCelularFiador() {
         return celularFiador;
     }
 
-    public void setCelularFiador(int celularFiador) {
+    public void setCelularFiador(String celularFiador) {
         this.celularFiador = celularFiador;
     }
     

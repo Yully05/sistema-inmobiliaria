@@ -21,7 +21,7 @@ public abstract class Inmueble {
     //foto
     protected int tipoInmueble;
     protected int estadoInmueble;
-    protected int modoComercializacion;
+    protected int modalidadComercializacion;
 
     public Inmueble() {
     }
@@ -36,9 +36,9 @@ public abstract class Inmueble {
         this.departamento = depto;
         this.tamaño = tamaño;
         this.cant_baños = cant_baños;
-        this.tipoInmueble = tipo; //casa, apartamento, finca, local
-        this.estadoInmueble = estado; //vendido-disponible
-        this.modoComercializacion = modo; //venta-alquiler
+        this.tipoInmueble = tipo; //casa, apartamento, finca, local, tabla tipo inmueble
+        this.estadoInmueble = estado; //vendido-disponible, tabla estado inmueble
+        this.modalidadComercializacion = modo; //venta-alquiler, tabla modalidad comercializacion
     }
 
     public int getCodigo() {
@@ -121,12 +121,12 @@ public abstract class Inmueble {
         this.estadoInmueble = estadoInmueble;
     }
 
-    public int getModoComercializacion() {
-        return modoComercializacion;
+    public int getModalidadComercializacion() {
+        return modalidadComercializacion;
     }
 
-    public void setModoComercializacion(int modoComercializacion) {
-        this.modoComercializacion = modoComercializacion;
+    public void setModalidadComercializacion(int modalidadComercializacion) {
+        this.modalidadComercializacion = modalidadComercializacion;
     }
     
     

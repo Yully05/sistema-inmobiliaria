@@ -135,7 +135,7 @@ public class AgenteComercialDAO {
                 agente.setFechaExpDoc(rs.getDate("fecha_expedicion_doc").toLocalDate());
             }
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error en la busqueda" + e.toString());
+            JOptionPane.showMessageDialog(null, "Error en la busqueda de Agente Comercial" + e.toString());
         } finally {
             try {
                 connection.close();
@@ -169,7 +169,7 @@ public class AgenteComercialDAO {
                 listaAgente.add(agente);
             }
         }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al eliminar Agente Comercial" + e.toString());
+            JOptionPane.showMessageDialog(null, "Error al listar Agentes Comerciales" + e.toString());
 
         } finally {
             try {

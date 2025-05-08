@@ -14,21 +14,21 @@ public abstract class Contrato {
     
     protected int codigo;
     protected String descripcion;
-    protected int modalidadComercializacion; //venta-alquiler
+    protected int modalidadComercializacion; //venta-alquiler (de la tabla ModalidadComercializacion
     protected LocalDate fechaCreacion;
     protected LocalDate fechaExpiracion;
     protected double valor;
-    protected int codigoInmueble;
-    protected int cedulaAgente;
+    protected int codigoInmueble; //tabla inmuebles
+    protected String cedulaAgente; //tabla agente_comercial
 
     public Contrato() {
     }
 
-    public Contrato(int cod, String descripcion, int modo, LocalDate fechaCreacion, LocalDate fechaExpiracion, double valor, int codInmueble, int cedulaAgente) {
+    public Contrato(int cod, String descripcion, int codModalidad, LocalDate fechaCreacion, LocalDate fechaExpiracion, double valor, int codInmueble, String cedulaAgente) {
         
         this.codigo = cod;
         this.descripcion = descripcion;
-        this.modalidadComercializacion = modo;
+        this.modalidadComercializacion = codModalidad;
         this.fechaCreacion = fechaCreacion;
         this.fechaExpiracion = fechaExpiracion;
         this.valor = valor;
@@ -56,8 +56,8 @@ public abstract class Contrato {
         return modalidadComercializacion;
     }
 
-    public void setModalidadComercializacion(int modalidadComercializacion) {
-        this.modalidadComercializacion = modalidadComercializacion;
+    public void setModalidadComercializacion(int codModalidadComercializacion) {
+        this.modalidadComercializacion = codModalidadComercializacion;
     }
 
     public LocalDate getFechaCreacion() {
@@ -92,11 +92,11 @@ public abstract class Contrato {
         this.codigoInmueble = codigoInmueble;
     }
 
-    public int getCedulaAgente() {
+    public String getCedulaAgente() {
         return cedulaAgente;
     }
 
-    public void setCedulaAgente(int cedulaAgente) {
+    public void setCedulaAgente(String cedulaAgente) {
         this.cedulaAgente = cedulaAgente;
     }
     

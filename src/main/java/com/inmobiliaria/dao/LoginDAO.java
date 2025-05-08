@@ -38,7 +38,7 @@ public class LoginDAO {
                 log.setCedula(rs.getString("contraseña"));
             } 
         }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error en el registro de Agente Comercial" + e.toString());
+            JOptionPane.showMessageDialog(null, "Error en el inicio de sesion" + e.toString());
             }
         return log;
         }   
