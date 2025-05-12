@@ -4,39 +4,16 @@
  */
 package com.inmobiliaria.model;
 
+import lombok.Data;
+
 /**
  *
  * @author Asus
  */
+@Data
 public class EstadoInmueble {
-    
+
     private int id;
     private String estadoInmueble; //vendido,disponible
 
-    public EstadoInmueble() {
-    }
-
-    public EstadoInmueble(int id, String estadoInmueble) {
-        this.id = id;
-        this.estadoInmueble = estadoInmueble;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getEstadoInmueble() {
-        return estadoInmueble;
-    }
-
-    public void setEstadoInmueble(String estadoInmueble) {
-        this.estadoInmueble = estadoInmueble;
-    }
-    
-    
-    
 }

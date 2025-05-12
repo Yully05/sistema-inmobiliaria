@@ -46,7 +46,7 @@ public class InmueblesPropietariosDAO {
             ps.setString(6, inmuebleProp.getDepartamento());
             ps.setDouble(7, inmuebleProp.getTamaño());
             ps.setInt(8, inmuebleProp.getCant_baños());
-            ps.setString(9, inmuebleProp.getCedulaPropietario());
+            ps.setInt(9, inmuebleProp.getCedulaPropietario());
             ps.setInt(10, inmuebleProp.getTipoInmueble());
             ps.setInt(11, inmuebleProp.getModalidadComercializacion());
             ps.setInt(12, inmuebleProp.getEstadoInmueble());
@@ -77,7 +77,7 @@ public class InmueblesPropietariosDAO {
             ps.setString(5, inmuebleProp.getDepartamento());
             ps.setDouble(6, inmuebleProp.getTamaño());
             ps.setInt(7, inmuebleProp.getCant_baños());
-            ps.setString(8, inmuebleProp.getCedulaPropietario());
+            ps.setInt(8, inmuebleProp.getCedulaPropietario());
             ps.setInt(9, inmuebleProp.getTipoInmueble());
             ps.setInt(10, inmuebleProp.getModalidadComercializacion());
             ps.setInt(11, inmuebleProp.getEstadoInmueble());
@@ -137,7 +137,7 @@ public class InmueblesPropietariosDAO {
                 inmuebleProp.setDepartamento(rs.getString("departamento"));
                 inmuebleProp.setTamaño(rs.getDouble("tamaño"));
                 inmuebleProp.setCant_baños(rs.getInt("cant_baños"));
-                inmuebleProp.setCedulaPropietario(rs.getString("cedula_propietario"));
+                inmuebleProp.setCedulaPropietario(rs.getInt("cedula_propietario"));
                 inmuebleProp.setTipoInmueble(rs.getInt("tipo"));
                 inmuebleProp.setModalidadComercializacion(rs.getInt("modalidad"));
                 inmuebleProp.setEstadoInmueble(rs.getInt("estado"));
@@ -174,7 +174,7 @@ public class InmueblesPropietariosDAO {
                 inmuebleProp.setDepartamento(rs.getString("departamento"));
                 inmuebleProp.setTamaño(rs.getDouble("tamaño"));
                 inmuebleProp.setCant_baños(rs.getInt("cant_baños"));
-                inmuebleProp.setCedulaPropietario(rs.getString("cedula_propietario"));
+                inmuebleProp.setCedulaPropietario(rs.getInt("cedula_propietario"));
                 inmuebleProp.setTipoInmueble(rs.getInt("tipo"));
                 inmuebleProp.setModalidadComercializacion(rs.getInt("modalidad"));
                 inmuebleProp.setEstadoInmueble(rs.getInt("estado"));

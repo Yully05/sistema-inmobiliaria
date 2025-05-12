@@ -4,38 +4,17 @@
  */
 package com.inmobiliaria.model;
 
+import lombok.Data;
+
 /**
  *
  * @author Asus
  */
+
+@Data
 public class TipoInmueble {
     
     private int id;
     private String tipoInmueble; // casa-aparatmento-finca-local
 
-    public TipoInmueble() {
-    }
-
-    public TipoInmueble(int id, String tipoInmueble) {
-        this.id = id;
-        this.tipoInmueble = tipoInmueble;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTipoInmueble() {
-        return tipoInmueble;
-    }
-
-    public void setTipoInmueble(String tipoInmueble) {
-        this.tipoInmueble = tipoInmueble;
-    }
-    
-    
 }

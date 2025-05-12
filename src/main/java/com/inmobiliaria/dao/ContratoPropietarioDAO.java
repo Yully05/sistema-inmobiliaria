@@ -44,7 +44,7 @@ public class ContratoPropietarioDAO {
             ps.setDouble(7, contratoProp.getPorcentajeComision());
             ps.setInt(8, contratoProp.getCodigoInmueble());
             ps.setString(9, contratoProp.getCedulaPropietario());
-            ps.setString(11, contratoProp.getCedulaAgente());
+            ps.setInt(11, contratoProp.getCedulaAgente());
             ps.executeUpdate();
             return true;
         } catch (SQLException e){
@@ -72,7 +72,7 @@ public class ContratoPropietarioDAO {
             ps.setDouble(7, contratoProp.getPorcentajeComision());
             ps.setInt(8, contratoProp.getCodigoInmueble());
             ps.setString(9, contratoProp.getCedulaPropietario());
-            ps.setString(10, contratoProp.getCedulaAgente());
+            ps.setInt(10, contratoProp.getCedulaAgente());
             ps.setInt(11, contratoProp.getCodigo());
             ps.executeUpdate();
             return true;
@@ -131,7 +131,7 @@ public class ContratoPropietarioDAO {
                 contratoProp.setPorcentajeComision(rs.getDouble("porcentaje_comision"));
                 contratoProp.setCodigoInmueble(rs.getInt("codigo_inmueble"));
                 contratoProp.setCedulaPropietario(rs.getString("cedula_propietario"));
-                contratoProp.setCedulaAgente(rs.getString("cedula_agente"));
+                contratoProp.setCedulaAgente(rs.getInt("cedula_agente"));
                 
             }
 
@@ -166,7 +166,7 @@ public class ContratoPropietarioDAO {
                 contratoProp.setPorcentajeComision(rs.getDouble("porcentaje_comision"));
                 contratoProp.setCodigoInmueble(rs.getInt("codigo_inmueble"));
                 contratoProp.setCedulaPropietario(rs.getString("cedula_propietario"));
-                contratoProp.setCedulaAgente(rs.getString("cedula_agente"));
+                contratoProp.setCedulaAgente(rs.getInt("cedula_agente"));
                 listaContratos.add(contratoProp);
             }
         }catch (SQLException e){
