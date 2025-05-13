@@ -125,7 +125,7 @@ public class ClienteDAO {
                 cliente.setFechaExpDoc(rs.getDate("fecha_expedicion_doc").toLocalDate());
             }
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error en la busqueda" + e.toString());
+            JOptionPane.showMessageDialog(null, "Error en la busqueda de Cliente" + e.toString());
         } finally {
             try {
                 connection.close();
@@ -156,7 +156,7 @@ public class ClienteDAO {
                 listaCliente.add(cliente);
             }
         }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al eliminar Cliente" + e.toString());
+            JOptionPane.showMessageDialog(null, "Error al listar Clientes" + e.toString());
 
         } finally {
             try {

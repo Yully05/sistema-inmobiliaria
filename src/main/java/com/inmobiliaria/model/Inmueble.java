@@ -24,6 +24,6 @@ public abstract class Inmueble {
     //foto
     protected int tipoInmueble;
     protected int estadoInmueble;
-    protected int modoComercializacion;
+    protected int modalidadComercializacion;
 
 }

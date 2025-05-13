@@ -4,7 +4,6 @@
  */
 package com.inmobiliaria.model;
 
-import java.time.LocalDate;
 import lombok.Data;
 
 /**
@@ -14,7 +13,7 @@ import lombok.Data;
 @Data
 public class ContratoCliente extends Contrato {
     
-    private int cedulaCliente;
+    private String cedulaCliente; //de la tabla cliente
     private String nombreFiador;
     private int celularFiador;
     

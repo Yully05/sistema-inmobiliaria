@@ -14,7 +14,7 @@ import lombok.Data;
 @Data
 public class ContratoPropietario extends Contrato {
     
-    private int cedulaPropietario;
+    private String cedulaPropietario;
     private double porcentajeComision;
-    
+
 }

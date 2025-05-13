@@ -14,5 +14,5 @@ import lombok.Data;
 public class InmueblesPropietario extends Inmueble {
     
     private int cedulaPropietario;
-    
+
 }

@@ -125,7 +125,7 @@ public class PropietarioDAO {
             }
 
         } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error en la busqueda" + e.toString());
+            JOptionPane.showMessageDialog(null, "Error en la busqueda de Propietario" + e.toString());
         } finally {
             try {
                 connection.close();
@@ -156,7 +156,7 @@ public class PropietarioDAO {
                 listaPropietario.add(propietario);
             }
         }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al eliminar Propietario" + e.toString());
+            JOptionPane.showMessageDialog(null, "Error al listar Propietarios" + e.toString());
 
         } finally {
             try {

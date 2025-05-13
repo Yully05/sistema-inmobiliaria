@@ -16,11 +16,11 @@ public abstract class Contrato {
     
     protected int codigo;
     protected String descripcion;
-    protected int modalidadComercializacion; //venta-alquiler
+    protected int modalidadComercializacion; //venta-alquiler (de la tabla ModalidadComercializacion
     protected LocalDate fechaCreacion;
     protected LocalDate fechaExpiracion;
     protected double valor;
     protected int codigoInmueble;
     protected int cedulaAgente;
-    
+  
 }

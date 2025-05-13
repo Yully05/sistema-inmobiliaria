@@ -14,6 +14,6 @@ import lombok.Data;
 public class EstadoInmueble {
 
     private int id;
-    private String estadoInmueble; //vendido-disponible
+    private String estadoInmueble; //vendido,disponible
 
 }
