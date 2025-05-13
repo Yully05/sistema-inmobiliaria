@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.inmobiliaria.main;
 
 import com.inmobiliaria.dao.Conexion;
@@ -12,6 +8,7 @@ import java.sql.Connection;
  *
  * @author Asus
  */
+
 public class Main {
 
     public static void main(String[] args) {
