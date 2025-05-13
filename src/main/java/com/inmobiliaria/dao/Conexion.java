@@ -15,24 +15,22 @@ import javax.swing.JOptionPane;
  * @author Asus
  */
 public class Conexion {
-    
-    private static final String url = "jdbc:postgresql://localhost:5432/db_inmobiliaria";
-    private static final String user = "postgres";
-    private static final String password = "toor123";
-    
-    
-    public Connection establecerConexion(){
-        
+
+    private static final String url = "jdbc:postgresql://ep-silent-waterfall-a4zakeb5-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require";
+    private static final String user = "neondb_owner";
+    private static final String password = "npg_tbvyf2JkHO4z";
+
+    public Connection establecerConexion() {
         Connection conectar = null;
+
         try {
             conectar = DriverManager.getConnection(url, user, password);
             JOptionPane.showMessageDialog(null, "Se conecto correctamente a la base de datos");
-            
-        } catch (HeadlessException | SQLException e){
+
+        } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos" + e.toString());
         }
         return conectar;
     }
-    
-    
+
 }

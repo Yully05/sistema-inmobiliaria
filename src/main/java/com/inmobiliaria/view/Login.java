@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.inmobiliaria.view;
 
 import com.inmobiliaria.dao.LoginDAO;
@@ -15,6 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author Asus
  */
+
 public class Login extends javax.swing.JFrame {
     
     login log = new login();
