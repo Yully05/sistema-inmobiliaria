@@ -42,5 +42,10 @@
             <version>1.18.38</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.6</version>
+        </dependency>
     </dependencies>
 </project>
