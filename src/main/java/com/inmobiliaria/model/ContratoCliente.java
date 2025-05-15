@@ -15,6 +15,6 @@ public class ContratoCliente extends Contrato {
     
     private String cedulaCliente; //de la tabla cliente
     private String nombreFiador;
-    private int celularFiador;
+    private String celularFiador;
     
 }

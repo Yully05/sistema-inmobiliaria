@@ -13,6 +13,6 @@ import lombok.Data;
 @Data
 public class InmueblesPropietario extends Inmueble {
     
-    private int cedulaPropietario;
+    private String cedulaPropietario;
 
 }
