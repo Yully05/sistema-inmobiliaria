@@ -36,7 +36,7 @@ public class Login extends javax.swing.JFrame {
             log = logDAO.log(usuario, password);
             if (log.getLogin()!= null && log.getPassword()!= null) {
                 Dashboard dashboard = new Dashboard();
-                dashboard.setVisible(true);
+                dashboard .setVisible(true);
                 dispose(); 
             }else {
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta.");
