@@ -21,6 +21,6 @@ public abstract class Contrato {
     protected LocalDate fechaExpiracion;
     protected double valor;
     protected int codigoInmueble;
-    protected int cedulaAgente;
+    protected String cedulaAgente;
   
 }

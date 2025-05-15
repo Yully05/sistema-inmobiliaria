@@ -47,10 +47,10 @@ public class ContratoClienteDAO {
             ps.setDate(5, Date.valueOf(contratoCl.getFechaExpiracion()));
             ps.setDouble(6, contratoCl.getValor());
             ps.setString(7, contratoCl.getNombreFiador());
-            ps.setInt(8, contratoCl.getCelularFiador());
+            ps.setString(8, contratoCl.getCelularFiador());
             ps.setInt(9, contratoCl.getCodigoInmueble());
             ps.setString(10, contratoCl.getCedulaCliente());
-            ps.setInt(11, contratoCl.getCedulaAgente());
+            ps.setString(11, contratoCl.getCedulaAgente());
             ps.executeUpdate();
             return true;
         } catch (SQLException e){
@@ -76,10 +76,10 @@ public class ContratoClienteDAO {
             ps.setDate(4, Date.valueOf(contratoCl.getFechaExpiracion()));
             ps.setDouble(5, contratoCl.getValor());
             ps.setString(6, contratoCl.getNombreFiador());
-            ps.setInt(7, contratoCl.getCelularFiador());
+            ps.setString(7, contratoCl.getCelularFiador());
             ps.setInt(8, contratoCl.getCodigoInmueble());
             ps.setString(9, contratoCl.getCedulaCliente());
-            ps.setInt(10, contratoCl.getCedulaAgente());
+            ps.setString(10, contratoCl.getCedulaAgente());
             ps.setInt(11, contratoCl.getCodigo());
             ps.executeUpdate();
             return true;
@@ -136,10 +136,10 @@ public class ContratoClienteDAO {
                 contratoCl.setFechaExpiracion(rs.getDate("fecha_expiracion").toLocalDate());
                 contratoCl.setValor(rs.getDouble("valor"));
                 contratoCl.setNombreFiador(rs.getString("nombre_fiador"));
-                contratoCl.setCelularFiador(rs.getInt("celular_fiador"));
+                contratoCl.setCelularFiador(rs.getString("celular_fiador"));
                 contratoCl.setCodigoInmueble(rs.getInt("codigo_inmueble"));
                 contratoCl.setCedulaCliente(rs.getString("cedula_cliente"));
-                contratoCl.setCedulaAgente(rs.getInt("cedula_agente"));
+                contratoCl.setCedulaAgente(rs.getString("cedula_agente"));
                 
             }
 
@@ -172,10 +172,10 @@ public class ContratoClienteDAO {
                 contratoCl.setFechaExpiracion(rs.getDate("fecha_expiracion").toLocalDate());
                 contratoCl.setValor(rs.getDouble("valor"));
                 contratoCl.setNombreFiador(rs.getString("nombre_fiador"));
-                contratoCl.setCelularFiador(rs.getInt("celular_fiador"));
+                contratoCl.setCelularFiador(rs.getString("celular_fiador"));
                 contratoCl.setCodigoInmueble(rs.getInt("codigo_inmueble"));
                 contratoCl.setCedulaCliente(rs.getString("cedula_cliente"));
-                contratoCl.setCedulaAgente(rs.getInt("cedula_agente"));
+                contratoCl.setCedulaAgente(rs.getString("cedula_agente"));
                 listaContratos.add(contratoCl);
             }
         }catch (SQLException e){
