@@ -33,13 +33,13 @@ public class AgenteComercialDAO {
     
     public boolean RegistrarAgente(AgenteComercial agente) {
         
-        String sql = "INSERT INTO agente_comercial (cedula, login, contraseña, nombres, apellidos, direccion, fecha_nacimiento, fecha_expedicion_doc, correo, celular)"
+        String sql = "INSERT INTO agente_comercial (cedula, login, contrasena, nombres, apellidos, direccion, fecha_nacimiento, fecha_expedicion_doc, correo, celular)"
                 + " VALUES (?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, agente.getCedula());
             ps.setString(2, agente.getLogin());
-            ps.setString(3, agente.getContraseña());
+            ps.setString(3, agente.getContrasena());
             ps.setString(4, agente.getNombres());
             ps.setString(5, agente.getApellidos());
             ps.setString(6, agente.getDireccion());
@@ -64,10 +64,10 @@ public class AgenteComercialDAO {
     
     public boolean ActualizarAgente(AgenteComercial agente) {
         
-        String sql = "UPDATE agente_comercial SET contraseña=?, nombres=?, apellidos=?, direccion=?, fecha_nacimiento=?, fecha_expedicion_doc=?, correo=?, celular=? WHERE cedula=?";
+        String sql = "UPDATE agente_comercial SET contrasena=?, nombres=?, apellidos=?, direccion=?, fecha_nacimiento=?, fecha_expedicion_doc=?, correo=?, celular=? WHERE cedula=?";
         try {
             ps = connection.prepareStatement(sql);
-            ps.setString(1, agente.getContraseña());
+            ps.setString(1, agente.getContrasena());
             ps.setString(2, agente.getNombres());
             ps.setString(3, agente.getApellidos());
             ps.setString(4, agente.getDireccion());
@@ -125,7 +125,7 @@ public class AgenteComercialDAO {
                 agente = new AgenteComercial();
                 agente.setCedula(rs.getString("cedula"));
                 agente.setLogin(rs.getString("login"));
-                agente.setContraseña(rs.getString("contraseña"));
+                agente.setContrasena(rs.getString("contrasena"));
                 agente.setNombres(rs.getString("nombres"));
                 agente.setApellidos(rs.getString("apellidos"));
                 agente.setDireccion(rs.getString("direccion"));
@@ -158,7 +158,7 @@ public class AgenteComercialDAO {
                 AgenteComercial agente = new AgenteComercial();
                 agente.setCedula(rs.getString("cedula"));
                 agente.setLogin(rs.getString("login"));
-                agente.setContraseña(rs.getString("contraseña"));
+                agente.setContrasena(rs.getString("contrasena"));
                 agente.setNombres(rs.getString("nombres"));
                 agente.setApellidos(rs.getString("apellidos"));
                 agente.setDireccion(rs.getString("direccion"));

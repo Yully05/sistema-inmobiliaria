@@ -18,7 +18,7 @@ public class AgenteComercial {
     
     private String cedula;
     private String login;
-    private String contraseña;
+    private String contrasena;
     private String nombres;
     private String apellidos;
     private String direccion;

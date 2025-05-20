@@ -22,20 +22,20 @@ public class LoginDAO {
     ResultSet rs;
     Conexion conexion = new Conexion();
         
-    public login log(String login, String contraseña) throws SQLException{
+    public login log(String login, String contrasena) throws SQLException{
         
         login log = new login();
-        String sql = "SELECT * FROM agente_comercial WHERE login = ? AND contraseña = ?";
+        String sql = "SELECT * FROM agente_comercial WHERE login = ? AND contrasena = ?";
         try {
             connection = conexion.establecerConexion();
             ps = connection.prepareStatement(sql);
             ps.setString(1, login);
-            ps.setString(2, contraseña);
+            ps.setString(2, contrasena);
             rs = ps.executeQuery();
             if (rs.next()) {
                 log.setCedula(rs.getString("cedula"));
                 log.setCedula(rs.getString("login"));
-                log.setCedula(rs.getString("contraseña"));
+                log.setCedula(rs.getString("contrasena"));
             } 
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error en el inicio de sesion" + e.toString());
