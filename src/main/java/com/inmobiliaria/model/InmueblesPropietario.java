@@ -4,15 +4,30 @@
  */
 package com.inmobiliaria.model;
 
-import lombok.Data;
-
 /**
  *
  * @author Asus
  */
-@Data
 public class InmueblesPropietario extends Inmueble {
-    
+
     private String cedulaPropietario;
+
+    public InmueblesPropietario() {
+    }
+
+    public InmueblesPropietario(String cedula, int cod, String descripcion, double precio, String direccion, String ciudad, String depto,
+            double tamaño, int cant_baños, int tipo, int estado, int modo) {
+
+        //super(cod, descripcion, precio, direccion, ciudad, depto, tamaño, cant_baños, tipo, estado, modo);
+        this.cedulaPropietario = cedula;
+    }
+
+    public String getCedulaPropietario() {
+        return cedulaPropietario;
+    }
+
+    public void setCedulaPropietario(String cedulaPropietario) {
+        this.cedulaPropietario = cedulaPropietario;
+    }
 
 }
