@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.inmobiliaria.dao;
 
 import com.inmobiliaria.model.AgenteComercial;
@@ -178,11 +174,6 @@ public class AgenteComercialDAO {
                 JOptionPane.showMessageDialog(null, e.toString());
             }
         }
-        return listaAgente;
-        
+        return listaAgente;   
     }
 }
-    
-    
-    
-    
