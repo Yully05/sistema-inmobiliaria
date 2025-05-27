@@ -36,6 +36,8 @@ public class LoginDAO {
                 log.setCedula(rs.getString("cedula"));
                 log.setLogin(rs.getString("login"));
                 log.setPassword(rs.getString("contrasena"));
+                log.setRol(rs.getString("rol"));
+                
             } 
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error en el inicio de sesion" + e.toString());

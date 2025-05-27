@@ -16,5 +16,6 @@ public class login {
     private String cedula;
     private String login;
     private String password;
+    private String rol;
     
 }

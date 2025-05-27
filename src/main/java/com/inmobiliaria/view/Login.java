@@ -32,12 +32,20 @@ public class Login extends javax.swing.JFrame {
         String password = String.valueOf(txtPassword.getPassword());
         
         if (!"".equals(usuario) || !"".equals(password)) {
-            
             log = logDAO.log(usuario, password);
             if (log.getLogin()!= null && log.getPassword()!= null) {
-                Dashboard dashboard = new Dashboard();
-                dashboard .setVisible(true);
-                dispose(); 
+                if("administrador".equalsIgnoreCase(log.getRol())){
+                    Dashboard dashboard = new Dashboard("administrador");
+                    dashboard .setVisible(true);
+                    dispose();
+                }
+                else if("agente".equalsIgnoreCase(log.getRol())){
+                    Dashboard dashboard = new Dashboard("agente");
+                    dashboard .setVisible(true);
+                    dispose(); 
+                }else{
+                    JOptionPane.showMessageDialog(null, "Rol no reconocido.");
+                }
             }else {
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta.");
             }
