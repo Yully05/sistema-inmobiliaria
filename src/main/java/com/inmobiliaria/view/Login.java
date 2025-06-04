@@ -1,7 +1,7 @@
 package com.inmobiliaria.view;
 
 import com.inmobiliaria.dao.LoginDAO;
-import com.inmobiliaria.model.login;
+import com.inmobiliaria.model.AgenteComercial;
 import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
     
-    login log = new login();
+    AgenteComercial logAgente = new AgenteComercial();
     LoginDAO logDAO = new LoginDAO();
 
     /**
@@ -32,15 +32,16 @@ public class Login extends javax.swing.JFrame {
         String password = String.valueOf(txtPassword.getPassword());
         
         if (!"".equals(usuario) || !"".equals(password)) {
-            log = logDAO.log(usuario, password);
-            if (log.getLogin()!= null && log.getPassword()!= null) {
-                if("administrador".equalsIgnoreCase(log.getRol())){
-                    Dashboard dashboard = new Dashboard("administrador");
+            logAgente = logDAO.log(usuario, password);
+            
+            if (logAgente.getLogin()!= null && logAgente.getContrasena()!= null) {
+                if("administrador".equalsIgnoreCase(logAgente.getRol())){
+                    Dashboard dashboard = new Dashboard(logAgente);
                     dashboard .setVisible(true);
                     dispose();
                 }
-                else if("agente".equalsIgnoreCase(log.getRol())){
-                    Dashboard dashboard = new Dashboard("agente");
+                else if("agente".equalsIgnoreCase(logAgente.getRol())){
+                    Dashboard dashboard = new Dashboard(logAgente);
                     dashboard .setVisible(true);
                     dispose(); 
                 }else{
@@ -64,7 +65,6 @@ public class Login extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         background = new javax.swing.JPanel();
         login = new javax.swing.JPanel();
-        iconLogin = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -83,13 +83,7 @@ public class Login extends javax.swing.JFrame {
 
         background.setBackground(new java.awt.Color(204, 204, 204));
 
-        iconLogin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        iconLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/inmobiliaria/images/login2.png"))); // NOI18N
-        iconLogin.setAlignmentY(0.0F);
-        iconLogin.setMaximumSize(new java.awt.Dimension(130, 130));
-        iconLogin.setMinimumSize(new java.awt.Dimension(130, 130));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Usuario");
 
@@ -108,7 +102,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Contraseña");
 
@@ -123,7 +117,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         btnIniciarSesion.setBackground(new java.awt.Color(255, 204, 153));
-        btnIniciarSesion.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnIniciarSesion.setForeground(new java.awt.Color(51, 51, 51));
         btnIniciarSesion.setText("INICIAR");
         btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -151,56 +145,51 @@ public class Login extends javax.swing.JFrame {
         loginLayout.setHorizontalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                    .addComponent(txtPassword)
-                    .addComponent(jSeparator1)
-                    .addComponent(jSeparator2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginLayout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
                 .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginLayout.createSequentialGroup()
-                        .addComponent(btnIniciarSesion)
-                        .addGap(126, 126, 126))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginLayout.createSequentialGroup()
-                        .addComponent(iconLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(102, 102, 102))))
+                    .addGroup(loginLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUser)
+                            .addComponent(txtPassword)
+                            .addComponent(jSeparator1)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(loginLayout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         loginLayout.setVerticalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(iconLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addContainerGap(54, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGap(40, 40, 40)
+                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
 
         iconLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         iconLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/inmobiliaria/images/logo2.png"))); // NOI18N
+        iconLogo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         iconLogo.setMaximumSize(new java.awt.Dimension(1052, 1024));
 
-        slogan1.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        slogan1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         slogan1.setForeground(new java.awt.Color(51, 51, 51));
         slogan1.setText("Soluciones reales");
 
-        slogan2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        slogan2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         slogan2.setForeground(new java.awt.Color(51, 51, 51));
         slogan2.setText("Espacios ideales");
 
@@ -211,32 +200,31 @@ public class Login extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(slogan2))
-                    .addGroup(backgroundLayout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(slogan1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(slogan1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(iconLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(iconLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addGap(80, 80, 80)
+                        .addComponent(slogan2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
+                .addGap(66, 66, 66))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addComponent(iconLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slogan1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(slogan2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(iconLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(slogan1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(slogan2)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -322,7 +310,6 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JButton btnIniciarSesion;
-    private javax.swing.JLabel iconLogin;
     private javax.swing.JLabel iconLogo;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel4;

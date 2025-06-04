@@ -24,6 +24,7 @@ public class AgenteComercial {
     private String direccion;
     private String correo;
     private String celular;
+    private String rol;
     private LocalDate fechaNacimiento;
     private LocalDate fechaExpDoc;
     

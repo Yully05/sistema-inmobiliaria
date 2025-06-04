@@ -4,7 +4,7 @@
  */
 package com.inmobiliaria.dao;
 
-import com.inmobiliaria.model.login;
+import com.inmobiliaria.model.AgenteComercial;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,9 +22,9 @@ public class LoginDAO {
     ResultSet rs;
     Conexion conexion = new Conexion();
         
-    public login log(String login, String contrasena) throws SQLException{
+    public AgenteComercial log(String login, String contrasena) throws SQLException{
         
-        login log = new login();
+        AgenteComercial agente = new AgenteComercial();
         String sql = "SELECT * FROM agente_comercial WHERE login = ? AND contrasena = ?";
         try {
             connection = conexion.establecerConexion();
@@ -33,16 +33,17 @@ public class LoginDAO {
             ps.setString(2, contrasena);
             rs = ps.executeQuery();
             if (rs.next()) {
-                log.setCedula(rs.getString("cedula"));
-                log.setLogin(rs.getString("login"));
-                log.setPassword(rs.getString("contrasena"));
-                log.setRol(rs.getString("rol"));
+                agente.setCedula(rs.getString("cedula"));
+                agente.setLogin(rs.getString("login"));
+                agente.setContrasena(rs.getString("contrasena"));
+                agente.setNombres(rs.getString("nombres"));
+                agente.setRol(rs.getString("rol"));
                 
             } 
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error en el inicio de sesion" + e.toString());
             }
-        return log;
+        return agente;
         }   
     
 }

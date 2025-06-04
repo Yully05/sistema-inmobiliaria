@@ -29,8 +29,8 @@ public class AgenteComercialDAO {
     
     public boolean RegistrarAgente(AgenteComercial agente) {
         
-        String sql = "INSERT INTO agente_comercial (cedula, login, contrasena, nombres, apellidos, direccion, fecha_nacimiento, fecha_expedicion_doc, correo, celular)"
-                + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO agente_comercial (cedula, login, contrasena, nombres, apellidos, direccion, fecha_nacimiento, fecha_expedicion_doc, correo, celular, rol)"
+                + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, agente.getCedula());
@@ -43,6 +43,7 @@ public class AgenteComercialDAO {
             ps.setDate(8, Date.valueOf(agente.getFechaExpDoc()));
             ps.setString(9, agente.getCorreo());
             ps.setString(10, agente.getCelular());
+            ps.setString(11, agente.getRol());
             ps.executeUpdate();
             return true;
             
@@ -72,6 +73,7 @@ public class AgenteComercialDAO {
             ps.setString(7, agente.getCorreo());
             ps.setString(8, agente.getCelular());
             ps.setString(9, agente.getCedula());
+            ps.setString(10, agente.getRol());
             ps.executeUpdate();
             return true;
             
@@ -129,6 +131,7 @@ public class AgenteComercialDAO {
                 agente.setCelular(rs.getString("celular"));
                 agente.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
                 agente.setFechaExpDoc(rs.getDate("fecha_expedicion_doc").toLocalDate());
+                agente.setRol(rs.getString("rol"));
             }
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error en la busqueda de Agente Comercial" + e.toString());
@@ -162,6 +165,7 @@ public class AgenteComercialDAO {
                 agente.setCelular(rs.getString("celular"));
                 agente.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
                 agente.setFechaExpDoc(rs.getDate("fecha_expedicion_doc").toLocalDate());
+                agente.setRol(rs.getString("rol"));
                 listaAgente.add(agente);
             }
         }catch (SQLException e){
