@@ -108,7 +108,6 @@ public class Login extends javax.swing.JFrame {
 
         txtPassword.setBackground(new java.awt.Color(242, 242, 242));
         txtPassword.setForeground(new java.awt.Color(204, 204, 204));
-        txtPassword.setText("******");
         txtPassword.setBorder(null);
         txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {

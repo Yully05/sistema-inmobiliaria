@@ -9,6 +9,7 @@ import com.inmobiliaria.model.AgenteComercial;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,16 +19,59 @@ import javax.swing.JOptionPane;
 public class FormAgente extends javax.swing.JPanel {
     
     Dashboard dashboard;
-    private final boolean agenteEdicion = false;
+    private AgenteComercial agenteEditar;
+    private boolean agenteEdicion = false; //bandera agente ya esta registrado
 
     /**
      * Creates new form Agentes
      * @param dashboard
      */
-    public FormAgente(Dashboard dashboard) {
-        
-        this.dashboard = dashboard;
+    
+    public FormAgente(Dashboard dashboard) { //constructor registro agente
         initComponents();
+        this.dashboard = dashboard;
+        this.agenteEdicion = false;
+    }
+    
+    public FormAgente(Dashboard dashboard, AgenteComercial agenteSeleccionado) { //constructor modificar agenteSeleccionado
+        
+        initComponents();
+        this.dashboard = dashboard;
+        this.agenteEditar = agenteSeleccionado;
+        this.agenteEdicion = true;
+        cargarDatosAgente();
+    }
+    
+    private void cargarDatosAgente() {
+        txtCedula.setText(agenteEditar.getCedula());
+        txtCedula.setEnabled(false);
+        txtLogin.setText(agenteEditar.getLogin());
+        txtContraseña.setText(agenteEditar.getContrasena());
+        txtNombres.setText(agenteEditar.getNombres());
+        txtApellidos.setText(agenteEditar.getApellidos());
+        txtDireccion.setText(agenteEditar.getDireccion());
+        txtCorreo.setText(agenteEditar.getCorreo());
+        txtCelular.setText(agenteEditar.getCelular());
+        comboBoxRol.setSelectedItem(agenteEditar.getRol());
+        Date fechaNac = Date.from(agenteEditar.getFechaNacimiento().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        jDateNacimiento.setDate(fechaNac);
+        Date fechaExp = Date.from(agenteEditar.getFechaExpDoc().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        jDateExpedicion.setDate(fechaExp);
+    }
+    
+    private void limpiarCampos(){
+        
+      txtCedula.setText("");
+      txtNombres.setText("");
+      txtApellidos.setText("");
+      txtDireccion.setText("");
+      txtCorreo.setText("");
+      txtCelular.setText("");
+      txtLogin.setText("");
+      txtContraseña.setText("");
+      comboBoxRol.setSelectedIndex(0);
+      jDateNacimiento.setDate(null);
+      jDateExpedicion.setDate(null);
     }
 
     /**
@@ -75,6 +119,7 @@ public class FormAgente extends javax.swing.JPanel {
         btnRegistrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(985, 582));
 
         content.setBackground(new java.awt.Color(255, 255, 255));
@@ -155,7 +200,7 @@ public class FormAgente extends javax.swing.JPanel {
 
         txtContraseña.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        comboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agente Comercial", "Administrador" }));
+        comboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Agente Comercial", "Administrador" }));
         comboBoxRol.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         comboBoxRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,7 +393,7 @@ public class FormAgente extends javax.swing.JPanel {
         btnRegistrar.setBackground(new java.awt.Color(212, 167, 140));
         btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRegistrar.setForeground(new java.awt.Color(51, 51, 51));
-        btnRegistrar.setText("Registrar");
+        btnRegistrar.setText("Guardar");
         btnRegistrar.setBorderPainted(false);
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -374,15 +419,14 @@ public class FormAgente extends javax.swing.JPanel {
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
-                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(89, 89, 89))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(60, 60, 60))))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(60, 60, 60))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
+                .addGap(274, 638, Short.MAX_VALUE)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,48 +468,45 @@ public class FormAgente extends javax.swing.JPanel {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         try {
-        AgenteComercial agente = new AgenteComercial();
-        
-        if (txtCedula.getText().isEmpty() || jDateExpedicion.getDate() == null || 
-            txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || 
-            jDateNacimiento.getDate() == null || txtCorreo.getText().isEmpty() ||
-            txtLogin.getText().isEmpty() || txtContraseña.getPassword().length == 0)
-            {
-            JOptionPane.showMessageDialog(this, "Completa los campos obligatorios.");
-            return;
-        }
-        
-        agente.setCedula(txtCedula.getText());
-        agente.setNombres(txtNombres.getText());
-        agente.setApellidos(txtApellidos.getText());
-        agente.setDireccion(txtDireccion.getText());
-        agente.setCorreo(txtCorreo.getText());
-        agente.setCelular(txtCelular.getText());
-        agente.setLogin(txtLogin.getText());
-        agente.setContrasena(new String(txtContraseña.getPassword()));
-        agente.setRol(comboBoxRol.getSelectedItem().toString());
-        
-        LocalDate fechaNacimiento = jDateNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate fechaExpedicion = jDateExpedicion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
-        agente.setFechaNacimiento(fechaNacimiento);
-        agente.setFechaExpDoc(fechaExpedicion);
+            AgenteComercial agenteModel = new AgenteComercial();
 
-        AgenteController controller = new AgenteController();
+            //validaciones campos not null
+            if (txtCedula.getText().isEmpty() || jDateExpedicion.getDate() == null || 
+                txtNombres.getText().isEmpty() || txtApellidos.getText().isEmpty() || 
+                jDateNacimiento.getDate() == null || txtCorreo.getText().isEmpty() ||
+                txtLogin.getText().isEmpty() || txtContraseña.getPassword().length == 0)
+                {
+                    JOptionPane.showMessageDialog(null, "Completa los campos obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    return;
+            }
+            //crear el objeto modelo con los datos del form
+            agenteModel.setCedula(txtCedula.getText());
+            agenteModel.setNombres(txtNombres.getText());
+            agenteModel.setApellidos(txtApellidos.getText());
+            agenteModel.setDireccion(txtDireccion.getText());
+            agenteModel.setCorreo(txtCorreo.getText());
+            agenteModel.setCelular(txtCelular.getText());
+            agenteModel.setLogin(txtLogin.getText());
+            agenteModel.setContrasena(new String(txtContraseña.getPassword()));
+            agenteModel.setRol(comboBoxRol.getSelectedItem().toString());
+            LocalDate fechaNacimiento = jDateNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            agenteModel.setFechaNacimiento(fechaNacimiento);
+            LocalDate fechaExpedicion = jDateExpedicion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            agenteModel.setFechaExpDoc(fechaExpedicion);
 
-        if (agenteEdicion) {
-            controller.actualizar(agente);
-            JOptionPane.showMessageDialog(this, "Datos actualizados.");
-        } else {
-            controller.registrar(agente);
-            JOptionPane.showMessageDialog(this, "Agente registrado.");
-        }
-        dashboard.showJPanel(new PanelAgentes(dashboard));
-        
+            AgenteController agenteController = new AgenteController();
+
+            if (agenteEdicion) {
+                agenteController.actualizar(agenteModel);
+                JOptionPane.showMessageDialog(this, "Datos actualizados.");
+            } else {
+                agenteController.registrar(agenteModel);
+                JOptionPane.showMessageDialog(this, "Agente registrado.");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error en el registro. " + ex.getMessage());
         }
-        
+        limpiarCampos();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
 

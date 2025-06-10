@@ -5,8 +5,11 @@
 package com.inmobiliaria.view;
 
 import com.inmobiliaria.controller.AgenteController;
+import com.inmobiliaria.dao.AgenteComercialDAO;
 import com.inmobiliaria.model.AgenteComercial;
+import com.inmobiliaria.view.FormAgente;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PanelAgentes extends javax.swing.JPanel {
     
-    private Dashboard dashboard;
+    private final Dashboard dashboard;
 
     /**
      * Creates new form Agentes
@@ -30,27 +33,39 @@ public class PanelAgentes extends javax.swing.JPanel {
     
     private void mostrarAgentes() {
         
-    DefaultTableModel modelo = (DefaultTableModel) tablaAgentes.getModel();
-    modelo.setRowCount(0);
+    // Crear tablaModelo personalizado NO editable
+    DefaultTableModel tablaModelo = new DefaultTableModel() {
+        
+        @Override
+        public boolean isCellEditable(int row, int column) { //no permite editar
+            return false;
+        }
+    };
 
-    AgenteController controller = new AgenteController();
+    tablaModelo.setColumnIdentifiers(new Object[] {
+        "Cédula", "Fecha Expedición", "Nombres", "Apellidos", "Fecha Nacimiento", "Dirección", 
+        "Correo", "Celular", "Login", "Rol"
+    });
+    
+    AgenteController agenteController = new AgenteController();
 
     try {
-        for (AgenteComercial agente : controller.listarTodos()) {
-            modelo.addRow(new Object[]{
-                agente.getCedula(),
-                agente.getFechaExpDoc(),
-                agente.getNombres(),
-                agente.getApellidos(),
-                agente.getFechaNacimiento(),
-                agente.getDireccion(),
-                agente.getCorreo(),
-                agente.getCelular(),
-                agente.getCorreo(),
-                agente.getContrasena(),
-                agente.getRol()
+        for (AgenteComercial agenteModel : agenteController.listarTodos()) {
+            
+            tablaModelo.addRow(new Object[]{
+                agenteModel.getCedula(),
+                agenteModel.getFechaExpDoc(),
+                agenteModel.getNombres(),
+                agenteModel.getApellidos(),
+                agenteModel.getFechaNacimiento(),
+                agenteModel.getDireccion(),
+                agenteModel.getCorreo(),
+                agenteModel.getCelular(),
+                agenteModel.getLogin(),
+                agenteModel.getRol()
             });
         }
+        tablaAgentes.setModel(tablaModelo);
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(this, "Error al cargar agentes: " + ex.getMessage());
     }
@@ -85,15 +100,15 @@ public class PanelAgentes extends javax.swing.JPanel {
 
         tablaAgentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cedula", "Fecha expedición", "Nombres", "Apellidos", "Fecha de nacimiento", "Dirección", "Correo", "Celular", "Login", "Contraseña", "Rol"
+                "Cedula", "Fecha expedición", "Nombres", "Apellidos", "Fecha de nacimiento", "Dirección", "Correo", "Celular", "Login", "Rol"
             }
         ));
         jScrollPane1.setViewportView(tablaAgentes);
@@ -114,7 +129,7 @@ public class PanelAgentes extends javax.swing.JPanel {
         btnNuevoRegistro.setBackground(new java.awt.Color(212, 167, 140));
         btnNuevoRegistro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnNuevoRegistro.setForeground(new java.awt.Color(51, 51, 51));
-        btnNuevoRegistro.setText("Nuevo");
+        btnNuevoRegistro.setText("Registrar");
         btnNuevoRegistro.setToolTipText("");
         btnNuevoRegistro.setBorderPainted(false);
         btnNuevoRegistro.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +156,11 @@ public class PanelAgentes extends javax.swing.JPanel {
         btnEliminarAgente.setText("Eliminar");
         btnEliminarAgente.setBorderPainted(false);
         btnEliminarAgente.setFocusPainted(false);
+        btnEliminarAgente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarAgenteActionPerformed(evt);
+            }
+        });
 
         btnConsultarAgente.setBackground(new java.awt.Color(212, 167, 140));
         btnConsultarAgente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -215,10 +235,54 @@ public class PanelAgentes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNuevoRegistroActionPerformed
 
     private void btnActualizarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAgenteActionPerformed
-        /*showJPanel(new FormAgente());
-        FormAgente form = new FormAgente(agenteExistente);
-        form.setVisible(true);*/
+        int fila = tablaAgentes.getSelectedRow();
+        if (fila == -1) {
+        JOptionPane.showMessageDialog(this, "Seleccione el agente.");
+        return;
+        }
+        // consultar cédula seleccionadade la tabla
+        String cedula = tablaAgentes.getValueAt(fila, 0).toString();
+
+        AgenteComercialDAO agenteDAO = new AgenteComercialDAO();
+        AgenteComercial agenteEditar;
+        System.out.println("cedula: " + cedula); //prueba
+        try {
+            agenteEditar = agenteDAO.ConsultarAgente(cedula); //obtener datos
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar el agente. " + ex.getMessage());
+            return;
+        }
+        if (agenteEditar != null) {
+            FormAgente form = new FormAgente(dashboard, agenteEditar);
+            dashboard.showJPanel(form);
+        } else {
+            JOptionPane.showMessageDialog(this, "Agente no encontrado.");
+        }
     }//GEN-LAST:event_btnActualizarAgenteActionPerformed
+
+    private void btnEliminarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAgenteActionPerformed
+        int fila = tablaAgentes.getSelectedRow();
+        if (fila == -1) {
+        JOptionPane.showMessageDialog(this, "Seleccione el agente.");
+        return;
+        }
+        String cedula = tablaAgentes.getValueAt(fila, 0).toString();
+
+        try {
+        AgenteController controller = new AgenteController();
+        boolean eliminado = controller.eliminar(cedula);
+
+        if (eliminado) {
+            JOptionPane.showMessageDialog(this, "Agente eliminado correctamente.");
+            mostrarAgentes();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo eliminar el agente.");
+        }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar agente: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarAgenteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

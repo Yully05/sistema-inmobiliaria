@@ -132,7 +132,7 @@
                 <Component class="javax.swing.JTable" name="tablaAgentes">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="11" rowCount="6">
+                      <Table columnCount="10" rowCount="6">
                         <Column editable="true" title="Cedula" type="java.lang.Object"/>
                         <Column editable="true" title="Fecha expedici&#xf3;n" type="java.lang.Object"/>
                         <Column editable="true" title="Nombres" type="java.lang.Object"/>
@@ -142,7 +142,6 @@
                         <Column editable="true" title="Correo" type="java.lang.Object"/>
                         <Column editable="true" title="Celular" type="java.lang.Object"/>
                         <Column editable="true" title="Login" type="java.lang.Object"/>
-                        <Column editable="true" title="Contrase&#xf1;a" type="java.lang.Object"/>
                         <Column editable="true" title="Rol" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -220,7 +219,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="33" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nuevo"/>
+            <Property name="text" type="java.lang.String" value="Registrar"/>
             <Property name="toolTipText" type="java.lang.String" value=""/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
@@ -262,6 +261,9 @@
             <Property name="borderPainted" type="boolean" value="false"/>
             <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarAgenteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnConsultarAgente">
           <Properties>

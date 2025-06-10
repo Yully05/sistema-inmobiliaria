@@ -21,12 +21,12 @@ public class AgenteController {
         agenteDAO = new AgenteComercialDAO();
     }
     
-    public boolean registrar(AgenteComercial agente) throws SQLException {
-        return agenteDAO.RegistrarAgente(agente);
+    public boolean registrar(AgenteComercial agenteModel) throws SQLException {
+        return agenteDAO.RegistrarAgente(agenteModel);
     }
 
-    public boolean actualizar(AgenteComercial agente) throws SQLException {
-        return agenteDAO.ActualizarAgente(agente);
+    public boolean actualizar(AgenteComercial agenteModel) throws SQLException {
+        return agenteDAO.ActualizarAgente(agenteModel);
     }
 
     public boolean eliminar(String cedula) throws SQLException {
