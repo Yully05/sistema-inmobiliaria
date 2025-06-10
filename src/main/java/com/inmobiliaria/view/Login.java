@@ -51,6 +51,9 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta.");
             }
         }
+        else {
+            JOptionPane.showMessageDialog(null, "Complete todos los campos.");
+        }
     }
 
     /**
@@ -71,7 +74,7 @@ public class Login extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
         iconLogo = new javax.swing.JLabel();
         slogan1 = new javax.swing.JLabel();
         slogan2 = new javax.swing.JLabel();
@@ -81,15 +84,13 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        background.setBackground(new java.awt.Color(204, 204, 204));
+        login.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 51));
         jLabel4.setText("Usuario");
 
-        txtUser.setBackground(new java.awt.Color(242, 242, 242));
-        txtUser.setForeground(new java.awt.Color(204, 204, 204));
-        txtUser.setText("Ingrese su usuario");
+        txtUser.setForeground(new java.awt.Color(51, 51, 51));
         txtUser.setBorder(null);
         txtUser.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -102,12 +103,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setText("Contraseña");
 
-        txtPassword.setBackground(new java.awt.Color(242, 242, 242));
-        txtPassword.setForeground(new java.awt.Color(204, 204, 204));
+        txtPassword.setForeground(new java.awt.Color(51, 51, 51));
         txtPassword.setBorder(null);
         txtPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -115,10 +115,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btnIniciarSesion.setBackground(new java.awt.Color(255, 204, 153));
-        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnIniciarSesion.setBackground(new java.awt.Color(212, 167, 140));
+        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnIniciarSesion.setForeground(new java.awt.Color(51, 51, 51));
-        btnIniciarSesion.setText("INICIAR");
+        btnIniciarSesion.setText("Ingresar");
+        btnIniciarSesion.setBorderPainted(false);
         btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnIniciarSesionMouseEntered(evt);
@@ -136,8 +137,8 @@ public class Login extends javax.swing.JFrame {
         jSeparator1.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
 
-        jSeparator2.setBackground(new java.awt.Color(153, 153, 153));
-        jSeparator2.setForeground(new java.awt.Color(153, 153, 153));
+        jSeparator3.setBackground(new java.awt.Color(153, 153, 153));
+        jSeparator3.setForeground(new java.awt.Color(153, 153, 153));
 
         javax.swing.GroupLayout loginLayout = new javax.swing.GroupLayout(login);
         login.setLayout(loginLayout);
@@ -147,36 +148,36 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(loginLayout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUser)
-                            .addComponent(txtPassword)
-                            .addComponent(jSeparator1)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUser, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(loginLayout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(102, 102, 102)
+                        .addComponent(btnIniciarSesion)))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         loginLayout.setVerticalGroup(
             loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginLayout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap(58, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(btnIniciarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
 
         iconLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -184,7 +185,7 @@ public class Login extends javax.swing.JFrame {
         iconLogo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         iconLogo.setMaximumSize(new java.awt.Dimension(1052, 1024));
 
-        slogan1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        slogan1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         slogan1.setForeground(new java.awt.Color(51, 51, 51));
         slogan1.setText("Soluciones reales");
 
@@ -197,33 +198,33 @@ public class Login extends javax.swing.JFrame {
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(66, 66, 66)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(iconLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(6, 6, 6)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(slogan1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(iconLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(slogan2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                            .addComponent(slogan2)
+                            .addComponent(slogan1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                 .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGap(83, 83, 83)
+                        .addGap(137, 137, 137)
                         .addComponent(iconLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(slogan1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(slogan2)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addComponent(slogan2))
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -254,21 +255,19 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
-        btnIniciarSesion.setBackground(new Color(209, 158, 137));
+        
     }//GEN-LAST:event_btnIniciarSesionMouseEntered
 
     private void btnIniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseExited
-        btnIniciarSesion.setBackground(new Color(255, 204, 153));
+        
     }//GEN-LAST:event_btnIniciarSesionMouseExited
 
     private void txtUserMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUserMousePressed
         txtUser.setText("");
-        txtUser.setForeground(new Color(51, 51, 51));
     }//GEN-LAST:event_txtUserMousePressed
 
     private void txtPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPasswordMousePressed
         txtPassword.setText("");
-        txtPassword.setForeground(new Color(51, 51, 51));
     }//GEN-LAST:event_txtPasswordMousePressed
 
     /**
@@ -314,7 +313,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPanel login;
     private javax.swing.JLabel slogan1;
     private javax.swing.JLabel slogan2;

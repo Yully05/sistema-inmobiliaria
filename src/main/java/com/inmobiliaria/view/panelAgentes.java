@@ -168,6 +168,11 @@ public class PanelAgentes extends javax.swing.JPanel {
         btnConsultarAgente.setText("Consultar");
         btnConsultarAgente.setBorderPainted(false);
         btnConsultarAgente.setFocusPainted(false);
+        btnConsultarAgente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarAgenteActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setText("Ingrese el número de cédula del agente");
@@ -243,11 +248,10 @@ public class PanelAgentes extends javax.swing.JPanel {
         // consultar cédula seleccionadade la tabla
         String cedula = tablaAgentes.getValueAt(fila, 0).toString();
 
-        AgenteComercialDAO agenteDAO = new AgenteComercialDAO();
+        AgenteController agenteController = new AgenteController();
         AgenteComercial agenteEditar;
-        System.out.println("cedula: " + cedula); //prueba
         try {
-            agenteEditar = agenteDAO.ConsultarAgente(cedula); //obtener datos
+            agenteEditar = agenteController.consultarCedula(cedula); //obtener datos
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error al cargar el agente. " + ex.getMessage());
             return;
@@ -266,23 +270,46 @@ public class PanelAgentes extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Seleccione el agente.");
         return;
         }
+        
         String cedula = tablaAgentes.getValueAt(fila, 0).toString();
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Seguro desea eliminar el agente?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
+        System.out.println(confirmacion);
 
         try {
-        AgenteController controller = new AgenteController();
-        boolean eliminado = controller.eliminar(cedula);
+            if (confirmacion == 0) {
+               AgenteController agenteController = new AgenteController();
+                boolean eliminado = agenteController.eliminar(cedula);
 
-        if (eliminado) {
-            JOptionPane.showMessageDialog(this, "Agente eliminado correctamente.");
-            mostrarAgentes();
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo eliminar el agente.");
-        }
-
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(this, "Agente eliminado correctamente.");
+                    mostrarAgentes();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el agente.");
+                } 
+            }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al eliminar agente: " + e.getMessage());
         }
     }//GEN-LAST:event_btnEliminarAgenteActionPerformed
+
+    private void btnConsultarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarAgenteActionPerformed
+        String cedula = txtConsulta.getText();
+        
+        AgenteController agenteController = new AgenteController();
+        AgenteComercial agenteEditar;
+        try {
+            agenteEditar = agenteController.consultarCedula(cedula); //obtener datos
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cargar el agente. " + ex.getMessage());
+            return;
+        }
+        if (agenteEditar != null) {
+            FormAgente form = new FormAgente(dashboard, agenteEditar);
+            dashboard.showJPanel(form);
+        } else {
+            JOptionPane.showMessageDialog(this, "Agente no encontrado.");
+        }
+    }//GEN-LAST:event_btnConsultarAgenteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
