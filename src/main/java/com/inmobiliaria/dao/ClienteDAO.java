@@ -22,8 +22,8 @@ public class ClienteDAO {
     
     Conexion conexion = new Conexion();
     Connection connection;
-    PreparedStatement ps;
-    ResultSet rs;
+    PreparedStatement sentencia;
+    ResultSet resultado;
 
     public ClienteDAO() {
         
@@ -32,19 +32,30 @@ public class ClienteDAO {
 
     public boolean RegistrarCliente(Cliente cliente) {
         
-        String sql = "INSERT INTO cliente (cedula, nombres, apellidos, direccion, correo, fecha_nacimiento, fecha_expedicion_doc)"
-                + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sqlCliente = "INSERT INTO cliente (cedula, nombres, apellidos, direccion, correo, fecha_nacimiento, fecha_expedicion_doc)"
+                + " VALUES (?,?,?,?,?,?,?)";
+        String sqlTel = "INSERT INTO telefonos_cliente (cedula_cliente, telefono) VALUES (?, ?)";
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, cliente.getCedula());
-            ps.setString(2, cliente.getNombres());
-            ps.setString(3, cliente.getApellidos());
-            ps.setString(4, cliente.getDireccion());
-            ps.setString(5, cliente.getCorreo());
-            ps.setDate(6, Date.valueOf(cliente.getFechaNacimiento()));
-            ps.setDate(7, Date.valueOf(cliente.getFechaExpDoc()));
-            ps.executeUpdate();
+            sentencia = connection.prepareStatement(sqlCliente);
+            sentencia.setString(1, cliente.getCedula());
+            sentencia.setString(2, cliente.getNombres());
+            sentencia.setString(3, cliente.getApellidos());
+            sentencia.setString(4, cliente.getDireccion());
+            sentencia.setString(5, cliente.getCorreo());
+            sentencia.setDate(6, Date.valueOf(cliente.getFechaNacimiento()));
+            sentencia.setDate(7, Date.valueOf(cliente.getFechaExpDoc()));
+            sentencia.executeUpdate();
+            
+            //insertar telfonos
+            PreparedStatement sentenciaTel = connection.prepareStatement(sqlTel);
+            for (String telefono : cliente.getTelefonos()) {
+                sentenciaTel.setString(1, cliente.getCedula());
+                sentenciaTel.setString(2, telefono);
+                sentenciaTel.executeUpdate();
+               
+            }
             return true;
+            
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error al registrar Cliente" + e.toString());
             return false;
@@ -57,19 +68,36 @@ public class ClienteDAO {
         }
     }
     
-        public boolean ActualizarCliente(Cliente cliente) {
+    public boolean ActualizarCliente(Cliente cliente) {
         
-        String sql = "UPDATE cliente SET nombres=?, apellidos=?, direccion=?, correo=?, fecha_nacimiento=?, fecha_expedicion_doc=? WHERE cedula=?";
+        String sqlUpdateCliente = "UPDATE cliente SET nombres=?, apellidos=?, direccion=?, correo=?, fecha_nacimiento=?, fecha_expedicion_doc=? WHERE cedula=?";
+        String sqlDeleteTel = "DELETE FROM telefonos_cliente WHERE cedula_cliente=?";
+        String sqlInsertTel = "INSERT INTO telefonos_cliente (cedula_cliente, telefono) VALUES (?, ?)";
+        
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, cliente.getNombres());
-            ps.setString(2, cliente.getApellidos());
-            ps.setString(3, cliente.getDireccion());
-            ps.setString(4, cliente.getCorreo());
-            ps.setDate(5, Date.valueOf(cliente.getFechaNacimiento()));
-            ps.setDate(6, Date.valueOf(cliente.getFechaExpDoc()));
-            ps.setString(7, cliente.getCedula());
-            ps.executeUpdate();
+            sentencia = connection.prepareStatement(sqlUpdateCliente);
+            sentencia.setString(1, cliente.getNombres());
+            sentencia.setString(2, cliente.getApellidos());
+            sentencia.setString(3, cliente.getDireccion());
+            sentencia.setString(4, cliente.getCorreo());
+            sentencia.setDate(5, Date.valueOf(cliente.getFechaNacimiento()));
+            sentencia.setDate(6, Date.valueOf(cliente.getFechaExpDoc()));
+            sentencia.setString(7, cliente.getCedula());
+            sentencia.executeUpdate();
+            
+            PreparedStatement sentenciaDeleteTel = connection.prepareStatement(sqlDeleteTel);
+            sentenciaDeleteTel.setString(1, cliente.getCedula());
+            sentenciaDeleteTel.executeUpdate();
+            
+            PreparedStatement sentenciaInsertTel = connection.prepareStatement(sqlInsertTel);
+            for (String telefono : cliente.getTelefonos()) {
+                if (telefono != null && !telefono.isBlank()) {
+                    sentenciaInsertTel.setString(1, cliente.getCedula());
+                    sentenciaInsertTel.setString(2, telefono);
+                    sentenciaInsertTel.addBatch();
+                }
+            }
+            sentenciaInsertTel.executeBatch();
             return true;
             
         } catch (SQLException e){
@@ -86,11 +114,16 @@ public class ClienteDAO {
     
     public boolean EliminarCliente(String cedula) {
         
-        String sql = "DELETE FROM cliente WHERE cedula = ?";
+        String sqlCliente = "DELETE FROM cliente WHERE cedula = ?";
+        String sqlTel = "DELETE FROM telefonos_cliente WHERE cedula_cliente=?";
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, cedula);
-            ps.executeUpdate();
+            PreparedStatement sentenciaTel = connection.prepareStatement(sqlTel);
+            sentenciaTel.setString(1, cedula);
+            sentenciaTel.executeUpdate();
+            
+            sentencia = connection.prepareStatement(sqlCliente);
+            sentencia.setString(1, cedula);
+            sentencia.executeUpdate();
             return true;
             
         } catch (SQLException e){
@@ -109,21 +142,33 @@ public class ClienteDAO {
         
         Cliente cliente = null;
         String sql = "SELECT * FROM cliente WHERE cedula = ?";
+        String sqlTel = "SELECT telefono FROM telefonos_cliente WHERE cedula_cliente=?";
         try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, cedula);
-            rs = ps.executeQuery();
+            sentencia = connection.prepareStatement(sql);
+            sentencia.setString(1, cedula);
+            resultado = sentencia.executeQuery();
             
-            if (rs.next()){
+            if (resultado.next()){
                 cliente = new Cliente();
-                cliente.setCedula(rs.getString("cedula"));
-                cliente.setNombres(rs.getString("nombres"));
-                cliente.setApellidos(rs.getString("apellidos"));
-                cliente.setDireccion(rs.getString("direccion"));
-                cliente.setCorreo(rs.getString("correo"));
-                cliente.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
-                cliente.setFechaExpDoc(rs.getDate("fecha_expedicion_doc").toLocalDate());
+                cliente.setCedula(resultado.getString("cedula"));
+                cliente.setNombres(resultado.getString("nombres"));
+                cliente.setApellidos(resultado.getString("apellidos"));
+                cliente.setDireccion(resultado.getString("direccion"));
+                cliente.setCorreo(resultado.getString("correo"));
+                cliente.setFechaNacimiento(resultado.getDate("fecha_nacimiento").toLocalDate());
+                cliente.setFechaExpDoc(resultado.getDate("fecha_expedicion_doc").toLocalDate());
+                
+                PreparedStatement sentenciaTel = connection.prepareStatement(sqlTel);
+                sentenciaTel.setString(1, cedula);
+                ResultSet resultadoTel = sentenciaTel.executeQuery();
+                
+                List<String> telefonos = new ArrayList<>();
+                while (resultadoTel.next()) {
+                    telefonos.add(resultadoTel.getString("telefono"));
             }
+                cliente.setTelefonos(telefonos);
+            }
+            
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null, "Error en la busqueda de Cliente" + e.toString());
         } finally {
@@ -140,23 +185,38 @@ public class ClienteDAO {
     public List listarCliente() throws SQLException {
         
         List<Cliente> listaCliente = new ArrayList<>();
-        String sql = "SELECT * FROM agente_comercial";
+        String sql = "SELECT * FROM cliente";
+        String sqlTel = "SELECT telefono FROM telefonos_cliente WHERE cedula_cliente=?";
         try {
-            ps = connection.prepareStatement(sql);
-            rs = ps.executeQuery();
-            while (rs.next()){
+            sentencia = connection.prepareStatement(sql);
+            resultado = sentencia.executeQuery();
+            while (resultado.next()){
                 Cliente cliente = new Cliente();
-                cliente.setCedula(rs.getString("cedula"));
-                cliente.setNombres(rs.getString("nombres"));
-                cliente.setApellidos(rs.getString("apellidos"));
-                cliente.setDireccion(rs.getString("direccion"));
-                cliente.setCorreo(rs.getString("correo"));
-                cliente.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
-                cliente.setFechaExpDoc(rs.getDate("fecha_expedicion_doc").toLocalDate());
+                String cedula = resultado.getString("cedula");
+                
+                cliente.setCedula(cedula);
+                cliente.setNombres(resultado.getString("nombres"));
+                cliente.setApellidos(resultado.getString("apellidos"));
+                cliente.setDireccion(resultado.getString("direccion"));
+                cliente.setCorreo(resultado.getString("correo"));
+                cliente.setFechaNacimiento(resultado.getDate("fecha_nacimiento").toLocalDate());
+                cliente.setFechaExpDoc(resultado.getDate("fecha_expedicion_doc").toLocalDate());
+                
+                List<String> telefonos = new ArrayList<>();
+                PreparedStatement sentenciaTel = connection.prepareStatement(sqlTel);
+                
+                sentenciaTel.setString(1, cedula);
+                ResultSet resultadoTel = sentenciaTel.executeQuery();
+                    
+               while (resultadoTel.next()) {
+                   telefonos.add(resultadoTel.getString("telefono"));
+                }
+                cliente.setTelefonos(telefonos);
                 listaCliente.add(cliente);
             }
         }catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error al listar Clientes" + e.toString());
+            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, "Error al listar Clientes. " + e.toString());
 
         } finally {
             try {

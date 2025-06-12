@@ -5,6 +5,7 @@
 package com.inmobiliaria.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import lombok.Data;
 
 /**
@@ -21,5 +22,6 @@ public class Cliente {
     private String correo;
     private LocalDate fechaNacimiento;
     private LocalDate fechaExpDoc;
-    
+    private List<String> telefonos;
+   
 }

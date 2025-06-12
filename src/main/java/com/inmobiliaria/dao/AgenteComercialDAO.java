@@ -107,6 +107,7 @@ public class AgenteComercialDAO {
             return false;
         } finally {
             try {
+                sentencia.close();
                 connection.close();
             } catch (SQLException e){
                 JOptionPane.showMessageDialog(null, e.toString());
@@ -143,6 +144,8 @@ public class AgenteComercialDAO {
             JOptionPane.showMessageDialog(null, "Error en dao en la busqueda de Agente Comercial" + e.toString());
         } finally {
             try {
+                resultado.close();
+                sentencia.close();
                 connection.close();
             } catch (SQLException e){
                 JOptionPane.showMessageDialog(null, e.toString());

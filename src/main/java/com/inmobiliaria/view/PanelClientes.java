@@ -4,12 +4,9 @@
  */
 package com.inmobiliaria.view;
 
-import com.inmobiliaria.controller.AgenteController;
-import com.inmobiliaria.dao.AgenteComercialDAO;
-import com.inmobiliaria.model.AgenteComercial;
-import com.inmobiliaria.view.FormAgente;
+import com.inmobiliaria.controller.ClienteController;
+import com.inmobiliaria.model.Cliente;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Asus
  */
-public class PanelAgentes extends javax.swing.JPanel {
+public class PanelClientes extends javax.swing.JPanel {
     
     private final Dashboard dashboard;
 
@@ -25,49 +22,52 @@ public class PanelAgentes extends javax.swing.JPanel {
      * Creates new form Agentes
      * @param dashboard
      */
-    public PanelAgentes(Dashboard dashboard) {
+    public PanelClientes(Dashboard dashboard) {
         initComponents();
         this.dashboard = dashboard;
-        mostrarAgentes();
+        mostrarClientes();
     }
     
-    private void mostrarAgentes() {
+    private void mostrarClientes() {
         
-        //tabla modelo no editable
         DefaultTableModel tablaModelo = new DefaultTableModel() {
-
             @Override
             public boolean isCellEditable(int row, int column) { //no permite editar
                 return false;
             }
         };
-
         tablaModelo.setColumnIdentifiers(new Object[] {
             "Cédula", "Fecha Expedición", "Nombres", "Apellidos", "Fecha Nacimiento", "Dirección", 
-            "Correo", "Celular", "Login", "Rol"
+            "Correo", "Telefono 1", "Telefono 2"
         });
-
-        AgenteController agenteController = new AgenteController();
-
+        ClienteController clienteController = new ClienteController();
         try {
-            for (AgenteComercial agenteModel : agenteController.listarTodos()) {
-
+            for (Cliente clienteModel : clienteController.listarTodos()) {
+                String tel1 = "";
+                String tel2 = "";
+                
+                if (clienteModel.getTelefonos().size() > 0) {
+                    tel1 = clienteModel.getTelefonos().get(0);
+                    if (clienteModel.getTelefonos().size() > 1) {
+                        tel2 = clienteModel.getTelefonos().get(1);
+                    }
+                }
                 tablaModelo.addRow(new Object[]{
-                    agenteModel.getCedula(),
-                    agenteModel.getFechaExpDoc(),
-                    agenteModel.getNombres(),
-                    agenteModel.getApellidos(),
-                    agenteModel.getFechaNacimiento(),
-                    agenteModel.getDireccion(),
-                    agenteModel.getCorreo(),
-                    agenteModel.getCelular(),
-                    agenteModel.getLogin(),
-                    agenteModel.getRol()
+                    clienteModel.getCedula(),
+                    clienteModel.getFechaExpDoc(),
+                    clienteModel.getNombres(),
+                    clienteModel.getApellidos(),
+                    clienteModel.getFechaNacimiento(),
+                    clienteModel.getDireccion(),
+                    clienteModel.getCorreo(),
+                    tel1,
+                    tel2
+
                 });
             }
-            tablaAgentes.setModel(tablaModelo);
+            tablaClientes.setModel(tablaModelo);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar agentes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + ex.getMessage());
         }
     }
 
@@ -83,11 +83,11 @@ public class PanelAgentes extends javax.swing.JPanel {
         content = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaAgentes = new javax.swing.JTable();
+        tablaClientes = new javax.swing.JTable();
         btnNuevoRegistro = new javax.swing.JButton();
-        btnActualizarAgente = new javax.swing.JButton();
-        btnEliminarAgente = new javax.swing.JButton();
-        btnConsultarAgente = new javax.swing.JButton();
+        btnActualizarCliente = new javax.swing.JButton();
+        btnEliminarCliente = new javax.swing.JButton();
+        btnConsultarCliente = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtConsulta = new javax.swing.JTextField();
 
@@ -96,22 +96,22 @@ public class PanelAgentes extends javax.swing.JPanel {
         content.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agentes Registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 13), new java.awt.Color(51, 51, 51))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Clientes Registrados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 13), new java.awt.Color(51, 51, 51))); // NOI18N
 
-        tablaAgentes.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cedula", "Fecha expedición", "Nombres", "Apellidos", "Fecha de nacimiento", "Dirección", "Correo", "Celular", "Login", "Rol"
+                "Cedula", "Fecha expedición", "Nombres", "Apellidos", "Fecha de nacimiento", "Dirección", "Correo", "Celular 1", "Celular 2"
             }
         ));
-        jScrollPane1.setViewportView(tablaAgentes);
+        jScrollPane1.setViewportView(tablaClientes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -138,44 +138,44 @@ public class PanelAgentes extends javax.swing.JPanel {
             }
         });
 
-        btnActualizarAgente.setBackground(new java.awt.Color(212, 167, 140));
-        btnActualizarAgente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnActualizarAgente.setForeground(new java.awt.Color(51, 51, 51));
-        btnActualizarAgente.setText("Modificar");
-        btnActualizarAgente.setBorderPainted(false);
-        btnActualizarAgente.setFocusPainted(false);
-        btnActualizarAgente.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarCliente.setBackground(new java.awt.Color(212, 167, 140));
+        btnActualizarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnActualizarCliente.setForeground(new java.awt.Color(51, 51, 51));
+        btnActualizarCliente.setText("Modificar");
+        btnActualizarCliente.setBorderPainted(false);
+        btnActualizarCliente.setFocusPainted(false);
+        btnActualizarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarAgenteActionPerformed(evt);
+                btnActualizarClienteActionPerformed(evt);
             }
         });
 
-        btnEliminarAgente.setBackground(new java.awt.Color(212, 167, 140));
-        btnEliminarAgente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnEliminarAgente.setForeground(new java.awt.Color(51, 51, 51));
-        btnEliminarAgente.setText("Eliminar");
-        btnEliminarAgente.setBorderPainted(false);
-        btnEliminarAgente.setFocusPainted(false);
-        btnEliminarAgente.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarCliente.setBackground(new java.awt.Color(212, 167, 140));
+        btnEliminarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEliminarCliente.setForeground(new java.awt.Color(51, 51, 51));
+        btnEliminarCliente.setText("Eliminar");
+        btnEliminarCliente.setBorderPainted(false);
+        btnEliminarCliente.setFocusPainted(false);
+        btnEliminarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarAgenteActionPerformed(evt);
+                btnEliminarClienteActionPerformed(evt);
             }
         });
 
-        btnConsultarAgente.setBackground(new java.awt.Color(212, 167, 140));
-        btnConsultarAgente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConsultarAgente.setForeground(new java.awt.Color(51, 51, 51));
-        btnConsultarAgente.setText("Consultar");
-        btnConsultarAgente.setBorderPainted(false);
-        btnConsultarAgente.setFocusPainted(false);
-        btnConsultarAgente.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultarCliente.setBackground(new java.awt.Color(212, 167, 140));
+        btnConsultarCliente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnConsultarCliente.setForeground(new java.awt.Color(51, 51, 51));
+        btnConsultarCliente.setText("Consultar");
+        btnConsultarCliente.setBorderPainted(false);
+        btnConsultarCliente.setFocusPainted(false);
+        btnConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarAgenteActionPerformed(evt);
+                btnConsultarClienteActionPerformed(evt);
             }
         });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setText("Ingrese el número de cédula del agente");
+        jLabel12.setText("Ingrese el número de cédula del cliente");
 
         txtConsulta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -188,7 +188,7 @@ public class PanelAgentes extends javax.swing.JPanel {
                 .addComponent(jLabel12)
                 .addGap(27, 27, 27)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConsultarAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(contentLayout.createSequentialGroup()
@@ -199,9 +199,9 @@ public class PanelAgentes extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNuevoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
-                .addComponent(btnActualizarAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnActualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(btnEliminarAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEliminarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
         contentLayout.setVerticalGroup(
@@ -212,16 +212,18 @@ public class PanelAgentes extends javax.swing.JPanel {
                     .addComponent(jLabel12)
                     .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnConsultarAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addComponent(btnConsultarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(43, 43, 43)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminarAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNuevoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36))
         );
+
+        jPanel3.getAccessibleContext().setAccessibleName("Clientes Registrados");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -236,92 +238,91 @@ public class PanelAgentes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoRegistroActionPerformed
-        dashboard.showJPanel(new FormAgente(this.dashboard));
+        dashboard.showJPanel(new FormCliente(this.dashboard));
     }//GEN-LAST:event_btnNuevoRegistroActionPerformed
 
-    private void btnActualizarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarAgenteActionPerformed
-        int fila = tablaAgentes.getSelectedRow();
+    private void btnActualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarClienteActionPerformed
+        int fila = tablaClientes.getSelectedRow();
         if (fila == -1) {
-        JOptionPane.showMessageDialog(this, "Seleccione el agente.");
+        JOptionPane.showMessageDialog(this, "Seleccione el cliente");
         return;
         }
-        // consultar cédula seleccionadade la tabla
-        String cedula = tablaAgentes.getValueAt(fila, 0).toString();
-
-        AgenteController agenteController = new AgenteController();
-        AgenteComercial agenteEditar;
+        // consultar cedula seleccionadade la tabla
+        String cedula = tablaClientes.getValueAt(fila, 0).toString();
+        ClienteController clienteController = new ClienteController();
+        Cliente clienteEditar;
         try {
-            agenteEditar = agenteController.consultarCedula(cedula); //obtener datos
+            clienteEditar = clienteController.consultarCedula(cedula); //obtener datos
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar el agente. " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar el cliente: " + ex.getMessage());
             return;
         }
-        if (agenteEditar != null) {
-            FormAgente form = new FormAgente(dashboard, agenteEditar);
+        if (clienteEditar != null) {
+            FormCliente form = new FormCliente(dashboard, clienteEditar);
             dashboard.showJPanel(form);
         } else {
-            JOptionPane.showMessageDialog(this, "Agente no encontrado.");
+            JOptionPane.showMessageDialog(this, "Cliente no encontrado.");
         }
-    }//GEN-LAST:event_btnActualizarAgenteActionPerformed
+    }//GEN-LAST:event_btnActualizarClienteActionPerformed
 
-    private void btnEliminarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarAgenteActionPerformed
-        int fila = tablaAgentes.getSelectedRow();
+    private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
+        int fila = tablaClientes.getSelectedRow();
         if (fila == -1) {
-        JOptionPane.showMessageDialog(this, "Seleccione el agente.");
+        JOptionPane.showMessageDialog(this, "Seleccione el cliente.");
         return;
         }
         
-        String cedula = tablaAgentes.getValueAt(fila, 0).toString();
-        int confirmacion = JOptionPane.showConfirmDialog(this, "Seguro desea eliminar el agente?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
+        String cedula = tablaClientes.getValueAt(fila, 0).toString();
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Seguro desea eliminar el cliente?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
         System.out.println(confirmacion);
 
         try {
             if (confirmacion == 0) {
-               AgenteController agenteController = new AgenteController();
-                boolean eliminado = agenteController.eliminar(cedula);
+               ClienteController clienteController = new ClienteController();
+                boolean eliminado = clienteController.eliminar(cedula);
 
                 if (eliminado) {
-                    JOptionPane.showMessageDialog(this, "Agente eliminado correctamente.");
-                    mostrarAgentes();
+                    JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
+                    mostrarClientes();
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el agente.");
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar el cliente.");
                 } 
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error al eliminar agente: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al eliminar cliente: " + e.getMessage());
         }
-    }//GEN-LAST:event_btnEliminarAgenteActionPerformed
+    }//GEN-LAST:event_btnEliminarClienteActionPerformed
 
-    private void btnConsultarAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarAgenteActionPerformed
+    private void btnConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarClienteActionPerformed
         String cedula = txtConsulta.getText();
         
-        AgenteController agenteController = new AgenteController();
-        AgenteComercial agenteEditar;
+        ClienteController clienteController = new ClienteController();
+        Cliente clienteEditar;
         try {
-            agenteEditar = agenteController.consultarCedula(cedula); //obtener datos
+            clienteEditar = clienteController.consultarCedula(cedula); //obtener datos
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar el agente. " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar el cliente. " + ex.getMessage());
             return;
         }
-        if (agenteEditar != null) {
-            FormAgente form = new FormAgente(dashboard, agenteEditar);
+        if (clienteEditar != null) {
+            FormCliente form = new FormCliente(dashboard, clienteEditar);
             dashboard.showJPanel(form);
         } else {
-            JOptionPane.showMessageDialog(this, "Agente no encontrado.");
+            JOptionPane.showMessageDialog(this, "Cliente no encontrado.");
         }
-    }//GEN-LAST:event_btnConsultarAgenteActionPerformed
+    }//GEN-LAST:event_btnConsultarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarAgente;
-    private javax.swing.JButton btnConsultarAgente;
-    private javax.swing.JButton btnEliminarAgente;
+    private javax.swing.JButton btnActualizarCliente;
+    private javax.swing.JButton btnConsultarCliente;
+    private javax.swing.JButton btnEliminarCliente;
     private javax.swing.JButton btnNuevoRegistro;
     private javax.swing.JPanel content;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaAgentes;
+    private javax.swing.JTable tablaClientes;
     private javax.swing.JTextField txtConsulta;
     // End of variables declaration//GEN-END:variables
 }

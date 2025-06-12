@@ -40,7 +40,7 @@ public class Login extends javax.swing.JFrame {
                     dashboard .setVisible(true);
                     dispose();
                 }
-                else if("agente".equalsIgnoreCase(logAgente.getRol())){
+                else if("agente comercial".equalsIgnoreCase(logAgente.getRol())){
                     Dashboard dashboard = new Dashboard(logAgente);
                     dashboard .setVisible(true);
                     dispose(); 

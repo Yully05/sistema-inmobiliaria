@@ -86,7 +86,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnPrincipal" max="32767" attributes="0"/>
-                  <Component id="btnAgentes1" max="32767" attributes="0"/>
+                  <Component id="btnAgentes" max="32767" attributes="0"/>
                   <Component id="bntClientes" max="32767" attributes="0"/>
                   <Component id="bntPropietarios" max="32767" attributes="0"/>
                   <Component id="btnContratos" max="32767" attributes="0"/>
@@ -125,7 +125,7 @@
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="btnPrincipal" pref="50" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
-                      <Component id="btnAgentes1" pref="50" max="32767" attributes="0"/>
+                      <Component id="btnAgentes" pref="50" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
                       <Component id="bntClientes" pref="50" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="0" max="-2" attributes="0"/>
@@ -241,6 +241,9 @@
                   <Dimension value="[200, 24]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bntClientesActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="bntPropietarios">
               <Properties>
@@ -344,7 +347,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnAgentes1">
+            <Component class="javax.swing.JButton" name="btnAgentes">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="8c" green="a7" red="d4" type="rgb"/>
@@ -369,7 +372,7 @@
                 <Property name="horizontalAlignment" type="int" value="2"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgentes1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgentesActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="txtDate">

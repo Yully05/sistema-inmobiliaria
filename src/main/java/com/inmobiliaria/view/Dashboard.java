@@ -63,8 +63,8 @@ public class Dashboard extends javax.swing.JFrame {
     }
     
     private void otorgarPermisos() {
-        if ("agente".equalsIgnoreCase(rolUser)) {
-            //deshabilitar funcines para agente
+        if ("agente comercial".equalsIgnoreCase(rolUser)) {
+            btnAgentes.setEnabled(false);
         }
     }
 
@@ -86,7 +86,7 @@ public class Dashboard extends javax.swing.JFrame {
         bntPropietarios = new javax.swing.JButton();
         bntInmuebles = new javax.swing.JButton();
         btnContratos = new javax.swing.JButton();
-        btnAgentes1 = new javax.swing.JButton();
+        btnAgentes = new javax.swing.JButton();
         txtDate = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         lblUsuario = new javax.swing.JLabel();
@@ -147,6 +147,11 @@ public class Dashboard extends javax.swing.JFrame {
         bntClientes.setMaximumSize(new java.awt.Dimension(200, 24));
         bntClientes.setMinimumSize(new java.awt.Dimension(200, 24));
         bntClientes.setPreferredSize(new java.awt.Dimension(200, 24));
+        bntClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntClientesActionPerformed(evt);
+            }
+        });
 
         bntPropietarios.setBackground(new java.awt.Color(212, 167, 140));
         bntPropietarios.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -187,18 +192,18 @@ public class Dashboard extends javax.swing.JFrame {
         btnContratos.setMinimumSize(new java.awt.Dimension(200, 24));
         btnContratos.setPreferredSize(new java.awt.Dimension(200, 24));
 
-        btnAgentes1.setBackground(new java.awt.Color(212, 167, 140));
-        btnAgentes1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnAgentes1.setForeground(new java.awt.Color(51, 51, 51));
-        btnAgentes1.setText("Agentes Comerciales");
-        btnAgentes1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 40, 1, 1, new java.awt.Color(0, 0, 0)));
-        btnAgentes1.setBorderPainted(false);
-        btnAgentes1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgentes1.setFocusPainted(false);
-        btnAgentes1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnAgentes1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgentes.setBackground(new java.awt.Color(212, 167, 140));
+        btnAgentes.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnAgentes.setForeground(new java.awt.Color(51, 51, 51));
+        btnAgentes.setText("Agentes Comerciales");
+        btnAgentes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 40, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnAgentes.setBorderPainted(false);
+        btnAgentes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgentes.setFocusPainted(false);
+        btnAgentes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAgentes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgentes1ActionPerformed(evt);
+                btnAgentesActionPerformed(evt);
             }
         });
 
@@ -225,7 +230,7 @@ public class Dashboard extends javax.swing.JFrame {
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnAgentes1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnAgentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(bntClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(bntPropietarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnContratos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -259,7 +264,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(btnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
-                .addComponent(btnAgentes1, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addComponent(btnAgentes, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(bntClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
@@ -393,13 +398,17 @@ public class Dashboard extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgentes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentes1ActionPerformed
+    private void btnAgentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgentesActionPerformed
         showJPanel(new PanelAgentes(this));
-    }//GEN-LAST:event_btnAgentes1ActionPerformed
+    }//GEN-LAST:event_btnAgentesActionPerformed
 
     private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
         showJPanel(new Bienvenido());
     }//GEN-LAST:event_btnPrincipalActionPerformed
+
+    private void bntClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntClientesActionPerformed
+        showJPanel(new PanelClientes(this));
+    }//GEN-LAST:event_bntClientesActionPerformed
     
     
     /**
@@ -414,7 +423,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton bntClientes;
     private javax.swing.JButton bntInmuebles;
     private javax.swing.JButton bntPropietarios;
-    private javax.swing.JButton btnAgentes1;
+    private javax.swing.JButton btnAgentes;
     private javax.swing.JButton btnContratos;
     private javax.swing.JButton btnPrincipal;
     private javax.swing.JLabel contacto;
