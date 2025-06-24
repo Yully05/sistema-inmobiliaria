@@ -16,7 +16,7 @@ public class Conexion {
     private static final String password = "npg_tbvyf2JkHO4z";
     private static boolean mensaje = false;
 
-    public Connection establecerConexion() {
+    public static Connection establecerConexion() {
         Connection conectar = null;
 
         try {
@@ -26,8 +26,9 @@ public class Conexion {
                 mensaje = true; // se marca como mostrado
             }
         } catch (HeadlessException | SQLException e) {
-            System.out.println("Error al conectar a la base de datos: " + e.toString());
+            System.out.println("Error al conectar a la base de datos: " + e);
         }
         return conectar;
     }
+    
 }

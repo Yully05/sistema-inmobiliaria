@@ -4,22 +4,22 @@
  */
 package com.inmobiliaria.view;
 
-import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import javax.swing.JPanel;
 
 /**
- *
  * @author Asus
  */
 public class Dashboard extends javax.swing.JFrame {
-    
+
     private final String rolUser;
 
     /**
      * Creates new form Dashboard
+     *
      * @param rol
      */
     public Dashboard(String rol) {
@@ -30,32 +30,32 @@ public class Dashboard extends javax.swing.JFrame {
         this.rolUser = rol;
         otorgarPermisos();
     }
-    
+
     private void initStyles() {
-        ub.putClientProperty( "FlatLaf.style", "font: $h1.font" );
+        ub.putClientProperty("FlatLaf.style", "font: $h1.font");
     }
-    
+
     private void setDate() {
         LocalDate today = LocalDate.now();
         Locale spanishLocale = new Locale("es", "ES");
         txtDate.setText(today.format(DateTimeFormatter.ofPattern("EEEE dd 'de' MMMM 'de' yyyy", spanishLocale)));
     }
-    
+
     private void initContent() {
-        //showJPanel(new Bienvenido());
+        showJPanel(new Bienvenido());
     }
-    
+
     private void showJPanel(JPanel JP) {
-        JP.setSize(985, 582);
+        JP.setSize(940,570);
         JP.setLocation(0, 0);
-        
+
         content.removeAll();
         content.add(JP, BorderLayout.CENTER);
         content.revalidate();
         content.repaint();
-        
+
     }
-    
+
     private void otorgarPermisos() {
         if ("agente".equalsIgnoreCase(rolUser)) {
             //deshabilitar algunas funcines
@@ -76,11 +76,17 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnPrincipal = new javax.swing.JButton();
-        bntClientes = new javax.swing.JButton();
-        bntPropietarios = new javax.swing.JButton();
-        bntInmuebles = new javax.swing.JButton();
-        btnContratos = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JSeparator();
         btnAgentes1 = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
+        bntClientes = new javax.swing.JButton();
+        jSeparator5 = new javax.swing.JSeparator();
+        bntPropietarios = new javax.swing.JButton();
+        jSeparator6 = new javax.swing.JSeparator();
+        bntInmuebles = new javax.swing.JButton();
+        jSeparator7 = new javax.swing.JSeparator();
+        btnContratos = new javax.swing.JButton();
+        jSeparator8 = new javax.swing.JSeparator();
         txtDate = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         header = new javax.swing.JPanel();
@@ -95,18 +101,30 @@ public class Dashboard extends javax.swing.JFrame {
         content = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1290, 650));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setLocationByPlatform(true);
+        setMaximumSize(new java.awt.Dimension(1200, 650));
+        setMinimumSize(new java.awt.Dimension(1200, 650));
+        setPreferredSize(new java.awt.Dimension(1200, 680));
+        setResizable(false);
 
-        background.setBackground(new java.awt.Color(255, 255, 255));
+        background.setBackground(new java.awt.Color(250, 229, 211));
+        background.setPreferredSize(new java.awt.Dimension(1200, 650));
+        background.setRequestFocusEnabled(false);
+        background.setVerifyInputWhenFocusTarget(false);
 
         menu.setBackground(new java.awt.Color(250, 229, 211));
+        menu.setName(""); // NOI18N
+        menu.setPreferredSize(new java.awt.Dimension(235, 650));
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/inmobiliaria/images/logo2.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setPreferredSize(new java.awt.Dimension(230, 180));
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jSeparator1.setPreferredSize(new java.awt.Dimension(230, 3));
 
         btnPrincipal.setBackground(new java.awt.Color(212, 167, 140));
         btnPrincipal.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -117,14 +135,41 @@ public class Dashboard extends javax.swing.JFrame {
         btnPrincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPrincipal.setFocusPainted(false);
         btnPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPrincipal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPrincipal.setMaximumSize(new java.awt.Dimension(200, 24));
         btnPrincipal.setMinimumSize(new java.awt.Dimension(200, 24));
-        btnPrincipal.setPreferredSize(new java.awt.Dimension(200, 24));
+        btnPrincipal.setPreferredSize(new java.awt.Dimension(230, 50));
         btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPrincipalActionPerformed(evt);
             }
         });
+
+        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jSeparator3.setPreferredSize(new java.awt.Dimension(230, 1));
+
+        btnAgentes1.setBackground(new java.awt.Color(212, 167, 140));
+        btnAgentes1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnAgentes1.setForeground(new java.awt.Color(51, 51, 51));
+        btnAgentes1.setText("Agentes Comerciales");
+        btnAgentes1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 40, 1, 1, new java.awt.Color(0, 0, 0)));
+        btnAgentes1.setBorderPainted(false);
+        btnAgentes1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgentes1.setFocusPainted(false);
+        btnAgentes1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAgentes1.setPreferredSize(new java.awt.Dimension(230, 50));
+        btnAgentes1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgentes1ActionPerformed(evt);
+            }
+        });
+
+        jSeparator4.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jSeparator4.setPreferredSize(new java.awt.Dimension(230, 1));
 
         bntClientes.setBackground(new java.awt.Color(212, 167, 140));
         bntClientes.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -137,7 +182,12 @@ public class Dashboard extends javax.swing.JFrame {
         bntClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         bntClientes.setMaximumSize(new java.awt.Dimension(200, 24));
         bntClientes.setMinimumSize(new java.awt.Dimension(200, 24));
-        bntClientes.setPreferredSize(new java.awt.Dimension(200, 24));
+        bntClientes.setPreferredSize(new java.awt.Dimension(230, 50));
+
+        jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jSeparator5.setPreferredSize(new java.awt.Dimension(230, 1));
 
         bntPropietarios.setBackground(new java.awt.Color(212, 167, 140));
         bntPropietarios.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -150,7 +200,12 @@ public class Dashboard extends javax.swing.JFrame {
         bntPropietarios.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         bntPropietarios.setMaximumSize(new java.awt.Dimension(200, 24));
         bntPropietarios.setMinimumSize(new java.awt.Dimension(200, 24));
-        bntPropietarios.setPreferredSize(new java.awt.Dimension(200, 24));
+        bntPropietarios.setPreferredSize(new java.awt.Dimension(230, 50));
+
+        jSeparator6.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jSeparator6.setPreferredSize(new java.awt.Dimension(230, 1));
 
         bntInmuebles.setBackground(new java.awt.Color(212, 167, 140));
         bntInmuebles.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -163,7 +218,12 @@ public class Dashboard extends javax.swing.JFrame {
         bntInmuebles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         bntInmuebles.setMaximumSize(new java.awt.Dimension(200, 24));
         bntInmuebles.setMinimumSize(new java.awt.Dimension(200, 24));
-        bntInmuebles.setPreferredSize(new java.awt.Dimension(200, 24));
+        bntInmuebles.setPreferredSize(new java.awt.Dimension(230, 50));
+
+        jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator7.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jSeparator7.setPreferredSize(new java.awt.Dimension(230, 1));
 
         btnContratos.setBackground(new java.awt.Color(212, 167, 140));
         btnContratos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -176,165 +236,157 @@ public class Dashboard extends javax.swing.JFrame {
         btnContratos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnContratos.setMaximumSize(new java.awt.Dimension(200, 24));
         btnContratos.setMinimumSize(new java.awt.Dimension(200, 24));
-        btnContratos.setPreferredSize(new java.awt.Dimension(200, 24));
+        btnContratos.setPreferredSize(new java.awt.Dimension(230, 50));
 
-        btnAgentes1.setBackground(new java.awt.Color(212, 167, 140));
-        btnAgentes1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnAgentes1.setForeground(new java.awt.Color(51, 51, 51));
-        btnAgentes1.setText("Agentes Comerciales");
-        btnAgentes1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 40, 1, 1, new java.awt.Color(0, 0, 0)));
-        btnAgentes1.setBorderPainted(false);
-        btnAgentes1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAgentes1.setFocusPainted(false);
-        btnAgentes1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnAgentes1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgentes1ActionPerformed(evt);
-            }
-        });
+        jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jSeparator8.setPreferredSize(new java.awt.Dimension(230, 50));
 
         txtDate.setFont(new java.awt.Font("Segoe UI", 2, 13)); // NOI18N
         txtDate.setForeground(new java.awt.Color(51, 51, 51));
         txtDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtDate.setText("fecha actual");
+        txtDate.setPreferredSize(new java.awt.Dimension(230, 50));
 
         jSeparator2.setForeground(new java.awt.Color(51, 51, 51));
+        jSeparator2.setPreferredSize(new java.awt.Dimension(230, 35));
 
         javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
         menu.setLayout(menuLayout);
         menuLayout.setHorizontalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(btnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnAgentes1, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-            .addComponent(bntClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(bntPropietarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnContratos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(bntInmuebles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(menuLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(2, 2, 2)
                 .addGroup(menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator2))
-                .addGap(2, 2, 2))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgentes1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntPropietarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bntInmuebles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnContratos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jLabel1)
-                .addGap(6, 6, 6)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(btnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnAgentes1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(bntClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(bntPropietarios, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAgentes1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btnContratos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(bntInmuebles, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70)
-                .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addGap(1, 1, 1)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
-        );
-
-        ub.setBackground(new java.awt.Color(102, 102, 102));
-        ub.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        ub.setForeground(new java.awt.Color(51, 51, 51));
-        ub.setText("Ubicación");
-
-        direccion.setForeground(new java.awt.Color(51, 51, 51));
-        direccion.setText("Cra 22 #42, Tuluá, Valle del Cauca");
-
-        contacto.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        contacto.setForeground(new java.awt.Color(51, 51, 51));
-        contacto.setText("Contáctenos");
-
-        num1.setForeground(new java.awt.Color(51, 51, 51));
-        num1.setText("+57 30022541");
-
-        horario.setForeground(new java.awt.Color(51, 51, 51));
-        horario.setText("Lunes a Viernes");
-
-        correo.setForeground(new java.awt.Color(51, 51, 51));
-        correo.setText("inmobiliariasas@correo.com");
-
-        atencion.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        atencion.setForeground(new java.awt.Color(51, 51, 51));
-        atencion.setText("Horario de Atención");
-
-        mañana.setForeground(new java.awt.Color(51, 51, 51));
-        mañana.setText("7:00 am – 5:00 pm");
-
-        javax.swing.GroupLayout headerLayout = new javax.swing.GroupLayout(header);
-        header.setLayout(headerLayout);
-        headerLayout.setHorizontalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(440, 440, 440)
-                        .addComponent(correo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(267, 267, 267)
-                        .addComponent(mañana, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(headerLayout.createSequentialGroup()
-                                .addComponent(ub, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(350, 350, 350)
-                                .addComponent(contacto, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(340, 340, 340)
-                                .addComponent(atencion, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(headerLayout.createSequentialGroup()
-                                .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(213, 213, 213)
-                                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(num1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(headerLayout.createSequentialGroup()
-                                        .addGap(467, 467, 467)
-                                        .addComponent(horario, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addComponent(bntClientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(bntPropietarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(bntInmuebles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnContratos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        headerLayout.setVerticalGroup(
-            headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(headerLayout.createSequentialGroup()
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ub)
-                    .addComponent(contacto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(atencion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(direccion)
-                    .addComponent(num1)
-                    .addComponent(horario))
-                .addGap(1, 1, 1)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(correo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mañana, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+
+        header.setBackground(new java.awt.Color(0, 0, 0));
+        header.setForeground(new java.awt.Color(255, 255, 255));
+        header.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        header.setPreferredSize(new java.awt.Dimension(990, 60));
+        header.setRequestFocusEnabled(false);
+        header.setVerifyInputWhenFocusTarget(false);
+        header.setLayout(null);
+
+        ub.setBackground(new java.awt.Color(0, 0, 0));
+        ub.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        ub.setForeground(new java.awt.Color(255, 255, 255));
+        ub.setText("Ubicación");
+        ub.setPreferredSize(new java.awt.Dimension(120, 18));
+        header.add(ub);
+        ub.setBounds(30, 5, 120, 18);
+
+        direccion.setBackground(new java.awt.Color(0, 0, 0));
+        direccion.setForeground(new java.awt.Color(255, 255, 255));
+        direccion.setText("Cra 22 #42, Tuluá, Valle del Cauca");
+        header.add(direccion);
+        direccion.setBounds(30, 19, 330, 16);
+
+        contacto.setBackground(new java.awt.Color(0, 0, 0));
+        contacto.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        contacto.setForeground(new java.awt.Color(255, 255, 255));
+        contacto.setText("Contáctenos");
+        header.add(contacto);
+        contacto.setBounds(442, 0, 76, 18);
+
+        num1.setBackground(new java.awt.Color(0, 0, 0));
+        num1.setForeground(new java.awt.Color(255, 255, 255));
+        num1.setText("+57 30022541");
+        header.add(num1);
+        num1.setBounds(440, 19, 130, 16);
+
+        horario.setBackground(new java.awt.Color(0, 0, 0));
+        horario.setForeground(new java.awt.Color(255, 255, 255));
+        horario.setText("Lunes a Viernes");
+        horario.setPreferredSize(new java.awt.Dimension(110, 16));
+        header.add(horario);
+        horario.setBounds(830, 20, 110, 16);
+
+        correo.setBackground(new java.awt.Color(0, 0, 0));
+        correo.setForeground(new java.awt.Color(255, 255, 255));
+        correo.setText("inmobiliariasas@correo.com");
+        header.add(correo);
+        correo.setBounds(440, 36, 200, 16);
+
+        atencion.setBackground(new java.awt.Color(0, 0, 0));
+        atencion.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        atencion.setForeground(new java.awt.Color(255, 255, 255));
+        atencion.setText("Horario de Atención");
+        header.add(atencion);
+        atencion.setBounds(792, 0, 150, 18);
+
+        mañana.setBackground(new java.awt.Color(0, 0, 0));
+        mañana.setForeground(new java.awt.Color(255, 255, 255));
+        mañana.setText("7:00 am – 5:00 pm");
+        header.add(mañana);
+        mañana.setBounds(818, 36, 130, 16);
 
         content.setBackground(new java.awt.Color(255, 255, 255));
+        content.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        content.setPreferredSize(new java.awt.Dimension(940, 570));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 938, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 568, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
@@ -343,32 +395,39 @@ public class Dashboard extends javax.swing.JFrame {
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(menu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+                        .addGap(10, 10, 10)
+                        .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
         );
+
+        getAccessibleContext().setAccessibleParent(this);
 
         pack();
         setLocationRelativeTo(null);
@@ -381,13 +440,12 @@ public class Dashboard extends javax.swing.JFrame {
     private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
         showJPanel(new Bienvenido());
     }//GEN-LAST:event_btnPrincipalActionPerformed
-    
-    
+
+
     /**
      * @param args the command line arguments
      */
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel atencion;
@@ -407,6 +465,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JLabel mañana;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel num1;

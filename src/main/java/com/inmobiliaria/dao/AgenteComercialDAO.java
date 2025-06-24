@@ -1,36 +1,33 @@
 package com.inmobiliaria.dao;
 
 import com.inmobiliaria.model.AgenteComercial;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import lombok.Data;
+
+import javax.swing.*;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Asus
  */
-
+@Data
 public class AgenteComercialDAO {
     
-    Conexion conexion = new Conexion();
+    Conexion conexion;
     Connection connection;
     PreparedStatement ps;
     ResultSet rs;
 
     public AgenteComercialDAO() {
-        
         connection = conexion.establecerConexion();
     }
     
     public boolean RegistrarAgente(AgenteComercial agente) {
         
-        String sql = "INSERT INTO agente_comercial (cedula, login, contrasena, nombres, apellidos, direccion, fecha_nacimiento, fecha_expedicion_doc, correo, celular)"
-                + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO agente_comercial (cedula, login, contrasena, nombres, apellidos, direccion, fecha_nacimiento, fecha_expedicion_doc, correo, celular, rol)"
+                + " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         try {
             ps = connection.prepareStatement(sql);
             ps.setString(1, agente.getCedula());
@@ -43,6 +40,7 @@ public class AgenteComercialDAO {
             ps.setDate(8, Date.valueOf(agente.getFechaExpDoc()));
             ps.setString(9, agente.getCorreo());
             ps.setString(10, agente.getCelular());
+            ps.setString(11, agente.getRol());
             ps.executeUpdate();
             return true;
             
@@ -107,7 +105,31 @@ public class AgenteComercialDAO {
             }
         }
     }
-    
+
+    public AgenteComercial buscarAgenteCc(String cedula) {
+        AgenteComercial agente = null;
+        String sql = "SELECT * FROM agente_comercial WHERE cedula = ?";
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, cedula);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                agente = new AgenteComercial();
+                agente.setCedula(rs.getString("cedula"));
+                agente.setNombres(rs.getString("nombres"));
+                agente.setApellidos(rs.getString("apellidos"));
+                agente.setCelular(rs.getString("celular"));
+                agente.setCorreo(rs.getString("correo"));
+                agente.setDireccion(rs.getString("direccion"));
+
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al buscar Agente: " + e.getMessage());
+        }
+        return agente;
+    }
+
+
     public AgenteComercial ConsultarAgente(String cedula) throws SQLException{
         
         AgenteComercial agente = null;
@@ -141,9 +163,44 @@ public class AgenteComercialDAO {
         }
         return agente;
     }
-    
-    
-    public List listarAgente() throws SQLException {
+
+    public List<AgenteComercial> listarAgentesPorRol(String rol) throws SQLException {
+        List<AgenteComercial> listaAgente = new ArrayList<>();
+        String sql = "SELECT * FROM agente_comercial WHERE rol = ?";
+
+        try {
+            ps = connection.prepareStatement(sql);
+            ps.setString(1, rol);
+            rs = ps.executeQuery();
+
+            while (rs.next()){
+                AgenteComercial agente = new AgenteComercial();
+                agente.setCedula(rs.getString("cedula"));
+                agente.setLogin(rs.getString("login"));
+                agente.setContrasena(rs.getString("contrasena"));
+                agente.setNombres(rs.getString("nombres"));
+                agente.setApellidos(rs.getString("apellidos"));
+                agente.setDireccion(rs.getString("direccion"));
+                agente.setCorreo(rs.getString("correo"));
+                agente.setCelular(rs.getString("celular"));
+                agente.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
+                agente.setFechaExpDoc(rs.getDate("fecha_expedicion_doc").toLocalDate());
+                agente.setRol(rs.getString("rol"));
+                listaAgente.add(agente);
+            }
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Error al listar Agentes Comerciales" + e.toString());
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException e){
+                JOptionPane.showMessageDialog(null, e.toString());
+            }
+        }
+        return listaAgente;
+    }
+
+    public List<AgenteComercial> listarAgente() throws SQLException {
         
         List<AgenteComercial> listaAgente = new ArrayList<>();
         String sql = "SELECT * FROM agente_comercial";
@@ -160,6 +217,7 @@ public class AgenteComercialDAO {
                 agente.setDireccion(rs.getString("direccion"));
                 agente.setCorreo(rs.getString("correo"));
                 agente.setCelular(rs.getString("celular"));
+                agente.setRol(rs.getString("rol"));
                 agente.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
                 agente.setFechaExpDoc(rs.getDate("fecha_expedicion_doc").toLocalDate());
                 listaAgente.add(agente);
