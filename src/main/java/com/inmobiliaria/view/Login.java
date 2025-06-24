@@ -35,12 +35,12 @@ public class Login extends javax.swing.JFrame {
             logAgente = logDAO.log(usuario, password);
             
             if (logAgente.getLogin()!= null && logAgente.getContrasena()!= null) {
-                if("administrador".equalsIgnoreCase(logAgente.getRol())){
+                if("Administrador".equalsIgnoreCase(logAgente.getRol())){
                     Dashboard dashboard = new Dashboard(logAgente);
                     dashboard .setVisible(true);
                     dispose();
                 }
-                else if("agente comercial".equalsIgnoreCase(logAgente.getRol())){
+                else if("Agente Comercial".equalsIgnoreCase(logAgente.getRol())){
                     Dashboard dashboard = new Dashboard(logAgente);
                     dashboard .setVisible(true);
                     dispose(); 

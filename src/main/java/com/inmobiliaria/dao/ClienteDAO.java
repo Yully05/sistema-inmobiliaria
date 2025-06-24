@@ -22,7 +22,7 @@ public class ClienteDAO {
     
     Conexion conexion = new Conexion();
     Connection connection;
-    PreparedStatement sentencia;
+    PreparedStatement sentenciaCliente;
     ResultSet resultado;
 
     public ClienteDAO() {
@@ -32,19 +32,19 @@ public class ClienteDAO {
 
     public boolean RegistrarCliente(Cliente cliente) {
         
-        String sqlCliente = "INSERT INTO cliente (cedula, nombres, apellidos, direccion, correo, fecha_nacimiento, fecha_expedicion_doc)"
-                + " VALUES (?,?,?,?,?,?,?)";
-        String sqlTel = "INSERT INTO telefonos_cliente (cedula_cliente, telefono) VALUES (?, ?)";
+        String sqlCliente = "INSERT INTO cliente (cedula, nombres, apellidos, direccion, correo, fecha_nacimiento, fecha_expedicion_doc) VALUES (?,?,?,?,?,?,?)";
+        String sqlTel = "INSERT INTO telefonos_cliente (cedula_cliente, telefono) VALUES (?,?)";
+        
         try {
-            sentencia = connection.prepareStatement(sqlCliente);
-            sentencia.setString(1, cliente.getCedula());
-            sentencia.setString(2, cliente.getNombres());
-            sentencia.setString(3, cliente.getApellidos());
-            sentencia.setString(4, cliente.getDireccion());
-            sentencia.setString(5, cliente.getCorreo());
-            sentencia.setDate(6, Date.valueOf(cliente.getFechaNacimiento()));
-            sentencia.setDate(7, Date.valueOf(cliente.getFechaExpDoc()));
-            sentencia.executeUpdate();
+            sentenciaCliente = connection.prepareStatement(sqlCliente);
+            sentenciaCliente.setString(1, cliente.getCedula());
+            sentenciaCliente.setString(2, cliente.getNombres());
+            sentenciaCliente.setString(3, cliente.getApellidos());
+            sentenciaCliente.setString(4, cliente.getDireccion());
+            sentenciaCliente.setString(5, cliente.getCorreo());
+            sentenciaCliente.setDate(6, Date.valueOf(cliente.getFechaNacimiento()));
+            sentenciaCliente.setDate(7, Date.valueOf(cliente.getFechaExpDoc()));
+            sentenciaCliente.executeUpdate();
             
             //insertar telfonos
             PreparedStatement sentenciaTel = connection.prepareStatement(sqlTel);
@@ -75,15 +75,15 @@ public class ClienteDAO {
         String sqlInsertTel = "INSERT INTO telefonos_cliente (cedula_cliente, telefono) VALUES (?, ?)";
         
         try {
-            sentencia = connection.prepareStatement(sqlUpdateCliente);
-            sentencia.setString(1, cliente.getNombres());
-            sentencia.setString(2, cliente.getApellidos());
-            sentencia.setString(3, cliente.getDireccion());
-            sentencia.setString(4, cliente.getCorreo());
-            sentencia.setDate(5, Date.valueOf(cliente.getFechaNacimiento()));
-            sentencia.setDate(6, Date.valueOf(cliente.getFechaExpDoc()));
-            sentencia.setString(7, cliente.getCedula());
-            sentencia.executeUpdate();
+            sentenciaCliente = connection.prepareStatement(sqlUpdateCliente);
+            sentenciaCliente.setString(1, cliente.getNombres());
+            sentenciaCliente.setString(2, cliente.getApellidos());
+            sentenciaCliente.setString(3, cliente.getDireccion());
+            sentenciaCliente.setString(4, cliente.getCorreo());
+            sentenciaCliente.setDate(5, Date.valueOf(cliente.getFechaNacimiento()));
+            sentenciaCliente.setDate(6, Date.valueOf(cliente.getFechaExpDoc()));
+            sentenciaCliente.setString(7, cliente.getCedula());
+            sentenciaCliente.executeUpdate();
             
             PreparedStatement sentenciaDeleteTel = connection.prepareStatement(sqlDeleteTel);
             sentenciaDeleteTel.setString(1, cliente.getCedula());
@@ -117,13 +117,15 @@ public class ClienteDAO {
         String sqlCliente = "DELETE FROM cliente WHERE cedula = ?";
         String sqlTel = "DELETE FROM telefonos_cliente WHERE cedula_cliente=?";
         try {
+            //primero borrar telefonos
             PreparedStatement sentenciaTel = connection.prepareStatement(sqlTel);
             sentenciaTel.setString(1, cedula);
             sentenciaTel.executeUpdate();
             
-            sentencia = connection.prepareStatement(sqlCliente);
-            sentencia.setString(1, cedula);
-            sentencia.executeUpdate();
+            //borrar cliente
+            sentenciaCliente = connection.prepareStatement(sqlCliente);
+            sentenciaCliente.setString(1, cedula);
+            sentenciaCliente.executeUpdate();
             return true;
             
         } catch (SQLException e){
@@ -144,9 +146,9 @@ public class ClienteDAO {
         String sql = "SELECT * FROM cliente WHERE cedula = ?";
         String sqlTel = "SELECT telefono FROM telefonos_cliente WHERE cedula_cliente=?";
         try {
-            sentencia = connection.prepareStatement(sql);
-            sentencia.setString(1, cedula);
-            resultado = sentencia.executeQuery();
+            sentenciaCliente = connection.prepareStatement(sql);
+            sentenciaCliente.setString(1, cedula);
+            resultado = sentenciaCliente.executeQuery();
             
             if (resultado.next()){
                 cliente = new Cliente();
@@ -188,8 +190,8 @@ public class ClienteDAO {
         String sql = "SELECT * FROM cliente";
         String sqlTel = "SELECT telefono FROM telefonos_cliente WHERE cedula_cliente=?";
         try {
-            sentencia = connection.prepareStatement(sql);
-            resultado = sentencia.executeQuery();
+            sentenciaCliente = connection.prepareStatement(sql);
+            resultado = sentenciaCliente.executeQuery();
             while (resultado.next()){
                 Cliente cliente = new Cliente();
                 String cedula = resultado.getString("cedula");

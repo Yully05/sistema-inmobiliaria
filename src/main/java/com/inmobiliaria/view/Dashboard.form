@@ -346,6 +346,9 @@
                   <Dimension value="[200, 24]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnContratosActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnAgentes">
               <Properties>

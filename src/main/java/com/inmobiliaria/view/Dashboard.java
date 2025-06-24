@@ -191,6 +191,11 @@ public class Dashboard extends javax.swing.JFrame {
         btnContratos.setMaximumSize(new java.awt.Dimension(200, 24));
         btnContratos.setMinimumSize(new java.awt.Dimension(200, 24));
         btnContratos.setPreferredSize(new java.awt.Dimension(200, 24));
+        btnContratos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnContratosActionPerformed(evt);
+            }
+        });
 
         btnAgentes.setBackground(new java.awt.Color(212, 167, 140));
         btnAgentes.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -409,6 +414,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void bntClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntClientesActionPerformed
         showJPanel(new PanelClientes(this));
     }//GEN-LAST:event_bntClientesActionPerformed
+
+    private void btnContratosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratosActionPerformed
+        showJPanel(new PanelContratos(this));
+    }//GEN-LAST:event_btnContratosActionPerformed
     
     
     /**
