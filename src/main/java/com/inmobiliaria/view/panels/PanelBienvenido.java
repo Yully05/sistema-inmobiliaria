@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.inmobiliaria.view;
+package com.inmobiliaria.view.panels;
 
 /**
  *
  * @author Asus
  */
-public class Bienvenido extends javax.swing.JPanel {
+public class PanelBienvenido extends javax.swing.JPanel {
 
     /**
      * Creates new form Agentes
      */
-    public Bienvenido() {
+    public PanelBienvenido() {
         initComponents();
     }
 

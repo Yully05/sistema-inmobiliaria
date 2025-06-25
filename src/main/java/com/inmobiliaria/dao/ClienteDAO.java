@@ -182,8 +182,7 @@ public class ClienteDAO {
         }
         return cliente;
     }
-    
-    
+
     public List listarCliente() throws SQLException {
         
         List<Cliente> listaCliente = new ArrayList<>();

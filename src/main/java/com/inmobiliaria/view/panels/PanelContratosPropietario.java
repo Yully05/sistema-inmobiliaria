@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.inmobiliaria.view;
+package com.inmobiliaria.view.panels;
 
-import com.inmobiliaria.controller.ContratoClienteController;
-import com.inmobiliaria.model.ContratoCliente;
+import com.inmobiliaria.controller.ContratoPropietarioController;
+import com.inmobiliaria.model.ContratoPropietario;
+import com.inmobiliaria.view.Dashboard;
+import com.inmobiliaria.view.forms.FormContratoPropietario;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Asus
  */
-public class PanelContratosClientes extends javax.swing.JPanel {
+public class PanelContratosPropietario extends javax.swing.JPanel {
     
     private final Dashboard dashboard;
 
@@ -22,13 +24,13 @@ public class PanelContratosClientes extends javax.swing.JPanel {
      * Creates new form Agentes
      * @param dashboard
      */
-    public PanelContratosClientes(Dashboard dashboard) {
+    public PanelContratosPropietario(Dashboard dashboard) {
         initComponents();
         this.dashboard = dashboard;
-        MostrarContratosCliente();
+        MostrarContratosProp();
     }
     
-    private void MostrarContratosCliente() {
+    private void MostrarContratosProp() {
         
         //tabla modelo no editable
         DefaultTableModel tablaModelo = new DefaultTableModel() {
@@ -40,31 +42,30 @@ public class PanelContratosClientes extends javax.swing.JPanel {
         };
 
         tablaModelo.setColumnIdentifiers(new Object[] {
-            "Codigo", "Descripcion", "Modalidad", "Fecha creacion", "Fecha expiracion", "Valor", "Fiador", "Telefono",
-            "Agente", "Cliente"
+            "Codigo", "Descripcion", "Modalidad", "Fecha creacion", "Fecha expiracion", "Valor", "Porcentaje comisión",
+            "Agente", "Propietario"
         });
 
-        ContratoClienteController ContratoClienteController = new ContratoClienteController();
+        ContratoPropietarioController ContratoPropController = new ContratoPropietarioController();
 
         try {
-            for (ContratoCliente ContratoClienteModel : ContratoClienteController.listarTodos()) {
+            for (ContratoPropietario ContratoPropModel : ContratoPropController.listarTodos()) {
 
                 tablaModelo.addRow(new Object[]{
-                    ContratoClienteModel.getCodigo(),
-                    ContratoClienteModel.getDescripcion(),
-                    ContratoClienteModel.getModalidadComercializacion(),
-                    ContratoClienteModel.getFechaCreacion(),
-                    ContratoClienteModel.getFechaExpiracion(),
-                    ContratoClienteModel.getValor(),
-                    ContratoClienteModel.getNombreFiador(),
-                    ContratoClienteModel.getCelularFiador(),
-                    ContratoClienteModel.getCedulaAgente(),
-                    ContratoClienteModel.getCedulaCliente()
+                    ContratoPropModel.getCodigo(),
+                    ContratoPropModel.getDescripcion(),
+                    ContratoPropModel.getModalidadComercializacion(),
+                    ContratoPropModel.getFechaCreacion(),
+                    ContratoPropModel.getFechaExpiracion(),
+                    ContratoPropModel.getValor(),
+                    ContratoPropModel.getPorcentajeComision(),
+                    ContratoPropModel.getCedulaAgente(),
+                    ContratoPropModel.getCedulaPropietario()
                 });
             }
             tablaContratos.setModel(tablaModelo);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar agentes: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al cargar contratos: " + ex.getMessage());
         }
     }
 
@@ -82,9 +83,9 @@ public class PanelContratosClientes extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaContratos = new javax.swing.JTable();
         btnNuevoRegistro = new javax.swing.JButton();
-        btnActualizarContratoCl = new javax.swing.JButton();
-        btnEliminarContratoCl = new javax.swing.JButton();
-        btnConsultarContratoCl = new javax.swing.JButton();
+        btnActualizarContratoProp = new javax.swing.JButton();
+        btnEliminarContratoProp = new javax.swing.JButton();
+        btnConsultarContratoProp = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtConsulta = new javax.swing.JTextField();
 
@@ -139,39 +140,39 @@ public class PanelContratosClientes extends javax.swing.JPanel {
             }
         });
 
-        btnActualizarContratoCl.setBackground(new java.awt.Color(212, 167, 140));
-        btnActualizarContratoCl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnActualizarContratoCl.setForeground(new java.awt.Color(51, 51, 51));
-        btnActualizarContratoCl.setText("Modificar");
-        btnActualizarContratoCl.setBorderPainted(false);
-        btnActualizarContratoCl.setFocusPainted(false);
-        btnActualizarContratoCl.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarContratoProp.setBackground(new java.awt.Color(212, 167, 140));
+        btnActualizarContratoProp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnActualizarContratoProp.setForeground(new java.awt.Color(51, 51, 51));
+        btnActualizarContratoProp.setText("Modificar");
+        btnActualizarContratoProp.setBorderPainted(false);
+        btnActualizarContratoProp.setFocusPainted(false);
+        btnActualizarContratoProp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarContratoClActionPerformed(evt);
+                btnActualizarContratoPropActionPerformed(evt);
             }
         });
 
-        btnEliminarContratoCl.setBackground(new java.awt.Color(212, 167, 140));
-        btnEliminarContratoCl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnEliminarContratoCl.setForeground(new java.awt.Color(51, 51, 51));
-        btnEliminarContratoCl.setText("Eliminar");
-        btnEliminarContratoCl.setBorderPainted(false);
-        btnEliminarContratoCl.setFocusPainted(false);
-        btnEliminarContratoCl.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarContratoProp.setBackground(new java.awt.Color(212, 167, 140));
+        btnEliminarContratoProp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEliminarContratoProp.setForeground(new java.awt.Color(51, 51, 51));
+        btnEliminarContratoProp.setText("Eliminar");
+        btnEliminarContratoProp.setBorderPainted(false);
+        btnEliminarContratoProp.setFocusPainted(false);
+        btnEliminarContratoProp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarContratoClActionPerformed(evt);
+                btnEliminarContratoPropActionPerformed(evt);
             }
         });
 
-        btnConsultarContratoCl.setBackground(new java.awt.Color(212, 167, 140));
-        btnConsultarContratoCl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnConsultarContratoCl.setForeground(new java.awt.Color(51, 51, 51));
-        btnConsultarContratoCl.setText("Consultar");
-        btnConsultarContratoCl.setBorderPainted(false);
-        btnConsultarContratoCl.setFocusPainted(false);
-        btnConsultarContratoCl.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultarContratoProp.setBackground(new java.awt.Color(212, 167, 140));
+        btnConsultarContratoProp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnConsultarContratoProp.setForeground(new java.awt.Color(51, 51, 51));
+        btnConsultarContratoProp.setText("Consultar");
+        btnConsultarContratoProp.setBorderPainted(false);
+        btnConsultarContratoProp.setFocusPainted(false);
+        btnConsultarContratoProp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarContratoClActionPerformed(evt);
+                btnConsultarContratoPropActionPerformed(evt);
             }
         });
 
@@ -189,7 +190,7 @@ public class PanelContratosClientes extends javax.swing.JPanel {
                 .addComponent(jLabel12)
                 .addGap(27, 27, 27)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnConsultarContratoCl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultarContratoProp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(contentLayout.createSequentialGroup()
@@ -200,9 +201,9 @@ public class PanelContratosClientes extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnNuevoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
-                .addComponent(btnActualizarContratoCl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnActualizarContratoProp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(btnEliminarContratoCl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEliminarContratoProp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
         contentLayout.setVerticalGroup(
@@ -213,18 +214,19 @@ public class PanelContratosClientes extends javax.swing.JPanel {
                     .addComponent(jLabel12)
                     .addComponent(txtConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btnConsultarContratoCl, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnConsultarContratoProp, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(43, 43, 43)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarContratoCl, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminarContratoCl, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizarContratoProp, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminarContratoProp, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNuevoRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36))
         );
 
         jPanel3.getAccessibleContext().setAccessibleName("Contratos con Clientes");
+        jPanel3.getAccessibleContext().setAccessibleDescription("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -239,10 +241,10 @@ public class PanelContratosClientes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoRegistroActionPerformed
-        dashboard.showJPanel(new FormContratoCliente(this.dashboard));
+        dashboard.showJPanel(new FormContratoPropietario(this.dashboard));
     }//GEN-LAST:event_btnNuevoRegistroActionPerformed
 
-    private void btnActualizarContratoClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarContratoClActionPerformed
+    private void btnActualizarContratoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarContratoPropActionPerformed
         
         int fila = tablaContratos.getSelectedRow();
         if (fila == -1) {
@@ -252,13 +254,13 @@ public class PanelContratosClientes extends javax.swing.JPanel {
         // consultar contrato seleccionado por codigo
         int codigoContrato = Integer.parseInt(tablaContratos.getValueAt(fila, 0).toString());
         
-        ContratoClienteController ContratoClienteController = new ContratoClienteController();
-        ContratoCliente contratoEditar;
+        ContratoPropietarioController ContratoPropController = new ContratoPropietarioController();
+        ContratoPropietario contratoEditar;
         
         try {
-            contratoEditar = ContratoClienteController.consultarCodigo(codigoContrato); //obtener datos
+            contratoEditar = ContratoPropController.consultarCodigo(codigoContrato); //obtener datos
             if (contratoEditar != null) {
-                FormContratoCliente form = new FormContratoCliente(dashboard, contratoEditar);
+                FormContratoPropietario form = new FormContratoPropietario(dashboard, contratoEditar);
                 dashboard.showJPanel(form);
             } else {
                 JOptionPane.showMessageDialog(this, "Contrato no encontrado.");
@@ -267,9 +269,9 @@ public class PanelContratosClientes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al cargar el contrato. " + ex.getMessage());
         }
         
-    }//GEN-LAST:event_btnActualizarContratoClActionPerformed
+    }//GEN-LAST:event_btnActualizarContratoPropActionPerformed
 
-    private void btnEliminarContratoClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarContratoClActionPerformed
+    private void btnEliminarContratoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarContratoPropActionPerformed
         
         int fila = tablaContratos.getSelectedRow();
         if (fila == -1) {
@@ -284,12 +286,12 @@ public class PanelContratosClientes extends javax.swing.JPanel {
 
         try {
             if (confirmacion == 0) {
-                ContratoClienteController ContratoClienteController = new ContratoClienteController();
-                boolean eliminado = ContratoClienteController.eliminar(codigo);
+                ContratoPropietarioController ContratoPropController = new ContratoPropietarioController();
+                boolean eliminado = ContratoPropController.eliminar(codigo);
 
                 if (eliminado) {
                     JOptionPane.showMessageDialog(this, "Contrato eliminado correctamente.");
-                    MostrarContratosCliente();
+                    MostrarContratosProp();
                 } else {
                     JOptionPane.showMessageDialog(this, "No se pudo eliminar el contrato.");
                 } 
@@ -297,9 +299,9 @@ public class PanelContratosClientes extends javax.swing.JPanel {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al eliminar contrato: " + e.getMessage());
         }
-    }//GEN-LAST:event_btnEliminarContratoClActionPerformed
+    }//GEN-LAST:event_btnEliminarContratoPropActionPerformed
 
-    private void btnConsultarContratoClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarContratoClActionPerformed
+    private void btnConsultarContratoPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarContratoPropActionPerformed
         
         if (txtConsulta.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el código del contrato.");
@@ -308,13 +310,13 @@ public class PanelContratosClientes extends javax.swing.JPanel {
         
         int codigo = Integer.parseInt(txtConsulta.getText());
         
-        ContratoClienteController ContratoClienteController = new ContratoClienteController();
-        ContratoCliente contratoEditar;
+        ContratoPropietarioController ContratoPropController = new ContratoPropietarioController();
+        ContratoPropietario contratoEditar;
         
         try {
-            contratoEditar = ContratoClienteController.consultarCodigo(codigo); //obtener datos
+            contratoEditar = ContratoPropController.consultarCodigo(codigo); //obtener datos
             if (contratoEditar != null) {
-                FormContratoCliente form = new FormContratoCliente(dashboard, contratoEditar);
+                FormContratoPropietario form = new FormContratoPropietario(dashboard, contratoEditar);
                 dashboard.showJPanel(form);
             } else {
                 JOptionPane.showMessageDialog(this, "Contrato no encontrado.");
@@ -323,13 +325,13 @@ public class PanelContratosClientes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al cargar el contrato. " + ex.getMessage());
         }
         
-    }//GEN-LAST:event_btnConsultarContratoClActionPerformed
+    }//GEN-LAST:event_btnConsultarContratoPropActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizarContratoCl;
-    private javax.swing.JButton btnConsultarContratoCl;
-    private javax.swing.JButton btnEliminarContratoCl;
+    private javax.swing.JButton btnActualizarContratoProp;
+    private javax.swing.JButton btnConsultarContratoProp;
+    private javax.swing.JButton btnEliminarContratoProp;
     private javax.swing.JButton btnNuevoRegistro;
     private javax.swing.JPanel content;
     private javax.swing.JLabel jLabel12;

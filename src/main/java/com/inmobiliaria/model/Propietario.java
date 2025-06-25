@@ -18,8 +18,6 @@ public class Propietario {
     private String nombres;
     private String apellidos;
     private String direccion;
-    private String correo;
     private LocalDate fechaNacimiento;
-    private LocalDate fechaExpDoc;
     
 }

@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.inmobiliaria.view;
+package com.inmobiliaria.view.forms;
 
+import com.inmobiliaria.view.panels.PanelClientes;
 import com.inmobiliaria.controller.ClienteController;
 import com.inmobiliaria.model.Cliente;
+import com.inmobiliaria.view.Dashboard;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;

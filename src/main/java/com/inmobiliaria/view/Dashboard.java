@@ -4,6 +4,10 @@
  */
 package com.inmobiliaria.view;
 
+import com.inmobiliaria.view.panels.PanelBienvenido;
+import com.inmobiliaria.view.panels.PanelPropietarios;
+import com.inmobiliaria.view.panels.PanelContratos;
+import com.inmobiliaria.view.panels.PanelClientes;
 import com.inmobiliaria.model.AgenteComercial;
 import java.awt.BorderLayout;
 import java.time.LocalDate;
@@ -48,7 +52,7 @@ public class Dashboard extends javax.swing.JFrame {
     }
     
     private void initContent() {
-        showJPanel(new Bienvenido());
+        showJPanel(new PanelBienvenido());
     }
     
     public void showJPanel(JPanel JP) {
@@ -165,6 +169,11 @@ public class Dashboard extends javax.swing.JFrame {
         bntPropietarios.setMaximumSize(new java.awt.Dimension(200, 24));
         bntPropietarios.setMinimumSize(new java.awt.Dimension(200, 24));
         bntPropietarios.setPreferredSize(new java.awt.Dimension(200, 24));
+        bntPropietarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntPropietariosActionPerformed(evt);
+            }
+        });
 
         bntInmuebles.setBackground(new java.awt.Color(212, 167, 140));
         bntInmuebles.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -408,7 +417,7 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgentesActionPerformed
 
     private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
-        showJPanel(new Bienvenido());
+        showJPanel(new PanelBienvenido());
     }//GEN-LAST:event_btnPrincipalActionPerformed
 
     private void bntClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntClientesActionPerformed
@@ -418,6 +427,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void btnContratosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContratosActionPerformed
         showJPanel(new PanelContratos(this));
     }//GEN-LAST:event_btnContratosActionPerformed
+
+    private void bntPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPropietariosActionPerformed
+        showJPanel(new PanelPropietarios(this));
+    }//GEN-LAST:event_bntPropietariosActionPerformed
     
     
     /**

@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.inmobiliaria.view;
+package com.inmobiliaria.view.forms;
 
+import com.inmobiliaria.view.panels.PanelContratos;
 import com.inmobiliaria.controller.AgenteController;
 import com.inmobiliaria.controller.ClienteController;
 import com.inmobiliaria.controller.ContratoClienteController;
-import com.inmobiliaria.controller.ContratoPropietarioController;
 import com.inmobiliaria.dao.Conexion;
 import com.inmobiliaria.model.AgenteComercial;
 import com.inmobiliaria.model.Cliente;
 import com.inmobiliaria.model.ContratoCliente;
-import com.inmobiliaria.model.ContratoPropietario;
+import com.inmobiliaria.view.Dashboard;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,10 +26,10 @@ import javax.swing.JOptionPane;
  *
  * @author Asus
  */
-public class FormContratoPropietario extends javax.swing.JPanel {
+public class FormContratoCliente extends javax.swing.JPanel {
     
     Dashboard dashboard;
-    private ContratoPropietario contratoEditar;
+    private ContratoCliente contratoEditar;
     private boolean contratoEdicion = false; //bandera contrato ya esta registrado
 
     /**
@@ -37,7 +37,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
      * @param dashboard
      */
     
-    public FormContratoPropietario(Dashboard dashboard) { //constructor registro agente
+    public FormContratoCliente(Dashboard dashboard) { //constructor registro agente
         initComponents();
         this.dashboard = dashboard;
         cargarClientes();
@@ -46,7 +46,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         this.contratoEdicion = false;
     }
     
-    public FormContratoPropietario(Dashboard dashboard, ContratoPropietario contratoSeleccionado) { //constructor modificar agenteSeleccionado
+    public FormContratoCliente(Dashboard dashboard, ContratoCliente contratoSeleccionado) { //constructor modificar agenteSeleccionado
         
         initComponents();
         this.dashboard = dashboard;
@@ -55,21 +55,22 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         cargarClientes();
         cargarAgentes();
         cargarModalidades();
-        cargarDatosContratoProp();
+        cargarDatosContratoCl();
     }
     
-    private void cargarDatosContratoProp() {
+    private void cargarDatosContratoCl() {
         txtCodigo.setText(String.valueOf(contratoEditar.getCodigo()));
         txtCodigo.setEnabled(false);
         txtDescripcion.setText(contratoEditar.getDescripcion());
         txtValor.setText(String.valueOf(contratoEditar.getValor()));
-        txtComision.setText(String.valueOf(contratoEditar.getPorcentajeComision()));
+        txtFiador.setText(contratoEditar.getNombreFiador());
+        txtCelular.setText(contratoEditar.getCelularFiador());
         Date fechaCreacion = Date.from(contratoEditar.getFechaCreacion().atStartOfDay(ZoneId.systemDefault()).toInstant());
         jDateCreacion.setDate(fechaCreacion);
         Date fechaExpiracion = Date.from(contratoEditar.getFechaExpiracion().atStartOfDay(ZoneId.systemDefault()).toInstant());
         jDateExpiracion.setDate(fechaExpiracion);
         
-        cmbBoxProp.setSelectedItem(contratoEditar.getCedulaPropietario());
+        cmbBoxCliente.setSelectedItem(contratoEditar.getCedulaCliente());
         cmbBoxAgente.setSelectedItem(contratoEditar.getCedulaAgente());
         cmbBoxModalidad.setSelectedItem(String.valueOf(contratoEditar.getModalidadComercializacion())); 
     }
@@ -80,10 +81,11 @@ public class FormContratoPropietario extends javax.swing.JPanel {
       txtDescripcion.setText("");
       jDateCreacion.setDate(null);
       jDateExpiracion.setDate(null);
-      txtComision.setText("");
+      txtFiador.setText("");
+      txtCelular.setText("");
       txtValor.setText("");
       cmbBoxModalidad.setSelectedIndex(0);
-      cmbBoxProp.setSelectedIndex(0);
+      cmbBoxCliente.setSelectedIndex(0);
       cmbBoxAgente.setSelectedIndex(0);
     }
 
@@ -103,12 +105,14 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtDescripcion = new javax.swing.JTextField();
         txtValor = new javax.swing.JTextField();
+        txtCelular = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtComision = new javax.swing.JTextField();
+        txtFiador = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         cmbBoxAgente = new javax.swing.JComboBox<>();
@@ -122,7 +126,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jDateExpiracion = new com.toedter.calendar.JDateChooser();
-        cmbBoxProp = new javax.swing.JComboBox<>();
+        cmbBoxCliente = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
         cmbBoxModalidad = new javax.swing.JComboBox<>();
         btnRegistrar = new javax.swing.JButton();
@@ -154,6 +158,8 @@ public class FormContratoPropietario extends javax.swing.JPanel {
 
         txtValor.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        txtCelular.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 51, 51));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -167,7 +173,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("Propietario");
+        jLabel5.setText("Cliente");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 51, 51));
@@ -175,12 +181,17 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         jLabel6.setText("Descripción");
         jLabel6.setToolTipText("");
 
-        txtComision.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtFiador.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Valor");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel8.setText("Celular");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(51, 51, 51));
@@ -189,7 +200,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel11.setText("Porcentaje comisión");
+        jLabel11.setText("Nombre del Fiador");
 
         cmbBoxAgente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
         cmbBoxAgente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -239,11 +250,11 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         jDateExpiracion.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jDateExpiracion.setDateFormatString("y/MM/d");
 
-        cmbBoxProp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
-        cmbBoxProp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        cmbBoxProp.addActionListener(new java.awt.event.ActionListener() {
+        cmbBoxCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+        cmbBoxCliente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        cmbBoxCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbBoxPropActionPerformed(evt);
+                cmbBoxClienteActionPerformed(evt);
             }
         });
 
@@ -264,7 +275,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,30 +306,33 @@ public class FormContratoPropietario extends javax.swing.JPanel {
                 .addGap(73, 73, 73)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel5)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbBoxAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbBoxProp, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cmbBoxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
-                            .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel21))
+                            .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtComision, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                            .addComponent(txtCelular, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFiador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +344,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11)
-                        .addComponent(txtComision, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtFiador, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,13 +356,10 @@ public class FormContratoPropietario extends javax.swing.JPanel {
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel6))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(33, 33, 33)
@@ -372,7 +383,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(cmbBoxProp, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbBoxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
@@ -381,8 +392,12 @@ public class FormContratoPropietario extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtValor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7))
                             .addComponent(jDateExpiracion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(78, 78, 78))))
         );
 
@@ -454,19 +469,23 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmbBoxAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxAgenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBoxAgenteActionPerformed
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dashboard.showJPanel(new PanelContratos(dashboard));
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         try {
-            ContratoPropietario contrato = new ContratoPropietario();
+            ContratoCliente contrato = new ContratoCliente();
 
             //validaciones campos not null
             if (txtCodigo.getText().isEmpty() || jDateExpiracion.getDate() == null || 
                 txtDescripcion.getText().isEmpty() || txtValor.getText().isEmpty() || 
-                jDateCreacion.getDate() == null || txtComision.getText().isEmpty() ||
-                cmbBoxProp.getSelectedItem() == null || cmbBoxAgente.getSelectedItem() == null ||
+                jDateCreacion.getDate() == null || txtFiador.getText().isEmpty() ||
+                cmbBoxCliente.getSelectedItem() == null || cmbBoxAgente.getSelectedItem() == null ||
                 cmbBoxModalidad.getSelectedItem() == null)
                 {
                     JOptionPane.showMessageDialog(null, "Completa los campos obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -478,12 +497,13 @@ public class FormContratoPropietario extends javax.swing.JPanel {
             contrato.setFechaCreacion(jDateCreacion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             contrato.setFechaExpiracion(jDateExpiracion.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             contrato.setCedulaAgente(cmbBoxAgente.getSelectedItem().toString());
-            contrato.setCedulaPropietario(cmbBoxProp.getSelectedItem().toString());
+            contrato.setCedulaCliente(cmbBoxCliente.getSelectedItem().toString());
             contrato.setModalidadComercializacion(Integer.parseInt(cmbBoxModalidad.getSelectedItem().toString()));
             contrato.setValor(Double.parseDouble(txtValor.getText()));
-            contrato.setPorcentajeComision(Double.parseDouble(txtComision.getText()));
+            contrato.setNombreFiador(txtFiador.getText());
+            contrato.setCelularFiador(txtCelular.getText());
 
-            ContratoPropietarioController contratoController = new ContratoPropietarioController();
+            ContratoClienteController contratoController = new ContratoClienteController();
 
             if (contratoEdicion) {
                 contratoController.actualizar(contrato);
@@ -497,25 +517,13 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         }
         limpiarCampos();
     }//GEN-LAST:event_btnRegistrarActionPerformed
-
-    private void cmbBoxModalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxModalidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbBoxModalidadActionPerformed
-
-    private void cmbBoxPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxPropActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbBoxPropActionPerformed
-
-    private void cmbBoxAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxAgenteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbBoxAgenteActionPerformed
     
     private void cargarClientes() {
         ClienteController controller = new ClienteController();
         try {
             List<Cliente> clientes = controller.listarTodos();
             for (Cliente cliente : clientes) {
-                cmbBoxProp.addItem(cliente.getCedula()); // Mostrar solo la cédula
+                cmbBoxCliente.addItem(cliente.getCedula()); // Mostrar solo la cédula
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + e.getMessage());
@@ -549,13 +557,21 @@ public class FormContratoPropietario extends javax.swing.JPanel {
     }
     
     
+    private void cmbBoxClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBoxClienteActionPerformed
+
+    private void cmbBoxModalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBoxModalidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbBoxModalidadActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<String> cmbBoxAgente;
+    private javax.swing.JComboBox<String> cmbBoxCliente;
     private javax.swing.JComboBox<String> cmbBoxModalidad;
-    private javax.swing.JComboBox<String> cmbBoxProp;
     private javax.swing.JPanel content;
     private com.toedter.calendar.JDateChooser jDateCreacion;
     private com.toedter.calendar.JDateChooser jDateExpiracion;
@@ -576,11 +592,13 @@ public class FormContratoPropietario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtComision;
     private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtFiador;
     private javax.swing.JTextField txtValor;
     // End of variables declaration//GEN-END:variables
 }

@@ -105,9 +105,6 @@
               </Border>
             </Property>
           </Properties>
-          <AccessibilityProperties>
-            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Clientes Registrados"/>
-          </AccessibilityProperties>
 
           <Layout>
             <DimensionLayout dim="0">

@@ -5,11 +5,9 @@
 package com.inmobiliaria.view;
 
 import com.inmobiliaria.controller.AgenteController;
-import com.inmobiliaria.dao.AgenteComercialDAO;
 import com.inmobiliaria.model.AgenteComercial;
-import com.inmobiliaria.view.FormAgente;
+import com.inmobiliaria.view.Dashboard;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Asus
  */
-public class PanelAgentes extends javax.swing.JPanel {
+class PanelAgentes extends javax.swing.JPanel {
     
     private final Dashboard dashboard;
 
