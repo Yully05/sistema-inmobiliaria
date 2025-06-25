@@ -7,13 +7,13 @@ package com.inmobiliaria.view.forms;
 import com.inmobiliaria.view.panels.PanelContratos;
 import com.inmobiliaria.controller.AgenteController;
 import com.inmobiliaria.controller.ClienteController;
-import com.inmobiliaria.controller.ContratoClienteController;
 import com.inmobiliaria.controller.ContratoPropietarioController;
+import com.inmobiliaria.controller.PropietarioController;
 import com.inmobiliaria.dao.Conexion;
 import com.inmobiliaria.model.AgenteComercial;
 import com.inmobiliaria.model.Cliente;
-import com.inmobiliaria.model.ContratoCliente;
 import com.inmobiliaria.model.ContratoPropietario;
+import com.inmobiliaria.model.Propietario;
 import com.inmobiliaria.view.Dashboard;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,7 +42,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
     public FormContratoPropietario(Dashboard dashboard) { //constructor registro agente
         initComponents();
         this.dashboard = dashboard;
-        cargarClientes();
+        cargarPropietarios();
         cargarAgentes();
         cargarModalidades();
         this.contratoEdicion = false;
@@ -54,7 +54,7 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         this.dashboard = dashboard;
         this.contratoEditar = contratoSeleccionado;
         this.contratoEdicion = true;
-        cargarClientes();
+        cargarPropietarios();
         cargarAgentes();
         cargarModalidades();
         cargarDatosContratoProp();
@@ -513,12 +513,12 @@ public class FormContratoPropietario extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbBoxAgenteActionPerformed
     
-    private void cargarClientes() {
-        ClienteController controller = new ClienteController();
+    private void cargarPropietarios() {
+        PropietarioController controller = new PropietarioController();
         try {
-            List<Cliente> clientes = controller.listarTodos();
-            for (Cliente cliente : clientes) {
-                cmbBoxProp.addItem(cliente.getCedula()); // Mostrar solo la cédula
+            List<Propietario> propietarios = controller.listarTodos();
+            for (Propietario propietario : propietarios) {
+                cmbBoxProp.addItem(propietario.getCedula());
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar clientes: " + e.getMessage());
@@ -538,13 +538,13 @@ public class FormContratoPropietario extends javax.swing.JPanel {
     }
 
     private void cargarModalidades() {
-        String sql = "SELECT tipo_comercializacion FROM tipo_comercializacion";
+        String sql = "SELECT id FROM tipo_comercializacion";
         try (Connection con = new Conexion().establecerConexion();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                cmbBoxModalidad.addItem(rs.getString("tipo_comercializacion"));
+                cmbBoxModalidad.addItem(rs.getString("id"));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar modalidades: " + e.getMessage());

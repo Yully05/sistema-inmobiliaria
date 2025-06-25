@@ -482,11 +482,10 @@ public class FormContratoCliente extends javax.swing.JPanel {
             ContratoCliente contrato = new ContratoCliente();
 
             //validaciones campos not null
-            if (txtCodigo.getText().isEmpty() || jDateExpiracion.getDate() == null || 
+            if (txtCodigo.getText().isEmpty() || cmbBoxModalidad.getSelectedItem() == null ||
                 txtDescripcion.getText().isEmpty() || txtValor.getText().isEmpty() || 
                 jDateCreacion.getDate() == null || txtFiador.getText().isEmpty() ||
-                cmbBoxCliente.getSelectedItem() == null || cmbBoxAgente.getSelectedItem() == null ||
-                cmbBoxModalidad.getSelectedItem() == null)
+                cmbBoxCliente.getSelectedItem() == null || cmbBoxAgente.getSelectedItem() == null)
                 {
                     JOptionPane.showMessageDialog(null, "Completa los campos obligatorios.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -543,13 +542,13 @@ public class FormContratoCliente extends javax.swing.JPanel {
     }
 
     private void cargarModalidades() {
-        String sql = "SELECT tipo_comercializacion FROM tipo_comercializacion";
+        String sql = "SELECT id FROM tipo_comercializacion";
         try (Connection con = new Conexion().establecerConexion();
              PreparedStatement ps = con.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                cmbBoxModalidad.addItem(rs.getString("tipo_comercializacion"));
+                cmbBoxModalidad.addItem(String.valueOf(rs.getInt("id")));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar modalidades: " + e.getMessage());
