@@ -5,21 +5,24 @@
 package com.inmobiliaria.model;
 
 import java.time.LocalDate;
+import java.util.List; // Importar List
+
 import lombok.Data;
 
 /**
- *
  * @author Asus
  */
 @Data
 public class Propietario {
-    
+
     private String cedula;
     private String nombres;
     private String apellidos;
     private String direccion;
-    private String correo;
     private LocalDate fechaNacimiento;
-    private LocalDate fechaExpDoc;
-    
+
+//    private String correo;
+//    private LocalDate fechaExpDoc;
+//    private List<String> telefonos;
+
 }

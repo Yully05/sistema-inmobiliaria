@@ -6,6 +6,10 @@ package com.inmobiliaria.view;
 
 import com.inmobiliaria.controller.AgenteController;
 import com.inmobiliaria.model.AgenteComercial;
+import com.inmobiliaria.view.Dashboard;
+import com.inmobiliaria.view.PanelAgentes;
+
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;

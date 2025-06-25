@@ -2,10 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.inmobiliaria.view;
+package com.inmobiliaria.view.panels;
 
 import com.inmobiliaria.controller.ClienteController;
 import com.inmobiliaria.model.Cliente;
+import com.inmobiliaria.view.Dashboard;
+import com.inmobiliaria.view.forms.FormCliente;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -223,8 +225,6 @@ public class PanelClientes extends javax.swing.JPanel {
                 .addGap(36, 36, 36))
         );
 
-        jPanel3.getAccessibleContext().setAccessibleName("Clientes Registrados");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -247,7 +247,7 @@ public class PanelClientes extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Seleccione el cliente");
         return;
         }
-        // consultar cedula seleccionadade la tabla
+        // consultar cedula seleccionada de la tabla
         String cedula = tablaClientes.getValueAt(fila, 0).toString();
         ClienteController clienteController = new ClienteController();
         Cliente clienteEditar;
