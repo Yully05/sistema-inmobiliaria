@@ -66,7 +66,7 @@ public class Agentes extends javax.swing.JPanel {
                         model.addRow(fila);
                     }
                 }
-                case "Agente" -> {
+                case "Agente Comercial" -> {
                     List<AgenteComercial> agenteList = agenteDAO.listarAgentesPorRol(rol);
                     for (AgenteComercial agente : agenteList) {
                         Object[] fila = {
@@ -80,7 +80,7 @@ public class Agentes extends javax.swing.JPanel {
                         model.addRow(fila);
                     }
 
-                }case "Admin" -> {
+                }case "Administrador" -> {
                     List<AgenteComercial> agenteList = agenteDAO.listarAgentesPorRol(rol);
                     for (AgenteComercial agente : agenteList) {
                         Object[] fila = {
@@ -359,9 +359,9 @@ public class Agentes extends javax.swing.JPanel {
 
         // Verificar qué radio button está seleccionado
         if (jRbtnADMIN.isSelected()) {
-            rol = "Admin";
+            rol = "Administrador";
         } else if (jRbtnAGENTE.isSelected()) {
-            rol = "Agente";
+            rol = "Agente Comercial";
         } else if (jRbtnTODOS.isSelected()) {
             rol = "Todos";
         }

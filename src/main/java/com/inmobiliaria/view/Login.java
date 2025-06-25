@@ -2,12 +2,11 @@ package com.inmobiliaria.view;
 
 import com.inmobiliaria.dao.LoginDAO;
 import com.inmobiliaria.model.login;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,13 +34,13 @@ public class Login extends javax.swing.JFrame {
         if (!"".equals(usuario) || !"".equals(password)) {
             log = logDAO.log(usuario, password);
             if (log.getLogin()!= null && log.getPassword()!= null) {
-                if("admin".equalsIgnoreCase(log.getRol())){
-                    Dashboard dashboard = new Dashboard("admin");
+                if("Administrador".equalsIgnoreCase(log.getRol())){
+                    Dashboard dashboard = new Dashboard("Administrador");
                     dashboard.setVisible(true);
                     dispose();
                 }
-                else if("agente".equalsIgnoreCase(log.getRol())){
-                    Dashboard dashboard = new Dashboard("agente");
+                else if("Agente Comercial".equalsIgnoreCase(log.getRol())){
+                    Dashboard dashboard = new Dashboard("Agente Comercial");
                     dashboard .setVisible(true);
                     dispose(); 
                 }else{

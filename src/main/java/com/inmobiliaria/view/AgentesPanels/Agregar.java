@@ -51,8 +51,18 @@ public class Agregar extends javax.swing.JPanel {
         });
     }
 
+    private String homologarRol(String rol){
+
+        if (rol.equals("Agente")){
+            rol="Agente Comercial";
+        } else if (rol.equals("Admin")) {
+            rol="Administrador";
+        }
+        return rol;
+    }
 
     private void agregarNuevo(){
+        String rol = (String) jComboBox.getSelectedItem();
         AgenteComercial agente = new AgenteComercial();
         agente.setLogin(jTextNombre.getText());
         agente.setContrasena(jTextCc.getText());
@@ -62,7 +72,7 @@ public class Agregar extends javax.swing.JPanel {
         agente.setCelular(jTextCelular.getText());
         agente.setCorreo(jTextEmail.getText());
         agente.setDireccion(jTextDireccion.getText());
-        agente.setRol((String) jComboBox.getSelectedItem());
+        agente.setRol(homologarRol(rol));
 
         // Convertir las fechas de texto a LocalDate
         try {
@@ -106,6 +116,7 @@ public class Agregar extends javax.swing.JPanel {
         jTextFechaNa.setText("");
         jTextFechaExp.setText("");
         jTextEmail.setText("");
+        jTextDireccion.setText("");
         jComboBox.setSelectedIndex(0); // Reiniciar a "Agente"
     }
 
