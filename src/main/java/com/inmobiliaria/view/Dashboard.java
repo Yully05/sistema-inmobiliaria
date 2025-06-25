@@ -183,6 +183,11 @@ public class Dashboard extends javax.swing.JFrame {
         bntClientes.setMaximumSize(new java.awt.Dimension(200, 24));
         bntClientes.setMinimumSize(new java.awt.Dimension(200, 24));
         bntClientes.setPreferredSize(new java.awt.Dimension(230, 50));
+        bntClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntClientesActionPerformed(evt);
+            }
+        });
 
         jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
@@ -440,6 +445,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
         showJPanel(new Bienvenido());
     }//GEN-LAST:event_btnPrincipalActionPerformed
+
+    private void bntClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntClientesActionPerformed
+        showJPanel(new Clientes());
+    }//GEN-LAST:event_bntClientesActionPerformed
 
 
     /**

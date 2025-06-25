@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.inmobiliaria.view.AdminPanels;
+package com.inmobiliaria.view.ClientesPanels;
 
-import com.inmobiliaria.dao.AgenteComercialDAO;
-import com.inmobiliaria.model.AgenteComercial;
+import com.inmobiliaria.dao.ClienteDAO;
+import com.inmobiliaria.model.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,12 +19,12 @@ import java.time.format.DateTimeParseException;
  *
  * @author Asus
  */
-public class Editar extends javax.swing.JPanel {
+public class AgregarCliente extends javax.swing.JPanel {
 
     /**
      * Creates new form Agregar
      */
-    public Editar() {
+    public AgregarCliente() {
         initComponents();
     }
 
@@ -52,15 +52,13 @@ public class Editar extends javax.swing.JPanel {
     }
 
 
-    private void editar(){
-        AgenteComercial agente = new AgenteComercial();
-        agente.setContrasena(jTextCc.getText());
-        agente.setNombres(jTextNombre.getText());
-        agente.setApellidos(jTextApellido.getText());
-        agente.setDireccion(jTextDireccion.getText());
-        agente.setCorreo(jTextEmail.getText());
-        agente.setCelular(jTextCelular.getText());
-        agente.setCedula(jTextCc.getText());
+    private void agregarNuevo(){
+        Cliente cliente = new Cliente();
+        cliente.setNombres(jTextNombre.getText());
+        cliente.setApellidos(jTextApellido.getText());
+        cliente.setCedula(jTextCc.getText());
+        cliente.setCorreo(jTextEmail.getText());
+        cliente.setDireccion(jTextDireccion.getText());
 
         // Convertir las fechas de texto a LocalDate
         try {
@@ -78,21 +76,22 @@ public class Editar extends javax.swing.JPanel {
             LocalDate fechaNacimiento = LocalDate.parse(fechaNacText, formatter);
             LocalDate fechaExpDoc = LocalDate.parse(fechaExpText, formatter);
 
-            agente.setFechaNacimiento(fechaNacimiento);
-            agente.setFechaExpDoc(fechaExpDoc);
+            cliente.setFechaNacimiento(fechaNacimiento);
+            cliente.setFechaExpDoc(fechaExpDoc);
 
         } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(this, "Formato de fecha incorrecto. Use yyyy-MM-dd");
             return;
         }
 
-        AgenteComercialDAO dao = new AgenteComercialDAO();
-        if (dao.ActualizarAgente(agente)){
-            JOptionPane.showMessageDialog(this," Editado exitosamente.");
+        ClienteDAO dao = new ClienteDAO();
+        if (dao.RegistrarCliente(cliente)){
+            JOptionPane.showMessageDialog(this, cliente.getNombres() + " registrado exitosamente.");
             clearFields();
         } else {
-            JOptionPane.showMessageDialog(this, "Error al Editar Agente/Admin.");
+            JOptionPane.showMessageDialog(this, "Error al registrar el Cliente");
         }
+
     }
 
     private void clearFields() {
@@ -128,9 +127,10 @@ public class Editar extends javax.swing.JPanel {
         jTextFechaExp = new javax.swing.JTextField();
         jTextFechaNa = new javax.swing.JTextField();
         jTextEmail = new javax.swing.JTextField();
-        jBtnEditar = new javax.swing.JButton();
+        jBtnAgregar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jTextDireccion = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(250, 229, 211));
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -206,11 +206,11 @@ public class Editar extends javax.swing.JPanel {
 
         jTextEmail.setPreferredSize(new java.awt.Dimension(100, 26));
 
-        jBtnEditar.setText("EDITAR");
-        jBtnEditar.setPreferredSize(new java.awt.Dimension(90, 27));
-        jBtnEditar.addActionListener(new java.awt.event.ActionListener() {
+        jBtnAgregar.setText("AGREGAR");
+        jBtnAgregar.setPreferredSize(new java.awt.Dimension(90, 27));
+        jBtnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnEditarActionPerformed(evt);
+                jBtnAgregarActionPerformed(evt);
             }
         });
 
@@ -224,6 +224,8 @@ public class Editar extends javax.swing.JPanel {
                 jTextDireccionActionPerformed(evt);
             }
         });
+
+        jLabel8.setText("CLIENTES");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -240,7 +242,10 @@ public class Editar extends javax.swing.JPanel {
                     .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel8))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,30 +253,31 @@ public class Editar extends javax.swing.JPanel {
                             .addComponent(jTextApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextFechaNa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextFechaExp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jBtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(45, 45, 45)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFechaNa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFechaExp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(103, 103, 103)
+                                        .addComponent(jBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 6, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(17, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,7 +314,10 @@ public class Editar extends javax.swing.JPanel {
                                     .addComponent(jTextFechaExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -316,36 +325,36 @@ public class Editar extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextNombreActionPerformed
 
-    private void jBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditarActionPerformed
-        editar();
-    }//GEN-LAST:event_jBtnEditarActionPerformed
-
-    private void jTextDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextDireccionActionPerformed
+    private void jTextFechaNaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFechaNaActionPerformed
+        addPlaceholder(jTextFechaNa,"yyyy-MM-dd");
+    }//GEN-LAST:event_jTextFechaNaActionPerformed
 
     private void jTextFechaExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFechaExpActionPerformed
         addPlaceholder(jTextFechaExp,"yyyy-MM-dd");
     }//GEN-LAST:event_jTextFechaExpActionPerformed
 
-    private void jTextFechaExpMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFechaExpMousePressed
+    private void jBtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarActionPerformed
+        agregarNuevo();
+    }//GEN-LAST:event_jBtnAgregarActionPerformed
 
-        jTextFechaExp.setText("");
-        jTextFechaExp.setForeground(new Color(51, 51, 51));
-    }//GEN-LAST:event_jTextFechaExpMousePressed
-
-    private void jTextFechaNaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFechaNaActionPerformed
-        addPlaceholder(jTextFechaNa,"yyyy-MM-dd");
-    }//GEN-LAST:event_jTextFechaNaActionPerformed
+    private void jTextDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextDireccionActionPerformed
 
     private void jTextFechaNaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFechaNaMousePressed
         jTextFechaNa.setText("");
         jTextFechaNa.setForeground(new Color(51, 51, 51));
     }//GEN-LAST:event_jTextFechaNaMousePressed
 
+    private void jTextFechaExpMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFechaExpMousePressed
+       
+        jTextFechaExp.setText("");
+        jTextFechaExp.setForeground(new Color(51, 51, 51));
+    }//GEN-LAST:event_jTextFechaExpMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnEditar;
+    private javax.swing.JButton jBtnAgregar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -353,6 +362,7 @@ public class Editar extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextApellido;
     private javax.swing.JTextField jTextCc;

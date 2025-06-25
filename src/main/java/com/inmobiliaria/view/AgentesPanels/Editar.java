@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.inmobiliaria.view.AdminPanels;
+package com.inmobiliaria.view.AgentesPanels;
 
 import com.inmobiliaria.dao.AgenteComercialDAO;
 import com.inmobiliaria.model.AgenteComercial;
@@ -19,12 +19,12 @@ import java.time.format.DateTimeParseException;
  *
  * @author Asus
  */
-public class Agregar extends javax.swing.JPanel {
+public class Editar extends javax.swing.JPanel {
 
     /**
      * Creates new form Agregar
      */
-    public Agregar() {
+    public Editar() {
         initComponents();
     }
 
@@ -52,17 +52,15 @@ public class Agregar extends javax.swing.JPanel {
     }
 
 
-    private void agregarNuevo(){
+    private void editar(){
         AgenteComercial agente = new AgenteComercial();
-        agente.setLogin(jTextNombre.getText());
         agente.setContrasena(jTextCc.getText());
         agente.setNombres(jTextNombre.getText());
         agente.setApellidos(jTextApellido.getText());
-        agente.setCedula(jTextCc.getText());
-        agente.setCelular(jTextCelular.getText());
-        agente.setCorreo(jTextEmail.getText());
         agente.setDireccion(jTextDireccion.getText());
-        agente.setRol((String) jComboBox.getSelectedItem());
+        agente.setCorreo(jTextEmail.getText());
+        agente.setCelular(jTextCelular.getText());
+        agente.setCedula(jTextCc.getText());
 
         // Convertir las fechas de texto a LocalDate
         try {
@@ -89,13 +87,12 @@ public class Agregar extends javax.swing.JPanel {
         }
 
         AgenteComercialDAO dao = new AgenteComercialDAO();
-        if (dao.RegistrarAgente(agente)){
-            JOptionPane.showMessageDialog(this, agente.getRol() + " registrado exitosamente.");
+        if (dao.ActualizarAgente(agente)){
+            JOptionPane.showMessageDialog(this," Editado exitosamente.");
             clearFields();
         } else {
-            JOptionPane.showMessageDialog(this, "Error al registrar el Agente/Admin.");
+            JOptionPane.showMessageDialog(this, "Error al Editar Agente/Admin.");
         }
-
     }
 
     private void clearFields() {
@@ -106,7 +103,6 @@ public class Agregar extends javax.swing.JPanel {
         jTextFechaNa.setText("");
         jTextFechaExp.setText("");
         jTextEmail.setText("");
-        jComboBox.setSelectedIndex(0); // Reiniciar a "Agente"
     }
 
     /**
@@ -129,12 +125,10 @@ public class Agregar extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jTextCelular = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
         jTextFechaExp = new javax.swing.JTextField();
         jTextFechaNa = new javax.swing.JTextField();
         jTextEmail = new javax.swing.JTextField();
-        jComboBox = new javax.swing.JComboBox<>();
-        jBtnAgregar = new javax.swing.JButton();
+        jBtnEditar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jTextDireccion = new javax.swing.JTextField();
 
@@ -183,10 +177,6 @@ public class Agregar extends javax.swing.JPanel {
 
         jTextCelular.setPreferredSize(new java.awt.Dimension(100, 26));
 
-        jLabel8.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Tipo :");
-        jLabel8.setPreferredSize(new java.awt.Dimension(60, 16));
-
         jTextFechaExp.setText("yyyy-MM-dd");
         jTextFechaExp.setPreferredSize(new java.awt.Dimension(100, 26));
         jTextFechaExp.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -216,19 +206,11 @@ public class Agregar extends javax.swing.JPanel {
 
         jTextEmail.setPreferredSize(new java.awt.Dimension(100, 26));
 
-        jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Agente", "Admin" }));
-        jComboBox.setPreferredSize(new java.awt.Dimension(90, 27));
-        jComboBox.addActionListener(new java.awt.event.ActionListener() {
+        jBtnEditar.setText("EDITAR");
+        jBtnEditar.setPreferredSize(new java.awt.Dimension(90, 27));
+        jBtnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxActionPerformed(evt);
-            }
-        });
-
-        jBtnAgregar.setText("AGREGAR");
-        jBtnAgregar.setPreferredSize(new java.awt.Dimension(90, 27));
-        jBtnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnAgregarActionPerformed(evt);
+                jBtnEditarActionPerformed(evt);
             }
         });
 
@@ -280,18 +262,15 @@ public class Agregar extends javax.swing.JPanel {
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jBtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(45, 45, 45)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -308,7 +287,11 @@ public class Agregar extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -324,57 +307,45 @@ public class Agregar extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jTextFechaExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jBtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxActionPerformed
 
     private void jTextNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextNombreActionPerformed
 
-    private void jTextFechaNaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFechaNaActionPerformed
-        addPlaceholder(jTextFechaNa,"yyyy-MM-dd");
-    }//GEN-LAST:event_jTextFechaNaActionPerformed
+    private void jBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditarActionPerformed
+        editar();
+    }//GEN-LAST:event_jBtnEditarActionPerformed
+
+    private void jTextDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDireccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextDireccionActionPerformed
 
     private void jTextFechaExpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFechaExpActionPerformed
         addPlaceholder(jTextFechaExp,"yyyy-MM-dd");
     }//GEN-LAST:event_jTextFechaExpActionPerformed
 
-    private void jBtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAgregarActionPerformed
-        agregarNuevo();
-    }//GEN-LAST:event_jBtnAgregarActionPerformed
+    private void jTextFechaExpMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFechaExpMousePressed
 
-    private void jTextDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDireccionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextDireccionActionPerformed
+        jTextFechaExp.setText("");
+        jTextFechaExp.setForeground(new Color(51, 51, 51));
+    }//GEN-LAST:event_jTextFechaExpMousePressed
+
+    private void jTextFechaNaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFechaNaActionPerformed
+        addPlaceholder(jTextFechaNa,"yyyy-MM-dd");
+    }//GEN-LAST:event_jTextFechaNaActionPerformed
 
     private void jTextFechaNaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFechaNaMousePressed
         jTextFechaNa.setText("");
         jTextFechaNa.setForeground(new Color(51, 51, 51));
     }//GEN-LAST:event_jTextFechaNaMousePressed
 
-    private void jTextFechaExpMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFechaExpMousePressed
-       
-        jTextFechaExp.setText("");
-        jTextFechaExp.setForeground(new Color(51, 51, 51));
-    }//GEN-LAST:event_jTextFechaExpMousePressed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtnAgregar;
-    private javax.swing.JComboBox<String> jComboBox;
+    private javax.swing.JButton jBtnEditar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -382,7 +353,6 @@ public class Agregar extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextApellido;
     private javax.swing.JTextField jTextCc;

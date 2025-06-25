@@ -4,27 +4,26 @@
  */
 package com.inmobiliaria.view;
 
-import com.inmobiliaria.dao.AgenteComercialDAO;
-import com.inmobiliaria.model.AgenteComercial;
-import com.inmobiliaria.view.AgentesPanels.Agregar;
-import com.inmobiliaria.view.AgentesPanels.Editar;
-import com.inmobiliaria.view.AgentesPanels.Eliminar;
+import com.inmobiliaria.dao.ClienteDAO;
+import com.inmobiliaria.model.Cliente;
+import com.inmobiliaria.view.ClientesPanels.AgregarCliente;
+import com.inmobiliaria.view.ClientesPanels.EditarCliente;
+import com.inmobiliaria.view.ClientesPanels.EliminarCliente;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  * @author Asus
  */
-public class Agentes extends javax.swing.JPanel {
+public class Clientes extends javax.swing.JPanel {
 
     /**
      * Creates new form Agentes
      */
-    public Agentes() {
+    public Clientes() {
         initComponents();
     }
 
@@ -39,64 +38,29 @@ public class Agentes extends javax.swing.JPanel {
 
     }
 
-    private DefaultTableModel listarTabla(String rol) {
+    private DefaultTableModel listarTabla() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("CEDULA");
         model.addColumn("NOMBRE");
         model.addColumn("APELLIDO");
-        model.addColumn("CELULAR");
         model.addColumn("CORREO");
         model.addColumn("DIRECCION");
+        model.addColumn("FECHA NACIMIENTO");
+        model.addColumn("FECHA EXP DOC");
 
-        AgenteComercialDAO agenteDAO = new AgenteComercialDAO();
-
-        try {
-            switch (rol) {
-                case "Todos" -> {
-                    List<AgenteComercial> agenteList = agenteDAO.listarAgente();
-                    for (AgenteComercial agente : agenteList) {
-                        Object[] fila = {
-                                agente.getCedula(),
-                                agente.getNombres(),
-                                agente.getApellidos(),
-                                agente.getCelular(),
-                                agente.getCorreo(),
-                                agente.getDireccion()
-                        };
-                        model.addRow(fila);
-                    }
-                }
-                case "Agente" -> {
-                    List<AgenteComercial> agenteList = agenteDAO.listarAgentesPorRol(rol);
-                    for (AgenteComercial agente : agenteList) {
-                        Object[] fila = {
-                                agente.getCedula(),
-                                agente.getNombres(),
-                                agente.getApellidos(),
-                                agente.getCelular(),
-                                agente.getCorreo(),
-                                agente.getDireccion()
-                        };
-                        model.addRow(fila);
-                    }
-
-                }case "Admin" -> {
-                    List<AgenteComercial> agenteList = agenteDAO.listarAgentesPorRol(rol);
-                    for (AgenteComercial agente : agenteList) {
-                        Object[] fila = {
-                                agente.getCedula(),
-                                agente.getNombres(),
-                                agente.getApellidos(),
-                                agente.getCelular(),
-                                agente.getCorreo(),
-                                agente.getDireccion()
-                        };
-                        model.addRow(fila);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar Agentes Comerciales: " + e.getMessage());
+        ClienteDAO clienteDAO = new ClienteDAO();
+        List<Cliente> clienteList = clienteDAO.listarCliente();
+        for (Cliente cliente : clienteList) {
+            Object[] fila = {
+                    cliente.getCedula(),
+                    cliente.getNombres(),
+                    cliente.getApellidos(),
+                    cliente.getCorreo(),
+                    cliente.getDireccion(),
+                    cliente.getFechaNacimiento(),
+                    cliente.getFechaExpDoc()
+            };
+            model.addRow(fila);
         }
         return model;
     }
@@ -117,8 +81,6 @@ public class Agentes extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jRbtnADMIN = new javax.swing.JRadioButton();
-        jRbtnAGENTE = new javax.swing.JRadioButton();
         jRbtnTODOS = new javax.swing.JRadioButton();
         jBtnAGREGAR = new javax.swing.JButton();
         jBtnEditar = new javax.swing.JButton();
@@ -137,7 +99,7 @@ public class Agentes extends javax.swing.JPanel {
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
-        jLabel1.setText("TABLA DE DATOS");
+        jLabel1.setText("TABLA CLIENTES");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel1.setName(""); // NOI18N
 
@@ -151,7 +113,7 @@ public class Agentes extends javax.swing.JPanel {
 
                 },
                 new String[]{
-                        "CEDULA", "NOMBRE", "APELLIDO", "CELULAR", "CORREO", "DIRECCION"
+                        "CEDULA", "NOMBRE", "APELLIDO", "CORREO", "DIRECCION", "FECHA NACIMIENTO", "FECHA EXP DOC"
                 }
         ));
         jScrollPane3.setViewportView(jTable);
@@ -159,22 +121,6 @@ public class Agentes extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(250, 229, 211));
         jPanel2.setMinimumSize(new java.awt.Dimension(240, 220));
         jPanel2.setPreferredSize(new java.awt.Dimension(300, 190));
-
-        buttonGroup.add(jRbtnADMIN);
-        jRbtnADMIN.setText("ADMIN");
-        jRbtnADMIN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRbtnADMINActionPerformed(evt);
-            }
-        });
-
-        buttonGroup.add(jRbtnAGENTE);
-        jRbtnAGENTE.setText("AGENTE");
-        jRbtnAGENTE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRbtnAGENTEActionPerformed(evt);
-            }
-        });
 
         buttonGroup.add(jRbtnTODOS);
         jRbtnTODOS.setText("TODOS");
@@ -208,6 +154,17 @@ public class Agentes extends javax.swing.JPanel {
             }
         });
 
+        jTextBUSCAR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+//                jTextBUSCARMousePressed(evt);
+            }
+        });
+        jTextBUSCAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                jTextBUSCARActionPerformed(evt);
+            }
+        });
+
         jBtnBUSCAR.setText("BUSCAR");
         jBtnBUSCAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,9 +181,7 @@ public class Agentes extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jRbtnAGENTE, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jRbtnTODOS, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jRbtnADMIN, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel2Layout.createSequentialGroup()
                                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -247,13 +202,9 @@ public class Agentes extends javax.swing.JPanel {
                                         .addComponent(jBtnAGREGAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jRbtnTODOS))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jBtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jRbtnAGENTE))
+                                .addComponent(jBtnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jBtnELIMINAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jRbtnADMIN))
+                                .addComponent(jBtnELIMINAR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(jBtnBUSCAR)
@@ -335,73 +286,60 @@ public class Agentes extends javax.swing.JPanel {
     private void jRbtnTODOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRbtnTODOSActionPerformed
     }//GEN-LAST:event_jRbtnTODOSActionPerformed
 
-    private void jRbtnAGENTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRbtnAGENTEActionPerformed
-    }//GEN-LAST:event_jRbtnAGENTEActionPerformed
-
-    private void jRbtnADMINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRbtnADMINActionPerformed
-    }//GEN-LAST:event_jRbtnADMINActionPerformed
-
     private void jBtnAGREGARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAGREGARActionPerformed
-        showJPanel(new Agregar());
+        showJPanel(new AgregarCliente());
     }//GEN-LAST:event_jBtnAGREGARActionPerformed
 
     private void jBtnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnEditarActionPerformed
-        showJPanel(new Editar());
+        showJPanel(new EditarCliente());
     }//GEN-LAST:event_jBtnEditarActionPerformed
 
     private void jBtnELIMINARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnELIMINARActionPerformed
-        showJPanel(new Eliminar());
+        showJPanel(new EliminarCliente());
     }//GEN-LAST:event_jBtnELIMINARActionPerformed
 
     private void jBtnBUSCARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBUSCARActionPerformed
         String cc = jTextBUSCAR.getText().trim();
         String rol = null;
 
-        // Verificar qué radio button está seleccionado
-        if (jRbtnADMIN.isSelected()) {
-            rol = "Admin";
-        } else if (jRbtnAGENTE.isSelected()) {
-            rol = "Agente";
-        } else if (jRbtnTODOS.isSelected()) {
+        if (jRbtnTODOS.isSelected()) {
             rol = "Todos";
         }
 
         // Llamar al método de búsqueda
         if (!cc.isEmpty()) {
-            AgenteComercialDAO agenteDAO = new AgenteComercialDAO();
-            AgenteComercial agente = agenteDAO.buscarAgenteCc(cc);
-            if (agente != null) {
+            ClienteDAO clienteDAO = new ClienteDAO();
+            Cliente cliente = clienteDAO.ConsultarCliente(cc);
+            if (cliente != null) {
                 DefaultTableModel model = new DefaultTableModel();
                 model.addColumn("CEDULA");
                 model.addColumn("NOMBRE");
                 model.addColumn("APELLIDO");
-                model.addColumn("CELULAR");
                 model.addColumn("CORREO");
                 model.addColumn("DIRECCION");
+                model.addColumn("FECHA NACIMIENTO");
+                model.addColumn("FECHA EXP DOC");
                 Object[] fila = {
-                        agente.getCedula(),
-                        agente.getNombres(),
-                        agente.getApellidos(),
-                        agente.getCelular(),
-                        agente.getCorreo(),
-                        agente.getDireccion()
+                        cliente.getCedula(),
+                        cliente.getNombres(),
+                        cliente.getApellidos(),
+                        cliente.getCorreo(),
+                        cliente.getDireccion(),
+                        cliente.getFechaNacimiento(),
+                        cliente.getFechaExpDoc()
                 };
                 model.addRow(fila);
                 jTable.setModel(model);
             } else {
-                JOptionPane.showMessageDialog(this, "Agente no encontrado.");
+                JOptionPane.showMessageDialog(this, "CLiente no encontrado.");
             }
         } else if (rol != null) {
-            // Buscar por rol
-            jTable.setModel(listarTabla(rol));
+            jTable.setModel(listarTabla());
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese una Cedula o seleccione un rol.");
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese una Cedula o seleccione Todos.");
         }
-
-        // Limpiar selección y campo de texto después de la búsqueda
         buttonGroup.clearSelection();
         jTextBUSCAR.setText("");
-
     }//GEN-LAST:event_jBtnBUSCARActionPerformed
 
 
@@ -416,12 +354,10 @@ public class Agentes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelCRUD;
-    private javax.swing.JRadioButton jRbtnADMIN;
-    private javax.swing.JRadioButton jRbtnAGENTE;
     private javax.swing.JRadioButton jRbtnTODOS;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable;
     private javax.swing.JTextField jTextBUSCAR;
-    // End of variables declaration//GEN-END:variables
+// End of variables declaration//GEN-END:variables
 
 }

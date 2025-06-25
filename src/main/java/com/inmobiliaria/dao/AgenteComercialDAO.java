@@ -125,39 +125,10 @@ public class AgenteComercialDAO {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al buscar Agente: " + e.getMessage());
-        }
-        return agente;
-    }
-
-
-    public AgenteComercial ConsultarAgente(String cedula) throws SQLException{
-        
-        AgenteComercial agente = null;
-        String sql = "SELECT * FROM agente_comercial WHERE cedula = ?";
-        try {
-            ps = connection.prepareStatement(sql);
-            ps.setString(1, cedula);
-            rs = ps.executeQuery();
-            
-            if (rs.next()){
-                agente = new AgenteComercial();
-                agente.setCedula(rs.getString("cedula"));
-                agente.setLogin(rs.getString("login"));
-                agente.setContrasena(rs.getString("contrasena"));
-                agente.setNombres(rs.getString("nombres"));
-                agente.setApellidos(rs.getString("apellidos"));
-                agente.setDireccion(rs.getString("direccion"));
-                agente.setCorreo(rs.getString("correo"));
-                agente.setCelular(rs.getString("celular"));
-                agente.setFechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate());
-                agente.setFechaExpDoc(rs.getDate("fecha_expedicion_doc").toLocalDate());
-            }
-        } catch (SQLException e){
-            JOptionPane.showMessageDialog(null, "Error en la busqueda de Agente Comercial" + e.toString());
         } finally {
             try {
                 connection.close();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.toString());
             }
         }
