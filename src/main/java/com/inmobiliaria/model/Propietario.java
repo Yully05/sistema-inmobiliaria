@@ -20,9 +20,8 @@ public class Propietario {
     private String apellidos;
     private String direccion;
     private LocalDate fechaNacimiento;
-
-//    private String correo;
-//    private LocalDate fechaExpDoc;
-//    private List<String> telefonos;
+    private String correo;
+    private LocalDate fechaExpDoc;
+    private List<String> telefonos;
 
 }

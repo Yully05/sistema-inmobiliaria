@@ -31,10 +31,10 @@ public class PanelPropietarios extends javax.swing.JPanel {
     public PanelPropietarios(Dashboard dashboard) {
         initComponents();
         this.dashboard = dashboard;
-        mostrarClientes();
+        mostrarPropietarios();
     }
 
-    private void mostrarClientes() {
+    private void mostrarPropietarios() {
 
         DefaultTableModel tablaModelo = new DefaultTableModel() {
             @Override
@@ -42,19 +42,33 @@ public class PanelPropietarios extends javax.swing.JPanel {
                 return false;
             }
         };
-        tablaModelo.setColumnIdentifiers(new Object[]{
-                "Cédula", "Nombres", "Apellidos", "Direccion", "Fecha Nacimiento"
+        tablaModelo.setColumnIdentifiers(new Object[] {
+                "Cédula", "Fecha Expedición", "Nombres", "Apellidos", "Fecha Nacimiento", "Dirección",
+                "Correo", "Telefono 1", "Telefono 2"
         });
         PropietarioController propietarioController = new PropietarioController();
         try {
             for (Propietario propietarioModel : propietarioController.listarTodos()) {
+                String tel1 = "";
+                String tel2 = "";
 
+                if (propietarioModel.getTelefonos().size() > 0) {
+                    tel1 = propietarioModel.getTelefonos().get(0);
+                    if (propietarioModel.getTelefonos().size() > 1) {
+                        tel2 = propietarioModel.getTelefonos().get(1);
+                    }
+                }
                 tablaModelo.addRow(new Object[]{
                         propietarioModel.getCedula(),
+                        propietarioModel.getFechaExpDoc(),
                         propietarioModel.getNombres(),
                         propietarioModel.getApellidos(),
-                        propietarioModel.getDireccion(),
                         propietarioModel.getFechaNacimiento(),
+                        propietarioModel.getDireccion(),
+                        propietarioModel.getCorreo(),
+                        tel1,
+                        tel2
+
                 });
             }
             tablaPropietario.setModel(tablaModelo);
@@ -92,15 +106,15 @@ public class PanelPropietarios extends javax.swing.JPanel {
 
         tablaPropietario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cedula", "Nombres", "Apellidos", "Direccion", "Fecha de nacimiento"
+                "Cedula", "Fecha expedición", "Nombres", "Apellidos", "Fecha de nacimiento", "Dirección", "Correo", "Celular 1", "Celular 2"
             }
         ));
         jScrollPane1.setViewportView(tablaPropietario);
@@ -273,7 +287,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
 
                 if (eliminado) {
                     JOptionPane.showMessageDialog(this, "Propietario eliminado correctamente.");
-                    mostrarClientes();
+                    mostrarPropietarios();
                 } else {
                     JOptionPane.showMessageDialog(this, "No se pudo eliminar el Propietario.");
                 }
