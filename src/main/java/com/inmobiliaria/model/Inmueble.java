@@ -19,8 +19,8 @@ public abstract class Inmueble {
     protected String direccion;
     protected String ciudad;
     protected String departamento;
-    protected double tamaño;
-    protected int cant_baños;
+    protected double tamano;
+    protected int cant_banos;
     //foto
     protected int tipoInmueble;
     protected int estadoInmueble;

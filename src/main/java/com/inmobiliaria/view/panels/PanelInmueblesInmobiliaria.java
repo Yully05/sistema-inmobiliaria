@@ -4,22 +4,25 @@
  */
 package com.inmobiliaria.view.panels;
 
-import com.inmobiliaria.controller.ClienteController;
+import com.inmobiliaria.controller.InmueblesInmobiliariaController;
+import com.inmobiliaria.controller.InmueblesPropietarioController;
 import com.inmobiliaria.controller.PropietarioController;
-import com.inmobiliaria.model.Cliente;
+import com.inmobiliaria.model.InmueblesInmobiliaria;
+import com.inmobiliaria.model.InmueblesPropietario;
 import com.inmobiliaria.model.Propietario;
 import com.inmobiliaria.view.Dashboard;
+import com.inmobiliaria.view.forms.FormInmuebleInmobiliaria;
 import com.inmobiliaria.view.forms.FormPropietario;
 
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 /**
  * @author Asus
  */
-public class PanelPropietarios extends javax.swing.JPanel {
+public class PanelInmueblesInmobiliaria extends javax.swing.JPanel {
 
     private final Dashboard dashboard;
 
@@ -28,52 +31,27 @@ public class PanelPropietarios extends javax.swing.JPanel {
      *
      * @param dashboard
      */
-    public PanelPropietarios(Dashboard dashboard) {
-        initComponents();
+    public PanelInmueblesInmobiliaria(Dashboard dashboard) {
         this.dashboard = dashboard;
-        mostrarPropietarios();
+        initComponents();
+        cargarDatos();
     }
 
-    private void mostrarPropietarios() {
-
-        DefaultTableModel tablaModelo = new DefaultTableModel() {
-            @Override
-            public boolean isCellEditable(int row, int column) { //no permite editar
-                return false;
-            }
-        };
-        tablaModelo.setColumnIdentifiers(new Object[] {
-                "Cédula", "Fecha Expedición", "Nombres", "Apellidos", "Fecha Nacimiento", "Dirección",
-                "Correo", "Telefono 1", "Telefono 2"
-        });
-        PropietarioController propietarioController = new PropietarioController();
+    private void cargarDatos() {
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[]{"Código", "Fecha Adquisición", "Costo"}, 0
+        );
         try {
-            for (Propietario propietarioModel : propietarioController.listarTodos()) {
-                String tel1 = "";
-                String tel2 = "";
-
-                if (propietarioModel.getTelefonos().size() > 0) {
-                    tel1 = propietarioModel.getTelefonos().get(0);
-                    if (propietarioModel.getTelefonos().size() > 1) {
-                        tel2 = propietarioModel.getTelefonos().get(1);
-                    }
-                }
-                tablaModelo.addRow(new Object[]{
-                        propietarioModel.getCedula(),
-                        propietarioModel.getFechaExpDoc(),
-                        propietarioModel.getNombres(),
-                        propietarioModel.getApellidos(),
-                        propietarioModel.getFechaNacimiento(),
-                        propietarioModel.getDireccion(),
-                        propietarioModel.getCorreo(),
-                        tel1,
-                        tel2
-
+            for (InmueblesInmobiliaria inmueble : new InmueblesInmobiliariaController().listarTodos()) {
+                model.addRow(new Object[]{
+                        inmueble.getCodigo(),
+                        inmueble.getFechaAdquisicion(),
+                        inmueble.getCosto()
                 });
             }
-            tablaPropietario.setModel(tablaModelo);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar Propietarios: " + ex.getMessage());
+            tablaInmuebles.setModel(model);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
         }
     }
 
@@ -89,7 +67,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         content = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaPropietario = new javax.swing.JTable();
+        tablaInmuebles = new javax.swing.JTable();
         btnNuevoRegistro = new javax.swing.JButton();
         btnActualizarPropietario = new javax.swing.JButton();
         btnEliminarPropietario = new javax.swing.JButton();
@@ -104,20 +82,15 @@ public class PanelPropietarios extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propietarios", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 13), new java.awt.Color(51, 51, 51))); // NOI18N
 
-        tablaPropietario.setModel(new javax.swing.table.DefaultTableModel(
+        tablaInmuebles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "Cedula", "Fecha expedición", "Nombres", "Apellidos", "Fecha de nacimiento", "Dirección", "Correo", "Celular 1", "Celular 2"
+
             }
         ));
-        jScrollPane1.setViewportView(tablaPropietario);
+        jScrollPane1.setViewportView(tablaInmuebles);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -181,7 +154,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
         });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel12.setText("Ingrese Cedula del Propietario :");
+        jLabel12.setText("Ingrese Codigo del Inmueble :");
 
         txtConsulta.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -242,17 +215,17 @@ public class PanelPropietarios extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoRegistroActionPerformed
-        dashboard.showJPanel(new FormPropietario(this.dashboard));
+//        dashboard.showJPanel(new FormInmuebleInmobiliaria(this.dashboard, inmueble));
     }//GEN-LAST:event_btnNuevoRegistroActionPerformed
 
     private void btnActualizarPropietarioActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnActualizarPropietarioActionPerformed
-        int fila = tablaPropietario.getSelectedRow();
+        int fila = tablaInmuebles.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione el Propietario");
             return;
         }
         // consultar cedula seleccionada de la tabla
-        String cedula = tablaPropietario.getValueAt(fila, 0).toString();
+        String cedula = tablaInmuebles.getValueAt(fila, 0).toString();
         PropietarioController propietarioController = new PropietarioController();
         Propietario propietarioEditar;
         try {
@@ -262,7 +235,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
             return;
         }
         if (propietarioEditar != null) {
-            FormPropietario form = new FormPropietario(dashboard,propietarioEditar);
+            FormPropietario form = new FormPropietario(dashboard, propietarioEditar);
             dashboard.showJPanel(form);
         } else {
             JOptionPane.showMessageDialog(this, "Propietario no encontrado.");
@@ -270,13 +243,13 @@ public class PanelPropietarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarPropietarioActionPerformed
 
     private void btnEliminarPropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPropietarioActionPerformed
-        int fila = tablaPropietario.getSelectedRow();
+        int fila = tablaInmuebles.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione el Propietario.");
             return;
         }
 
-        String cedula = tablaPropietario.getValueAt(fila, 0).toString();
+        String cedula = tablaInmuebles.getValueAt(fila, 0).toString();
         int confirmacion = JOptionPane.showConfirmDialog(this, "Seguro desea eliminar el Propietario?", "Confirmacion", JOptionPane.WARNING_MESSAGE);
         System.out.println(confirmacion);
 
@@ -287,7 +260,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
 
                 if (eliminado) {
                     JOptionPane.showMessageDialog(this, "Propietario eliminado correctamente.");
-                    mostrarPropietarios();
+//                    mostrarPropietarios();
                 } else {
                     JOptionPane.showMessageDialog(this, "No se pudo eliminar el Propietario.");
                 }
@@ -326,7 +299,7 @@ public class PanelPropietarios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaPropietario;
+    private javax.swing.JTable tablaInmuebles;
     private javax.swing.JTextField txtConsulta;
     // End of variables declaration//GEN-END:variables
 }

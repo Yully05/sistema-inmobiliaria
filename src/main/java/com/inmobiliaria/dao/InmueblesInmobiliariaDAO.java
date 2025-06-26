@@ -1,194 +1,117 @@
 package com.inmobiliaria.dao;
 
 import com.inmobiliaria.model.InmueblesInmobiliaria;
-
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-/**
- * @author Asus
- */
 public class InmueblesInmobiliariaDAO {
+    private final Conexion conexion = new Conexion();
+    private Connection connection;
+    private PreparedStatement ps;
+    private ResultSet rs;
 
-    Conexion conexion = new Conexion();
-    Connection connection;
-    PreparedStatement ps;
-    ResultSet rs;
-
-    public InmueblesInmobiliariaDAO() {
-        connection = conexion.establecerConexion();
-    }
-
-    public boolean RegistrarInmuebleInmobiliaria(InmueblesInmobiliaria inmuebleInmobiliaria) {
-
-        String sql = "INSERT INTO inmuebles_inmobiliaria (codigo, descripcion, precio, direccion, ciudad, departamento, tamaño, cant_baños, fecha_adquisicion, costo, tipo, modalidad, estado)"
-                + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    public boolean registrarInmueble(InmueblesInmobiliaria inmueble) {
+        String sql = "INSERT INTO inmuebles_inmobiliaria (codigo_inmueble, fecha_adquisicion, costo) VALUES (?, ?, ?)";
         try {
+            connection = conexion.establecerConexion();
             ps = connection.prepareStatement(sql);
-            ps.setInt(1, inmuebleInmobiliaria.getCodigo());
-            ps.setString(2, inmuebleInmobiliaria.getDescripcion());
-            ps.setDouble(3, inmuebleInmobiliaria.getPrecio());
-            ps.setString(4, inmuebleInmobiliaria.getDireccion());
-            ps.setString(5, inmuebleInmobiliaria.getCiudad());
-            ps.setString(6, inmuebleInmobiliaria.getDepartamento());
-            ps.setDouble(7, inmuebleInmobiliaria.getTamaño());
-            ps.setInt(8, inmuebleInmobiliaria.getCant_baños());
-            ps.setDate(9, Date.valueOf(inmuebleInmobiliaria.getFechaAdquisicion()));
-            ps.setDouble(10, inmuebleInmobiliaria.getCosto());
-            ps.setInt(11, inmuebleInmobiliaria.getTipoInmueble());
-            ps.setInt(12, inmuebleInmobiliaria.getModalidadComercializacion());
-            ps.setInt(13, inmuebleInmobiliaria.getEstadoInmueble());
-
-            int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0;
-
+            ps.setInt(1, inmueble.getCodigo());
+            ps.setDate(2, Date.valueOf(inmueble.getFechaAdquisicion()));
+            ps.setDouble(3, inmueble.getCosto());
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al registrar Inmueble de la Inmobiliaria: " + e.toString());
+            JOptionPane.showMessageDialog(null, "Error al registrar inmueble: " + e.getMessage());
             return false;
         } finally {
-            try {
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.toString());
-            }
+            cerrarRecursos();
         }
     }
 
-    public boolean ActualizarInmuebleInmobiliaria(InmueblesInmobiliaria inmuebleInmobiliaria) {
-
-        String sql = "UPDATE inmuebles_inmobiliaria SET descripcion = ?, precio = ?, direccion = ?, ciudad = ?, departamento = ?, tamaño = ?, cant_baños = ?, fecha_adquisicion = ?, costo = ?, tipo = ?, modalidad = ?, estado = ? WHERE codigo = ?";
+    public boolean actualizarInmueble(InmueblesInmobiliaria inmueble) {
+        String sql = "UPDATE inmuebles_inmobiliaria SET fecha_adquisicion = ?, costo = ? WHERE codigo_inmueble = ?";
         try {
+            connection = conexion.establecerConexion();
             ps = connection.prepareStatement(sql);
-            ps.setString(1, inmuebleInmobiliaria.getDescripcion());
-            ps.setDouble(2, inmuebleInmobiliaria.getPrecio());
-            ps.setString(3, inmuebleInmobiliaria.getDireccion());
-            ps.setString(4, inmuebleInmobiliaria.getCiudad());
-            ps.setString(5, inmuebleInmobiliaria.getDepartamento());
-            ps.setDouble(6, inmuebleInmobiliaria.getTamaño());
-            ps.setInt(7, inmuebleInmobiliaria.getCant_baños());
-            ps.setDate(8, Date.valueOf(inmuebleInmobiliaria.getFechaAdquisicion()));
-            ps.setDouble(9, inmuebleInmobiliaria.getCosto());
-            ps.setInt(10, inmuebleInmobiliaria.getTipoInmueble());
-            ps.setInt(11, inmuebleInmobiliaria.getModalidadComercializacion());
-            ps.setInt(12, inmuebleInmobiliaria.getEstadoInmueble());
-            ps.setInt(13, inmuebleInmobiliaria.getCodigo());
-
-            int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0;
-
+            ps.setDate(1, Date.valueOf(inmueble.getFechaAdquisicion()));
+            ps.setDouble(2, inmueble.getCosto());
+            ps.setInt(3, inmueble.getCodigo());
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar Inmueble de la Inmobiliaria: " + e.toString());
+            JOptionPane.showMessageDialog(null, "Error al actualizar inmueble: " + e.getMessage());
             return false;
         } finally {
-            try {
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.toString());
-            }
+            cerrarRecursos();
         }
     }
 
-    public boolean EliminarInmuebleInmobiliaria(int codigo) {
-        String sql = "DELETE FROM inmuebles_inmobiliaria WHERE codigo = ?";
+    public boolean eliminarInmueble(int codigo) {
+        String sql = "DELETE FROM inmuebles_inmobiliaria WHERE codigo_inmueble = ?";
         try {
+            connection = conexion.establecerConexion();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, codigo);
-            int filasAfectadas = ps.executeUpdate();
-            return filasAfectadas > 0;
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar Inmueble de la Inmobiliaria: " + e.toString());
+            JOptionPane.showMessageDialog(null, "Error al eliminar inmueble: " + e.getMessage());
             return false;
         } finally {
-            try {
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.toString());
-            }
+            cerrarRecursos();
         }
     }
 
-    public InmueblesInmobiliaria ConsultarInmuebleInmobiliaria(int codigo) {
-        InmueblesInmobiliaria inmuebleInmobiliaria = null;
-        String sql = "SELECT * FROM inmuebles_inmobiliaria WHERE codigo = ?";
+    public InmueblesInmobiliaria consultarInmueble(int codigo) {
+        String sql = "SELECT * FROM inmuebles_inmobiliaria WHERE codigo_inmueble = ?";
+        InmueblesInmobiliaria inmueble = null;
         try {
+            connection = conexion.establecerConexion();
             ps = connection.prepareStatement(sql);
             ps.setInt(1, codigo);
             rs = ps.executeQuery();
             if (rs.next()) {
-                inmuebleInmobiliaria = new InmueblesInmobiliaria();
-                inmuebleInmobiliaria.setCodigo(rs.getInt("codigo"));
-                inmuebleInmobiliaria.setDescripcion(rs.getString("descripcion"));
-                inmuebleInmobiliaria.setPrecio(rs.getDouble("precio"));
-                inmuebleInmobiliaria.setDireccion(rs.getString("direccion"));
-                inmuebleInmobiliaria.setCiudad(rs.getString("ciudad"));
-                inmuebleInmobiliaria.setDepartamento(rs.getString("departamento"));
-                inmuebleInmobiliaria.setTamaño(rs.getDouble("tamaño"));
-                inmuebleInmobiliaria.setCant_baños(rs.getInt("cant_baños"));
-                inmuebleInmobiliaria.setFechaAdquisicion(rs.getDate("fecha_adquisicion").toLocalDate());
-                inmuebleInmobiliaria.setCosto(rs.getDouble("costo"));
-                inmuebleInmobiliaria.setTipoInmueble(rs.getInt("tipo"));
-                inmuebleInmobiliaria.setModalidadComercializacion(rs.getInt("modalidad"));
-                inmuebleInmobiliaria.setEstadoInmueble(rs.getInt("estado"));
+                inmueble = new InmueblesInmobiliaria();
+                inmueble.setCodigo(rs.getInt("codigo_inmueble"));
+                inmueble.setFechaAdquisicion(rs.getDate("fecha_adquisicion").toLocalDate());
+                inmueble.setCosto(rs.getDouble("costo"));
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar Inmueble de la Inmobiliaria: " + e.toString());
-
+            JOptionPane.showMessageDialog(null, "Error al consultar inmueble: " + e.getMessage());
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.toString());
-            }
+            cerrarRecursos();
         }
-        return inmuebleInmobiliaria;
+        return inmueble;
     }
 
-    public List<InmueblesInmobiliaria> listarInmueblesInmobiliaria() {
-        List<InmueblesInmobiliaria> listaInmuebleInmobiliaria = new ArrayList<>();
+    public List<InmueblesInmobiliaria> listarInmuebles() {
         String sql = "SELECT * FROM inmuebles_inmobiliaria";
+        List<InmueblesInmobiliaria> lista = new ArrayList<>();
         try {
+            connection = conexion.establecerConexion();
             ps = connection.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                InmueblesInmobiliaria inmuebleInmobiliaria = new InmueblesInmobiliaria();
-                inmuebleInmobiliaria.setCodigo(rs.getInt("codigo"));
-                inmuebleInmobiliaria.setDescripcion(rs.getString("descripcion"));
-                inmuebleInmobiliaria.setPrecio(rs.getDouble("precio"));
-                inmuebleInmobiliaria.setDireccion(rs.getString("direccion"));
-                inmuebleInmobiliaria.setCiudad(rs.getString("ciudad"));
-                inmuebleInmobiliaria.setDepartamento(rs.getString("departamento"));
-                inmuebleInmobiliaria.setTamaño(rs.getDouble("tamaño"));
-                inmuebleInmobiliaria.setCant_baños(rs.getInt("cant_baños"));
-                inmuebleInmobiliaria.setFechaAdquisicion(rs.getDate("fecha_adquisicion").toLocalDate());
-                inmuebleInmobiliaria.setCosto(rs.getDouble("costo"));
-                inmuebleInmobiliaria.setTipoInmueble(rs.getInt("tipo"));
-                inmuebleInmobiliaria.setModalidadComercializacion(rs.getInt("modalidad"));
-                inmuebleInmobiliaria.setEstadoInmueble(rs.getInt("estado"));
-                listaInmuebleInmobiliaria.add(inmuebleInmobiliaria);
+                InmueblesInmobiliaria inmueble = new InmueblesInmobiliaria();
+                inmueble.setCodigo(rs.getInt("codigo_inmueble"));
+                inmueble.setFechaAdquisicion(rs.getDate("fecha_adquisicion").toLocalDate());
+                inmueble.setCosto(rs.getDouble("costo"));
+                lista.add(inmueble);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al listar Inmuebles" + e.toString());
-
+            JOptionPane.showMessageDialog(null, "Error al listar inmuebles: " + e.getMessage());
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.toString());
-            }
+            cerrarRecursos();
         }
-        return listaInmuebleInmobiliaria;
+        return lista;
+    }
+
+    private void cerrarRecursos() {
+        try {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (connection != null) connection.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }
 }
