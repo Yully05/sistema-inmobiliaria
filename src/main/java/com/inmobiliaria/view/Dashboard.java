@@ -9,6 +9,7 @@ import com.inmobiliaria.view.panels.PanelPropietarios;
 import com.inmobiliaria.view.panels.PanelContratos;
 import com.inmobiliaria.view.panels.PanelClientes;
 import com.inmobiliaria.model.AgenteComercial;
+import com.inmobiliaria.view.panels.PanelInmuebles;
 import java.awt.BorderLayout;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -187,6 +188,11 @@ public class Dashboard extends javax.swing.JFrame {
         bntInmuebles.setMaximumSize(new java.awt.Dimension(200, 24));
         bntInmuebles.setMinimumSize(new java.awt.Dimension(200, 24));
         bntInmuebles.setPreferredSize(new java.awt.Dimension(200, 24));
+        bntInmuebles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntInmueblesActionPerformed(evt);
+            }
+        });
 
         btnContratos.setBackground(new java.awt.Color(212, 167, 140));
         btnContratos.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -431,6 +437,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void bntPropietariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntPropietariosActionPerformed
         showJPanel(new PanelPropietarios(this));
     }//GEN-LAST:event_bntPropietariosActionPerformed
+
+    private void bntInmueblesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntInmueblesActionPerformed
+        showJPanel(new PanelInmuebles(this));
+    }//GEN-LAST:event_bntInmueblesActionPerformed
     
     
     /**
